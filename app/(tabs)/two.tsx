@@ -1,14 +1,29 @@
-import { StyleSheet } from 'react-native';
+import {Button, StyleSheet} from 'react-native';
 
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+import {Text, View} from '../../components/Themed';
+
+const buttons = [
+  {
+    id: 1,
+    title: "Слово"
+  },
+  {
+    id: 2,
+    title: "Фраза"
+  },
+]
 
 export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/two.tsx" />
+      <Text style={styles.title}>Выбери игру</Text>
+      <View style={{display: 'flex', flexDirection: 'column', gap:8}}>
+        {
+          buttons.map(({id, title}) => <Button key={id} title={title}/>)
+        }
+      </View>
+
+
     </View>
   );
 }
@@ -28,4 +43,7 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
+  button: {
+    marginBottom: 8
+  }
 });
