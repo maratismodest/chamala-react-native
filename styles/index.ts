@@ -8,12 +8,10 @@ const appStyles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 16,
     textAlign: 'center',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    textAlignVertical: 'center',
     minHeight: 48,
-    fontSize: 24,
-    lineHeight: 24
+    fontSize: 18,
+    lineHeight: 18
   }
 });
 
