@@ -1,7 +1,7 @@
 import {Link} from "expo-router";
 import {Image, Pressable, StyleSheet} from 'react-native';
 
-import {Text, View} from '../../components/Themed';
+import {Text, View} from '@components/Themed';
 import {appStyles} from "../../styles";
 
 export default function TabOneScreen() {

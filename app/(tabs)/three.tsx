@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
-import GuessModule from "../../components/GuessModule";
-import {View} from '../../components/Themed';
+import GuessModule from "@components/GuessModule";
+import {View} from '@components/Themed';
 import {useStore} from "../../store";
 
 export default function TabTwoScreen() {

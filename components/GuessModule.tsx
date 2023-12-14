@@ -1,15 +1,13 @@
+import Happy from '@assets/svg/happy.svg';
+import Sad from '@assets/svg/sad.svg';
 import React, {useCallback, useMemo, useState} from "react";
-import {Modal, Pressable, SafeAreaView, Text, View, StyleSheet, Button, Alert} from "react-native";
+import {Alert, Modal, Pressable, SafeAreaView, StyleSheet, Text, View} from "react-native";
 import * as Progress from 'react-native-progress';
 
 import {useStore} from "../store";
 import {appStyles} from "../styles";
 import {IWord} from "../types";
 import {getShuffled} from "../utils/getShuffled";
-// @ts-ignore
-import Happy from './../assets/svg/happy.svg';
-// @ts-ignore
-import Sad from './../assets/svg/sad.svg';
 
 interface GuessModuleProps {
   collection: IWord[];
@@ -80,7 +78,7 @@ export default function GuessModule({collection, option, count = 6}: GuessModule
           {/*{result.length + 1} / {count}*/}
         </Text>
       </View>
-      <Progress.Bar progress={0.3} width={200} />
+      <Progress.Bar progress={0.3} width={200}/>
       <Modal
         animationType="slide"
         transparent={true}

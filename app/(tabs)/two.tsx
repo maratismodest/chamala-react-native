@@ -1,7 +1,7 @@
 import {Link} from "expo-router";
 import {Pressable, StyleSheet} from 'react-native';
 
-import {Text, View} from '../../components/Themed';
+import {Text, View} from '@components/Themed';
 import {appStyles} from "../../styles";
 
 const buttons = [
