@@ -3,5 +3,5 @@ export interface IWord {
   ru: string;
   ta: string;
   en: string;
-  audio?: string
+  audio: string;
 }

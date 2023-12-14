@@ -5,10 +5,10 @@ import { StyleSheet } from "react-native";
 import { useStore } from "../../store";
 
 export default function TabTwoScreen() {
-  const words = useStore((state) => state.words);
+  const _words = useStore((state) => state.words);
   return (
     <View style={styles.container}>
-      <GuessModule collection={words} option="words" />
+      <GuessModule collection={_words} option="words" />
     </View>
   );
 }

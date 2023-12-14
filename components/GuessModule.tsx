@@ -1,5 +1,6 @@
 import Happy from "@assets/svg/happy.svg";
 import Sad from "@assets/svg/sad.svg";
+import AudioButton from "@components/AudioButton";
 import { appStyles } from "@styles";
 import { IWord } from "@types";
 import { getShuffled } from "@utils/getShuffled";
@@ -68,21 +69,59 @@ export default function GuessModule({
 
   const handleAnswer = (id: number) => {
     setAnswer(list.find((x) => x.id === id));
-    // handleNext();
     setVisible(true);
   };
+  if (result.length >= count) {
+    return (
+      <View className="grid grid-cols-1 gap-2">
+        <Happy width={96} height={96} />
+        {/*<div className="mx-auto">*/}
+        {/*  <Icon name="happy" size={96} />*/}
+        {/*</div>*/}
 
-  // const audioUrl =
-  //   process.env.NEXT_PUBLIC_FILE_SERVER +
-  //   '/audio/' +
-  //   option +
-  //   '/' +
-  //   correct.ta.toLowerCase() +
-  //   '.mp3';
+        {result.map((x, index) => (
+          <View
+            key={index}
+            className="grid grid-cols-[auto_1fr_2fr] gap-2 items-center"
+          >
+            <View className="flex items-center gap-1 text-lg">
+              <Text
+                className={
+                  x.answer === x.correct ? "text-green " : "text-red-500"
+                }
+              >
+                {x.answer === x.correct ? (
+                  <>{index + 1} &#9745;</>
+                ) : (
+                  <>{index + 1} &#9746;</>
+                )}
+              </Text>
+            </View>
+            <Text className="text-left">{x.origin}</Text>
+            <View className="text-left">
+              <Text className="text-green">{x.correct}</Text>
+              &nbsp;
+              <Text className="text-red-500 line-through">
+                {x.answer !== x.correct && x.answer}
+              </Text>
+            </View>
+          </View>
+        ))}
+        <Button
+          onPress={() => {
+            setResult([]);
+            reset();
+          }}
+          title="Go!"
+        />
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView>
       <View>
+        <AudioButton uri={correct.audio} />
         <Text
           style={{
             fontSize: 24,
