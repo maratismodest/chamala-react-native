@@ -1,20 +1,23 @@
-import {create} from "zustand";
-import {words} from "./data/words";
-import {IWord} from "./types";
+import { IWord } from "@types";
+import { create } from "zustand";
+
+import { words } from "./data/words";
 
 type State = {
-  click: number;
-  words: IWord[]
+  count: number;
+  words: IWord[];
 };
 
 type Actions = {
   incrementClick: () => void;
   decrementClick: () => void;
+  resetCount: () => void;
 };
 
 export const useStore = create<State & Actions>((set) => ({
-  click: 0,
-  words: words,
-  incrementClick: () => set((state) => ({click: state.click + 1})),
-  decrementClick: () => set((state) => ({click: state.click - 1})),
+  count: 0,
+  words,
+  incrementClick: () => set((state) => ({ count: state.count + 1 })),
+  decrementClick: () => set((state) => ({ count: state.count - 1 })),
+  resetCount: () => set((state) => ({ count: 0 })),
 }));

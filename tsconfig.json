@@ -9,6 +9,16 @@
       ],
       "@assets/*": [
         "assets/*"
+      ],
+      "@types": [
+        "types",
+        "types/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@styles": [
+        "styles"
       ]
     }
   },
