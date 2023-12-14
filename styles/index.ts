@@ -12,6 +12,8 @@ const appStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: 48,
+    fontSize: 24,
+    lineHeight: 24
   }
 });
 
