@@ -26,7 +26,7 @@ export default function AudioButton({ uri }: { uri: string }) {
   }, [sound]);
 
   return (
-    <View>
+    <View className="mb-2">
       <Button title="Play Sound" onPress={playSound} />
     </View>
   );

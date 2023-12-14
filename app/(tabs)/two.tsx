@@ -13,16 +13,19 @@ const buttons = [
   // {
   //   id: 2,
   //   title: "Фраза",
-  //   href: '/phrases',
-  //   isDisabled: true
+  //   href: "/phrases",
+  //   isDisabled: true,
   // },
 ];
 
 export default function TabTwoScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Выбери игру</Text>
-      <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+    <View
+      style={styles.container}
+      // className="flex-1 justify-center items-center gap-4"
+    >
+      <Text className="font-bold text-2xl">Выбери игру</Text>
+      <View className="grid grid-cols-1 gap-4">
         {buttons.map(({ id, href, title, isDisabled }) => (
           <Link key={id} href={href as any} asChild>
             <Pressable>

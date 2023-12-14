@@ -1,13 +1,16 @@
+import Welcome from "@assets/svg/welcome.svg";
 import { Text, View } from "@components/Themed";
+import { appStyles } from "@styles";
 import { Link } from "expo-router";
-import { Image, Pressable, StyleSheet } from "react-native";
-
-import { appStyles } from "../../styles";
+import { Pressable, StyleSheet } from "react-native";
 
 export default function TabOneScreen() {
   return (
-    <View style={styles.container}>
-      <Image source={require("@assets/svg/welcome.svg")} />
+    <View
+      // style={styles.container}
+      className="flex-1 justify-center items-center gap-2 p-2"
+    >
+      <Welcome />
       <Text style={styles.title}>Chamala</Text>
       <Text style={styles.description}>
         Изучение татарского языка в формате мини-игр
