@@ -1,7 +1,8 @@
 import {Link} from "expo-router";
-import {Button, Pressable, StyleSheet} from 'react-native';
+import {Pressable, StyleSheet} from 'react-native';
 
 import {Text, View} from '../../components/Themed';
+import {appStyles} from "../../styles";
 
 export default function TabOneScreen() {
 
@@ -9,9 +10,11 @@ export default function TabOneScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Chamala</Text>
       <Text>Изучение татарского языка в формате мини-игр</Text>
-      <Pressable>
-        <Text>Начать игру</Text>
-      </Pressable>
+      <Link href="/two" asChild>
+        <Pressable>
+          <Text style={appStyles.button}>Начать игру</Text>
+        </Pressable>
+      </Link>
     </View>
   );
 }

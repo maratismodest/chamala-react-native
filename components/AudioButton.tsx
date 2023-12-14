@@ -25,7 +25,9 @@ export default function App({word}: { word: string }) {
 
   return (
     <View>
-      <Button title="Play Sound" onPress={playSound}/>
+      <Button title="Play Sound"
+        // onPress={playSound}
+      />
     </View>
   );
 }
