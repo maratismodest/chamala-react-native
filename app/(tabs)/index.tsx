@@ -1,5 +1,5 @@
 import {Link} from "expo-router";
-import {Pressable, StyleSheet} from 'react-native';
+import {Image, Pressable, StyleSheet} from 'react-native';
 
 import {Text, View} from '../../components/Themed';
 import {appStyles} from "../../styles";
@@ -8,11 +8,12 @@ export default function TabOneScreen() {
 
   return (
     <View style={styles.container}>
+      <Image source={require('./../../assets/svg/welcome.svg')}/>
       <Text style={styles.title}>Chamala</Text>
-      <Text>Изучение татарского языка в формате мини-игр</Text>
+      <Text style={styles.description}>Изучение татарского языка в формате мини-игр</Text>
       <Link href="/two" asChild>
         <Pressable>
-          <Text style={appStyles.button}>Начать игру</Text>
+          <Text style={[appStyles.button]}>Начать игру</Text>
         </Pressable>
       </Link>
     </View>
@@ -24,10 +25,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    gap: 4
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 40,
+  },
+  description: {
+    fontSize: 28,
+    textAlign: 'center'
   },
   separator: {
     marginVertical: 30,

@@ -11,6 +11,7 @@ const appStyles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    minHeight: 48,
   }
 });
 

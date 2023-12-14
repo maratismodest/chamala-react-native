@@ -4,6 +4,10 @@ import {useStore} from "../store";
 import {appStyles} from "../styles";
 import {IWord} from "../types";
 import {getShuffled} from "../utils/getShuffled";
+// @ts-ignore
+import Happy from './../assets/svg/happy.svg';
+// @ts-ignore
+import Sad from './../assets/svg/sad.svg';
 
 interface GuessModuleProps {
   collection: IWord[];
@@ -62,7 +66,7 @@ export default function GuessModule({collection, option, count = 6}: GuessModule
     <SafeAreaView>
       <View>
         <Text style={{fontSize: 24, textAlign: 'center', textTransform: 'uppercase'}}>{correct.ta}</Text>
-        <View className="mt-4 flex flex-col gap-4" style={{width: 280, gap: 8, marginTop: 16}}>
+        <View style={{width: 280, gap: 8, marginTop: 16}}>
           {list.map(x => (
             <Pressable key={x.id} onPress={() => handleAnswer(x.id)}>
               <Text style={appStyles.button}>{x.ru}</Text>
@@ -84,14 +88,27 @@ export default function GuessModule({collection, option, count = 6}: GuessModule
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text>
-              {correct.id === answer?.id ? 'correct' : 'wrong'}
-            </Text>
+            {correct.id === answer?.id ? <Happy width={90} height={90}/> : <Sad width={90} height={90}/>}
+            <View>
+              {correct.id === answer?.id ?
+                <Text>Верно</Text>
+                :
+                <>
+                  <Text style={{color: 'rgb(239, 68, 68)'}}>
+                    Неверно
+                  </Text>
+                  <Text>
+                    Верно: {correct.ru}
+                  </Text>
+                </>
+
+              }
+            </View>
+
             <Pressable
               onPress={handleNext}
-              style={{...appStyles.button}}
             >
-              Next
+              <Text style={{...appStyles.button}}>Дальше</Text>
             </Pressable>
           </View>
         </View>
@@ -113,7 +130,7 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
-    padding: 35,
+    padding: 24,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
