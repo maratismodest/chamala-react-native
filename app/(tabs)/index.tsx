@@ -1,13 +1,17 @@
-import {Button, StyleSheet} from 'react-native';
+import {Link} from "expo-router";
+import {Button, Pressable, StyleSheet} from 'react-native';
 
 import {Text, View} from '../../components/Themed';
 
 export default function TabOneScreen() {
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Chamala</Text>
       <Text>Изучение татарского языка в формате мини-игр</Text>
-      <Button title='Начать игру'/>
+      <Pressable>
+        <Text>Начать игру</Text>
+      </Pressable>
     </View>
   );
 }
