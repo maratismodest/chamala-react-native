@@ -39,7 +39,9 @@ const FancyButton = React.forwardRef((props: Props, ref) => {
           opacity: animated,
         }}
       >
-        <Text style={styles.text}>{title}</Text>
+        <Text style={styles.text} numberOfLines={1}>
+          {title}
+        </Text>
       </Animated.View>
     </Pressable>
   );
@@ -51,7 +53,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 12,
-    paddingHorizontal: 32,
+    paddingHorizontal: 24,
     borderRadius: 32,
     elevation: 3,
     backgroundColor: "rgb(15, 128, 18)",

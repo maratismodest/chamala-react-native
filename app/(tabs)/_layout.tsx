@@ -49,6 +49,7 @@ export default function TabLayout() {
         options={{
           title: "Pick",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          href: null,
         }}
       />
       <Tabs.Screen
@@ -56,6 +57,15 @@ export default function TabLayout() {
         options={{
           title: "Words",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="four"
+        options={{
+          title: "Collect",
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          href: null,
         }}
       />
     </Tabs>
