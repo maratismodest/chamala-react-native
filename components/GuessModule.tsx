@@ -79,7 +79,11 @@ export default function GuessModule({
         <Happy width={96} height={96} className="mx-auto" />
 
         {result.map((x, index) => (
-          <View key={index} className="flex flex-row gap-2 items-center">
+          <View
+            key={index}
+            className="flex flex-row gap-2 items-center"
+            style={{ display: "flex", flexDirection: "row" }}
+          >
             <Text
               className={
                 x.answer === x.correct ? "text-green-500" : "text-red-500"
@@ -92,10 +96,20 @@ export default function GuessModule({
               )}
             </Text>
             <Text className="text-left">{x.origin}</Text>
-            <View className="text-left">
-              <Text className="text-green">{x.correct}</Text>
+            <View
+              className="text-left"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                marginLeft: "auto",
+              }}
+            >
+              <Text className="text-green-500">{x.correct}</Text>
               &nbsp;
-              <Text className="text-red-500 line-through">
+              <Text
+                className="text-red-500"
+                style={{ textDecorationLine: "line-through" }}
+              >
                 {x.answer !== x.correct && x.answer}
               </Text>
             </View>
