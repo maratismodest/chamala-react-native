@@ -115,7 +115,7 @@ export default function GuessModule({
   };
   if (result.length >= count) {
     return (
-      <ScrollView className="w-full h-full flex flex-1">
+      <View>
         <Happy width={96} height={96} className="mx-auto" />
         <FlatList
           data={result}
@@ -130,7 +130,7 @@ export default function GuessModule({
           title="Go!"
           style={{ width: 200, marginHorizontal: "auto", marginTop: 16 }}
         />
-      </ScrollView>
+      </View>
     );
   }
 
@@ -163,7 +163,7 @@ export default function GuessModule({
           {click + 1} / {count}
         </Text>
       </View>
-      <Progress.Bar progress={click / 6} borderWidth={2} width={null} />
+      <Progress.Bar progress={click / count} borderWidth={2} width={null} />
       <View style={{ marginTop: 16 }}>
         <Button title="Сбросить счет" onPress={reset} />
       </View>

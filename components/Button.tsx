@@ -1,7 +1,13 @@
 import * as React from "react";
 import { Text, StyleSheet, Pressable } from "react-native";
 
-const FancyButton = React.forwardRef((props: any, ref) => {
+interface Props {
+  title: string;
+  onPress?: any;
+  style?: any;
+}
+
+const FancyButton = React.forwardRef((props: Props, ref) => {
   const { style, onPress, title, ...otherProps } = props;
   return (
     <Pressable style={[styles.button, style]} onPress={onPress} {...otherProps}>
