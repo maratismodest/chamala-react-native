@@ -2,15 +2,14 @@ import Happy from "@assets/svg/happy.svg";
 import Sad from "@assets/svg/sad.svg";
 import AudioButton from "@components/AudioButton";
 import AppButton from "@components/Button";
-import { appStyles } from "@styles";
 import { IWord } from "@types";
 import { getShuffled } from "@utils/getShuffled";
 import React, { useCallback, useMemo, useState } from "react";
 import {
   Alert,
   Button,
+  FlatList,
   Modal,
-  Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -34,10 +33,51 @@ interface AnswerProps {
   answer: string | number | undefined;
 }
 
+interface Result {
+  item: AnswerProps;
+  index: number;
+}
+
+const Result = ({ item, index }: Result) => {
+  const { answer, correct, origin } = item;
+  return (
+    <View
+      className="flex flex-row gap-2 items-center"
+      style={{ display: "flex", flexDirection: "row" }}
+    >
+      <Text className={answer === correct ? "text-green-500" : "text-red-500"}>
+        {answer === correct ? (
+          <>{index + 1} &#9745;</>
+        ) : (
+          <>{index + 1} &#9746;</>
+        )}
+      </Text>
+      <Text className="text-left">{origin}</Text>
+      <View
+        className="text-left"
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          marginLeft: "auto",
+        }}
+      >
+        <Text
+          className="text-red-500"
+          style={{ textDecorationLine: "line-through" }}
+        >
+          {answer !== correct && answer}
+        </Text>
+        <Text>&nbsp;</Text>
+        <Text className="text-green-500">{correct}</Text>
+      </View>
+    </View>
+  );
+};
+
 export default function GuessModule({
   collection,
   option,
-  count = 1,
+  count = 2,
 }: GuessModuleProps) {
   const [visible, setVisible] = useState(false);
   const click = useStore(useCallback((state) => state.count, []));
@@ -75,52 +115,20 @@ export default function GuessModule({
   };
   if (result.length >= count) {
     return (
-      <ScrollView className="w-full">
+      <ScrollView className="w-full h-full flex flex-1">
         <Happy width={96} height={96} className="mx-auto" />
-
-        {result.map((x, index) => (
-          <View
-            key={index}
-            className="flex flex-row gap-2 items-center"
-            style={{ display: "flex", flexDirection: "row" }}
-          >
-            <Text
-              className={
-                x.answer === x.correct ? "text-green-500" : "text-red-500"
-              }
-            >
-              {x.answer === x.correct ? (
-                <>{index + 1} &#9745;</>
-              ) : (
-                <>{index + 1} &#9746;</>
-              )}
-            </Text>
-            <Text className="text-left">{x.origin}</Text>
-            <View
-              className="text-left"
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                marginLeft: "auto",
-              }}
-            >
-              <Text className="text-green-500">{x.correct}</Text>
-              &nbsp;
-              <Text
-                className="text-red-500"
-                style={{ textDecorationLine: "line-through" }}
-              >
-                {x.answer !== x.correct && x.answer}
-              </Text>
-            </View>
-          </View>
-        ))}
-        <Button
+        <FlatList
+          data={result}
+          renderItem={({ item, index }) => <Result item={item} index={index} />}
+          contentContainerStyle={{ gap: 8 }}
+        />
+        <AppButton
           onPress={() => {
             setResult([]);
             reset();
           }}
           title="Go!"
+          style={{ width: 200, marginHorizontal: "auto", marginTop: 16 }}
         />
       </ScrollView>
     );
@@ -139,18 +147,20 @@ export default function GuessModule({
         >
           {correct.ta}
         </Text>
-        <View style={{ width: 280, gap: 8, marginTop: 16 }}>
-          {list.map((x) => (
+        <FlatList
+          data={list}
+          renderItem={({ item }) => (
             <AppButton
-              key={x.id}
-              title={x.ru}
-              onPress={() => handleAnswer(x.id)}
+              key={item.id}
+              title={item.ru}
+              onPress={() => handleAnswer(item.id)}
             />
-          ))}
-        </View>
+          )}
+          contentContainerStyle={{ gap: 16 }}
+          style={{ width: 280, marginTop: 16 }}
+        />
         <Text style={{ textAlign: "center" }}>
-          {click}
-          {/*{result.length + 1} / {count}*/}
+          {click + 1} / {count}
         </Text>
       </View>
       <Progress.Bar progress={click / 6} borderWidth={2} width={null} />
@@ -216,42 +226,4 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  // button: {
-  //   borderRadius: 20,
-  //   padding: 10,
-  //   elevation: 2,
-  // },
-  // buttonOpen: {
-  //   backgroundColor: '#F194FF',
-  // },
-  // buttonClose: {
-  //   backgroundColor: '#2196F3',
-  // },
-  // textStyle: {
-  //   color: 'white',
-  //   fontWeight: 'bold',
-  //   textAlign: 'center',
-  // },
-  // modalText: {
-  //   marginBottom: 15,
-  //   textAlign: 'center',
-  // },
 });
-
-// const styles = StyleSheet.create({
-//   fill: {
-//     flex: 1
-//   },
-//   upper: {
-//     height: 100,
-//     backgroundColor: '#DDD',
-//     opacity: .5
-//   },
-//   lower: {
-//     flex: 1,
-//     backgroundColor: 'white'
-//   },
-//   grey: {
-//     backgroundColor: '#DDD'
-//   }
-// })
