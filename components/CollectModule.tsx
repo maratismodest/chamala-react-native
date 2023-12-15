@@ -4,7 +4,7 @@ import AudioButton from "@components/AudioButton";
 import AppButton from "@components/Button";
 import { IWord } from "@types";
 import { getShuffled } from "@utils/getShuffled";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Alert,
   Button,
@@ -16,6 +16,7 @@ import {
 } from "react-native";
 import * as Progress from "react-native-progress";
 
+import { words } from "../data/words";
 import { useStore } from "../store";
 
 interface GuessModuleProps {
@@ -60,11 +61,29 @@ const Result = ({ item, index }: Result) => {
   );
 };
 
-export default function GuessModule({
+interface CollectProps {
+  id: number;
+  word: string;
+}
+
+export default function CollectModule({
   collection,
   option,
   count = 2,
 }: GuessModuleProps) {
+  const [isTrue, setIsTrue] = useState(false);
+  const [correct, setCorrect] = useState<IWord | undefined>(undefined);
+  const [options, setOptions] = useState<CollectProps[]>([]);
+  const [chosens, setChosens] = useState<CollectProps[]>([]);
+  const handleAdd = (x: CollectProps) => {
+    setChosens((prev) => [...prev, x]);
+    setOptions((prev) => prev.filter((item) => item.id !== x.id));
+  };
+
+  const handleRemove = (x: CollectProps) => {
+    setChosens((prev) => prev.filter((item) => item.id !== x.id));
+    setOptions((prev) => [...prev, x]);
+  };
   const [visible, setVisible] = useState(false);
   const click = useStore(useCallback((state) => state.count, []));
   const inc = useStore(useCallback((state) => state.incrementClick, []));
@@ -72,27 +91,46 @@ export default function GuessModule({
   const [list, setList] = useState<IWord[]>(() =>
     getShuffled(collection).slice(0, 4),
   );
-  const correct = useMemo(() => getShuffled(list)[0], [list]);
+
   const [answer, setAnswer] = useState<IWord | undefined>(undefined);
   const [result, setResult] = useState<AnswerProps[]>([]);
 
-  const handleNext = () => {
-    setResult((prevState) =>
-      prevState.concat({
-        id: correct.id,
-        origin: correct?.ta,
-        correct: correct?.ru,
-        answer: answer?.ru,
-      }),
+  const getNewPhrase = useCallback(() => {
+    const correct = getShuffled(words)[0];
+    setCorrect(correct);
+    const realOptions = correct.ta.toLowerCase().split("");
+    setOptions(
+      getShuffled(realOptions).map((x, index) => ({
+        word: x,
+        id: index,
+      })),
     );
-    inc();
     setVisible(false);
-    setAnswer(undefined);
-    setList(
-      getShuffled(
-        collection.filter((x) => !result.map((x) => x.id).includes(x.id)),
-      ).slice(0, 4),
-    );
+    setIsTrue(false);
+    setChosens([]);
+  }, [words]);
+
+  useEffect(() => {
+    getNewPhrase();
+  }, [getNewPhrase]);
+
+  const handleNext = () => {
+    // setResult((prevState) =>
+    //   prevState.concat({
+    //     id: correct.id,
+    //     origin: correct?.ta,
+    //     correct: correct?.ru,
+    //     answer: answer?.ru,
+    //   }),
+    // );
+    // inc();
+    // setVisible(false);
+    // setAnswer(undefined);
+    // setList(
+    //   getShuffled(
+    //     collection.filter((x) => !result.map((x) => x.id).includes(x.id)),
+    //   ).slice(0, 4),
+    // );
   };
 
   const handleAnswer = (id: number) => {
@@ -127,7 +165,7 @@ export default function GuessModule({
 
   return (
     <>
-      <AudioButton uri={correct.audio} />
+      <AudioButton uri={correct?.audio as string} />
       <Text
         style={{
           fontSize: 24,
@@ -135,24 +173,30 @@ export default function GuessModule({
           textTransform: "uppercase",
         }}
       >
-        {correct.ta}
+        {correct?.ta as string}
       </Text>
-      <FlatList
-        style={{
-          flexGrow: 0,
-          marginTop: 16,
-        }}
-        data={list}
-        renderItem={({ item }) => (
+      <View className="flex min-h-[100px] flex-wrap gap-4 flex-row">
+        {chosens.map((x) => (
           <AppButton
-            key={item.id}
-            title={item.ru}
-            onPress={() => handleAnswer(item.id)}
-            style={{ width: 240 }}
+            key={x.id}
+            className="h-fit w-fit cursor-pointer rounded border p-1"
+            onPress={() => handleRemove(x)}
+            title={x.word}
           />
-        )}
-        contentContainerStyle={{ gap: 16 }}
-      />
+        ))}
+      </View>
+
+      <View className="flex min-h-[100px] flex-wrap gap-4 flex-row">
+        {options.map((x) => (
+          <AppButton
+            key={x.id}
+            className="h-fit w-fit cursor-pointer rounded border px-4 py-2"
+            onPress={() => handleAdd(x)}
+            title={x.word}
+          />
+        ))}
+      </View>
+
       <Text style={{ textAlign: "center" }}>
         {click + 1} / {count}
       </Text>
@@ -176,18 +220,18 @@ export default function GuessModule({
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View className="flex-row items-center">
-              {correct.id === answer?.id ? (
+              {correct?.id === answer?.id ? (
                 <Happy width={90} height={90} />
               ) : (
                 <Sad width={90} height={90} />
               )}
               <View>
-                {correct.id === answer?.id ? (
+                {correct?.id === answer?.id ? (
                   <Text>Верно</Text>
                 ) : (
                   <>
                     <Text style={{ color: "rgb(239, 68, 68)" }}>Неверно</Text>
-                    <Text>Верно: {correct.ru}</Text>
+                    <Text>Верно: {correct?.ru}</Text>
                   </>
                 )}
               </View>

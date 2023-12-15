@@ -6,6 +6,7 @@ interface Props {
   title: string;
   onPress?: any;
   style?: any;
+  className?: string;
 }
 
 const FancyButton = React.forwardRef((props: Props, ref) => {
@@ -25,13 +26,14 @@ const FancyButton = React.forwardRef((props: Props, ref) => {
       useNativeDriver: true,
     }).start();
   };
-  const { style, onPress, title, ...otherProps } = props;
+  const { style, onPress, title, className, ...otherProps } = props;
   return (
     <Pressable
       style={[styles.button, style]}
       onPress={onPress}
       onPressIn={fadeIn}
       onPressOut={fadeOut}
+      className={className}
       {...otherProps}
     >
       <Animated.View

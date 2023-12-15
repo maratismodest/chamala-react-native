@@ -6,7 +6,7 @@ import { Platform, StyleSheet } from "react-native";
 export default function ModalScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
+      <Text style={styles.title}>Info</Text>
       <View
         style={styles.separator}
         lightColor="#eee"

@@ -13,8 +13,8 @@ const buttons = [
   },
   // {
   //   id: 2,
-  //   title: "Фраза",
-  //   href: "/phrases",
+  //   title: "Собери",
+  //   href: "/four",
   //   isDisabled: true,
   // },
 ] as const;
