@@ -1,5 +1,6 @@
 import GuessModule from "@components/GuessModule";
 import { View } from "@components/Themed";
+import { appStyles } from "@styles";
 import { StyleSheet } from "react-native";
 
 import { useStore } from "../../store";
@@ -7,7 +8,7 @@ import { useStore } from "../../store";
 export default function TabTwoScreen() {
   const _words = useStore((state) => state.words);
   return (
-    <View style={styles.container}>
+    <View style={appStyles.container}>
       <GuessModule collection={_words} option="words" />
     </View>
   );

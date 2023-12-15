@@ -12,6 +12,7 @@ import {
   Modal,
   Pressable,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -36,7 +37,7 @@ interface AnswerProps {
 export default function GuessModule({
   collection,
   option,
-  count = 6,
+  count = 1,
 }: GuessModuleProps) {
   const [visible, setVisible] = useState(false);
   const click = useStore(useCallback((state) => state.count, []));
@@ -74,30 +75,22 @@ export default function GuessModule({
   };
   if (result.length >= count) {
     return (
-      <View className="grid grid-cols-1 gap-2">
-        <Happy width={96} height={96} />
-        {/*<div className="mx-auto">*/}
-        {/*  <Icon name="happy" size={96} />*/}
-        {/*</div>*/}
+      <ScrollView className="w-full">
+        <Happy width={96} height={96} className="mx-auto" />
 
         {result.map((x, index) => (
-          <View
-            key={index}
-            className="grid grid-cols-[auto_1fr_2fr] gap-2 items-center"
-          >
-            <View className="flex items-center gap-1 text-lg">
-              <Text
-                className={
-                  x.answer === x.correct ? "text-green " : "text-red-500"
-                }
-              >
-                {x.answer === x.correct ? (
-                  <>{index + 1} &#9745;</>
-                ) : (
-                  <>{index + 1} &#9746;</>
-                )}
-              </Text>
-            </View>
+          <View key={index} className="flex flex-row gap-2 items-center">
+            <Text
+              className={
+                x.answer === x.correct ? "text-green-500" : "text-red-500"
+              }
+            >
+              {x.answer === x.correct ? (
+                <>{index + 1} &#9745;</>
+              ) : (
+                <>{index + 1} &#9746;</>
+              )}
+            </Text>
             <Text className="text-left">{x.origin}</Text>
             <View className="text-left">
               <Text className="text-green">{x.correct}</Text>
@@ -115,7 +108,7 @@ export default function GuessModule({
           }}
           title="Go!"
         />
-      </View>
+      </ScrollView>
     );
   }
 
@@ -134,7 +127,11 @@ export default function GuessModule({
         </Text>
         <View style={{ width: 280, gap: 8, marginTop: 16 }}>
           {list.map((x) => (
-            <AppButton title={x.ru} onPress={() => handleAnswer(x.id)} />
+            <AppButton
+              key={x.id}
+              title={x.ru}
+              onPress={() => handleAnswer(x.id)}
+            />
           ))}
         </View>
         <Text style={{ textAlign: "center" }}>
