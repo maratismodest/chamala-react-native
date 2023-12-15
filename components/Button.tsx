@@ -1,5 +1,6 @@
+import { useRef } from "react";
 import * as React from "react";
-import { Text, StyleSheet, Pressable } from "react-native";
+import { Text, StyleSheet, Pressable, Animated } from "react-native";
 
 interface Props {
   title: string;
@@ -8,10 +9,38 @@ interface Props {
 }
 
 const FancyButton = React.forwardRef((props: Props, ref) => {
+  const animated = useRef(new Animated.Value(1)).current;
+
+  const fadeIn = () => {
+    Animated.timing(animated, {
+      toValue: 0.4,
+      duration: 100,
+      useNativeDriver: true,
+    }).start();
+  };
+  const fadeOut = () => {
+    Animated.timing(animated, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  };
   const { style, onPress, title, ...otherProps } = props;
   return (
-    <Pressable style={[styles.button, style]} onPress={onPress} {...otherProps}>
-      <Text style={styles.text}>{title}</Text>
+    <Pressable
+      style={[styles.button, style]}
+      onPress={onPress}
+      onPressIn={fadeIn}
+      onPressOut={fadeOut}
+      {...otherProps}
+    >
+      <Animated.View
+        style={{
+          opacity: animated,
+        }}
+      >
+        <Text style={styles.text}>{title}</Text>
+      </Animated.View>
     </Pressable>
   );
 });

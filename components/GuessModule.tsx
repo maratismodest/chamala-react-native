@@ -10,8 +10,6 @@ import {
   Button,
   FlatList,
   Modal,
-  SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -41,26 +39,14 @@ interface Result {
 const Result = ({ item, index }: Result) => {
   const { answer, correct, origin } = item;
   return (
-    <View
-      className="flex flex-row gap-2 items-center"
-      style={{ display: "flex", flexDirection: "row" }}
-    >
+    <View className="flex-row gap-2 mx-auto">
       <Text className={answer === correct ? "text-green-500" : "text-red-500"}>
-        {answer === correct ? (
-          <>{index + 1} &#9745;</>
-        ) : (
-          <>{index + 1} &#9746;</>
-        )}
+        <>{index + 1}</>
+        <>&nbsp;</>
+        {answer === correct ? <>&#9745;</> : <>&#9746;</>}
       </Text>
       <Text className="text-left">{origin}</Text>
-      <View
-        className="text-left"
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          marginLeft: "auto",
-        }}
-      >
+      <View className="flex-row flex-1 justify-end">
         <Text
           className="text-red-500"
           style={{ textDecorationLine: "line-through" }}
@@ -115,10 +101,15 @@ export default function GuessModule({
   };
   if (result.length >= count) {
     return (
-      <View>
+      <>
         <Happy width={96} height={96} className="mx-auto" />
         <FlatList
           data={result}
+          style={{
+            flexGrow: 0,
+            marginTop: 16,
+            width: "100%",
+          }}
           renderItem={({ item, index }) => <Result item={item} index={index} />}
           contentContainerStyle={{ gap: 8 }}
         />
@@ -127,46 +118,51 @@ export default function GuessModule({
             setResult([]);
             reset();
           }}
-          title="Go!"
+          title="Снова"
           style={{ width: 200, marginHorizontal: "auto", marginTop: 16 }}
         />
-      </View>
+      </>
     );
   }
 
   return (
-    <SafeAreaView>
-      <View>
-        <AudioButton uri={correct.audio} />
-        <Text
-          style={{
-            fontSize: 24,
-            textAlign: "center",
-            textTransform: "uppercase",
-          }}
-        >
-          {correct.ta}
-        </Text>
-        <FlatList
-          data={list}
-          renderItem={({ item }) => (
-            <AppButton
-              key={item.id}
-              title={item.ru}
-              onPress={() => handleAnswer(item.id)}
-            />
-          )}
-          contentContainerStyle={{ gap: 16 }}
-          style={{ width: 280, marginTop: 16 }}
-        />
-        <Text style={{ textAlign: "center" }}>
-          {click + 1} / {count}
-        </Text>
-      </View>
-      <Progress.Bar progress={click / count} borderWidth={2} width={null} />
-      <View style={{ marginTop: 16 }}>
-        <Button title="Сбросить счет" onPress={reset} />
-      </View>
+    <>
+      <AudioButton uri={correct.audio} />
+      <Text
+        style={{
+          fontSize: 24,
+          textAlign: "center",
+          textTransform: "uppercase",
+        }}
+      >
+        {correct.ta}
+      </Text>
+      <FlatList
+        style={{
+          flexGrow: 0,
+          marginTop: 16,
+        }}
+        data={list}
+        renderItem={({ item }) => (
+          <AppButton
+            key={item.id}
+            title={item.ru}
+            onPress={() => handleAnswer(item.id)}
+            style={{ width: 240 }}
+          />
+        )}
+        contentContainerStyle={{ gap: 16 }}
+      />
+      <Text style={{ textAlign: "center" }}>
+        {click + 1} / {count}
+      </Text>
+      <Progress.Bar
+        progress={click / count}
+        borderWidth={2}
+        width={null}
+        color="green"
+        className="w-full"
+      />
 
       <Modal
         animationType="slide"
@@ -179,27 +175,33 @@ export default function GuessModule({
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            {correct.id === answer?.id ? (
-              <Happy width={90} height={90} />
-            ) : (
-              <Sad width={90} height={90} />
-            )}
-            <View>
+            <View className="flex-row items-center">
               {correct.id === answer?.id ? (
-                <Text>Верно</Text>
+                <Happy width={90} height={90} />
               ) : (
-                <>
-                  <Text style={{ color: "rgb(239, 68, 68)" }}>Неверно</Text>
-                  <Text>Верно: {correct.ru}</Text>
-                </>
+                <Sad width={90} height={90} />
               )}
+              <View>
+                {correct.id === answer?.id ? (
+                  <Text>Верно</Text>
+                ) : (
+                  <>
+                    <Text style={{ color: "rgb(239, 68, 68)" }}>Неверно</Text>
+                    <Text>Верно: {correct.ru}</Text>
+                  </>
+                )}
+              </View>
             </View>
 
-            <AppButton title="Дальше" onPress={handleNext} />
+            <AppButton
+              title="Дальше"
+              onPress={handleNext}
+              style={{ width: 200 }}
+            />
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+    </>
   );
 }
 
@@ -207,14 +209,11 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: "flex-end",
-    // alignItems: 'center',
-    // marginTop: 22,
-    marginBottom: 28,
   },
   modalView: {
-    margin: 20,
     backgroundColor: "white",
-    borderRadius: 20,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
     padding: 24,
     alignItems: "center",
     shadowColor: "#000",

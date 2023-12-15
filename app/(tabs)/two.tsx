@@ -1,9 +1,8 @@
-import AppButton from "@components/Button";
 import Button from "@components/Button";
 import { Text, View } from "@components/Themed";
 import { Link } from "expo-router";
 import React from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
 const buttons = [
   {
