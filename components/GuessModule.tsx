@@ -1,6 +1,7 @@
 import Happy from "@assets/svg/happy.svg";
 import Sad from "@assets/svg/sad.svg";
 import AudioButton from "@components/AudioButton";
+import AppButton from "@components/Button";
 import { appStyles } from "@styles";
 import { IWord } from "@types";
 import { getShuffled } from "@utils/getShuffled";
@@ -133,9 +134,7 @@ export default function GuessModule({
         </Text>
         <View style={{ width: 280, gap: 8, marginTop: 16 }}>
           {list.map((x) => (
-            <Pressable key={x.id} onPress={() => handleAnswer(x.id)}>
-              <Text style={appStyles.button}>{x.ru}</Text>
-            </Pressable>
+            <AppButton title={x.ru} onPress={() => handleAnswer(x.id)} />
           ))}
         </View>
         <Text style={{ textAlign: "center" }}>
@@ -175,9 +174,7 @@ export default function GuessModule({
               )}
             </View>
 
-            <Pressable onPress={handleNext}>
-              <Text style={{ ...appStyles.button }}>Дальше</Text>
-            </Pressable>
+            <AppButton title="Дальше" onPress={handleNext} />
           </View>
         </View>
       </Modal>

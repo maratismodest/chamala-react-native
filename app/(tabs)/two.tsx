@@ -1,7 +1,7 @@
+import Button from "@components/Button";
 import { Text, View } from "@components/Themed";
-import { appStyles } from "@styles";
 import { Link } from "expo-router";
-import { Pressable, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
 const buttons = [
   {
@@ -28,9 +28,7 @@ export default function TabTwoScreen() {
       <View className="grid grid-cols-1 gap-4">
         {buttons.map(({ id, href, title, isDisabled }) => (
           <Link key={id} href={href as any} asChild>
-            <Pressable>
-              <Text style={appStyles.button}>{title}</Text>
-            </Pressable>
+            <Button title={title} />
           </Link>
         ))}
       </View>

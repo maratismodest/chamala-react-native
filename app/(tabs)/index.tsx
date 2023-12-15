@@ -1,24 +1,20 @@
 import Welcome from "@assets/svg/welcome.svg";
+import Button from "@components/Button";
 import { Text, View } from "@components/Themed";
 import { appStyles } from "@styles";
 import { Link } from "expo-router";
-import { Pressable, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
 export default function TabOneScreen() {
   return (
-    <View
-      // style={styles.container}
-      className="flex-1 justify-center items-center gap-2 p-2"
-    >
+    <View style={appStyles.container}>
       <Welcome />
       <Text style={styles.title}>Chamala</Text>
       <Text style={styles.description}>
         Изучение татарского языка в формате мини-игр
       </Text>
       <Link href="/two" asChild>
-        <Pressable>
-          <Text style={[appStyles.button]}>Начать игру</Text>
-        </Pressable>
+        <Button title="Начать игру" />
       </Link>
     </View>
   );
