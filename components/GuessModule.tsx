@@ -4,7 +4,7 @@ import AudioButton from "@components/AudioButton";
 import AppButton from "@components/Button";
 import { IWord } from "@types";
 import { getShuffled } from "@utils/getShuffled";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Alert,
   Button,
@@ -17,6 +17,7 @@ import {
 import * as Progress from "react-native-progress";
 
 import { useStore } from "../store";
+import { getAsyncData, storeAsyncData } from "../store/async-storage";
 
 interface GuessModuleProps {
   collection: IWord[];
@@ -99,6 +100,30 @@ export default function GuessModule({
     setAnswer(list.find((x) => x.id === id));
     setVisible(true);
   };
+
+  useEffect(() => {
+    if (result.length >= count) {
+      getAsyncData("statistics").then((previousStat) => {
+        const statistics = {
+          correct: result.filter((x) => x.answer === x.correct).length,
+          wrong: result.filter((x) => x.answer !== x.correct).length,
+        };
+
+        if (previousStat) {
+          const _x = JSON.parse(previousStat);
+          const res = {
+            ...statistics,
+            correct: statistics.correct + _x.correct,
+            wrong: statistics.wrong + _x.wrong,
+          };
+          storeAsyncData("statistics", res);
+        } else {
+          storeAsyncData("statistics", statistics);
+        }
+      });
+    }
+  }, [result.length, count]);
+
   if (result.length >= count) {
     return (
       <>
