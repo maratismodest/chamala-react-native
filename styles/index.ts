@@ -20,6 +20,35 @@ const appStyles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 18,
   },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: "80%",
+  },
+  divider: {
+    marginVertical: 4,
+    height: 1,
+    width: "80%",
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "flex-end",
+  },
+  modalView: {
+    backgroundColor: "white",
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    padding: 24,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
 });
 
 export { appStyles };

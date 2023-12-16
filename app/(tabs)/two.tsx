@@ -13,8 +13,14 @@ const buttons = [
   },
   {
     id: 2,
-    title: "Собери",
+    title: "Фраза",
     href: "/four",
+    isDisabled: true,
+  },
+  {
+    id: 3,
+    title: "Собери",
+    href: "/collect",
     isDisabled: true,
   },
 ] as const;

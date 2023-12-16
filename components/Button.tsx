@@ -1,12 +1,20 @@
 import { useRef } from "react";
 import * as React from "react";
-import { Text, StyleSheet, Pressable, Animated } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  Pressable,
+  Animated,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 
 interface Props {
   title: string;
   onPress?: any;
-  style?: any;
+  style?: StyleProp<ViewStyle>;
   className?: string;
+  disabled?: boolean;
 }
 
 const FancyButton = React.forwardRef((props: Props, ref) => {
@@ -26,14 +34,26 @@ const FancyButton = React.forwardRef((props: Props, ref) => {
       useNativeDriver: true,
     }).start();
   };
-  const { style, onPress, title, className, ...otherProps } = props;
+  const {
+    style,
+    onPress,
+    title,
+    className,
+    disabled = false,
+    ...otherProps
+  } = props;
   return (
     <Pressable
-      style={[styles.button, style]}
+      style={[
+        styles.button,
+        style,
+        disabled ? { backgroundColor: "gray" } : {},
+      ]}
       onPress={onPress}
       onPressIn={fadeIn}
       onPressOut={fadeOut}
       className={className}
+      disabled={disabled}
       {...otherProps}
     >
       <Animated.View

@@ -1,22 +1,12 @@
-// @ts-ignore
 import Happy from "@assets/svg/happy.svg";
-// @ts-ignore
 import Sad from "@assets/svg/sad.svg";
 import AudioButton from "@components/AudioButton";
 import AppButton from "@components/Button";
-import { View } from "@components/Themed";
 import { appStyles } from "@styles";
 import { IWord } from "@types";
 import { getShuffled } from "@utils/getShuffled";
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  Alert,
-  Modal,
-  Pressable,
-  StyleSheet,
-  Text,
-} from "react-native";
+import { ActivityIndicator, Alert, Modal, Text, View } from "react-native";
 
 import { useStore } from "../store";
 
@@ -82,37 +72,39 @@ export default function CollectModule() {
 
   return (
     <>
-      <>
-        <Text className="text-3xl">{correct.ta}</Text>
-        <AudioButton uri={correct.audio} />
-        <Text className="flex min-h-[100px] flex-wrap gap-4 flex-row w-full">
-          {chosens.map((x) => (
-            <AppButton
-              key={x.id}
-              onPress={() => handleRemove(x)}
-              title={x.word}
-              style={{ paddingVertical: 8, paddingHorizontal: 16, margin: 8 }}
-            />
-          ))}
-        </Text>
-        <hr />
-        <Text className="w-full">
-          {options.map((x) => (
-            <AppButton
-              key={x.id}
-              onPress={() => handleAdd(x)}
-              title={x.word}
-              style={{
-                paddingVertical: 8,
-                paddingHorizontal: 16,
-                margin: 8,
-              }}
-            />
-          ))}
-        </Text>
-      </>
+      <Text className="text-3xl">{correct.ta}</Text>
+      <AudioButton uri={correct.audio} />
+      <Text style={{ minHeight: 100 }}>
+        {chosens.map((x) => (
+          <AppButton
+            key={x.id}
+            onPress={() => handleRemove(x)}
+            title={x.word}
+            style={{
+              paddingVertical: 8,
+              paddingHorizontal: 16,
+              margin: 4,
+            }}
+          />
+        ))}
+      </Text>
+      <View style={[appStyles.divider, { backgroundColor: "#eee" }]} />
+      <Text style={{ minHeight: 100 }}>
+        {options.map((x) => (
+          <AppButton
+            key={x.id}
+            onPress={() => handleAdd(x)}
+            title={x.word}
+            style={{
+              paddingVertical: 8,
+              paddingHorizontal: 16,
+              margin: 4,
+            }}
+          />
+        ))}
+      </Text>
       <AppButton
-        // disabled={chosens.length === 0}
+        disabled={chosens.length === 0}
         className="mt-4"
         onPress={handleCheck}
         title="Дальше"
@@ -126,9 +118,9 @@ export default function CollectModule() {
           setVisible(!visible);
         }}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <View>
+        <View style={appStyles.centeredView}>
+          <View style={appStyles.modalView}>
+            <View className="flex-row items-center">
               {isTrue ? (
                 <Happy width={90} height={90} />
               ) : (
@@ -157,25 +149,3 @@ export default function CollectModule() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
-  modalView: {
-    backgroundColor: "white",
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    padding: 24,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-});

@@ -2,18 +2,11 @@ import Happy from "@assets/svg/happy.svg";
 import Sad from "@assets/svg/sad.svg";
 import AudioButton from "@components/AudioButton";
 import AppButton from "@components/Button";
+import { appStyles } from "@styles";
 import { IWord } from "@types";
 import { getShuffled } from "@utils/getShuffled";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import {
-  Alert,
-  Button,
-  FlatList,
-  Modal,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Alert, FlatList, Modal, Text, View } from "react-native";
 import * as Progress from "react-native-progress";
 
 import { useStore } from "../store";
@@ -198,8 +191,8 @@ export default function GuessModule({
           setVisible(!visible);
         }}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
+        <View style={appStyles.centeredView}>
+          <View style={appStyles.modalView}>
             <View className="flex-row items-center">
               {correct.id === answer?.id ? (
                 <Happy width={90} height={90} />
@@ -229,25 +222,3 @@ export default function GuessModule({
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
-  modalView: {
-    backgroundColor: "white",
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    padding: 24,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-});
