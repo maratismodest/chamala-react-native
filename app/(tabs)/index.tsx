@@ -1,15 +1,18 @@
 import Welcome from "@assets/svg/welcome.svg";
 import Button from "@components/Button";
 import { Text, View } from "@components/Themed";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { appStyles } from "@styles";
 import { Link } from "expo-router";
-import { Alert, StyleSheet } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import * as WebBrowser from "expo-web-browser";
+import React from "react";
+import { Alert, StyleSheet, Image } from "react-native";
 
 export default function TabOneScreen() {
   return (
     <View style={appStyles.container}>
       <Welcome />
+      <StatusBar style="auto" />
       <Text style={styles.title}>Chamala</Text>
       <Text style={styles.description}>
         Изучение татарского языка в формате мини-игр

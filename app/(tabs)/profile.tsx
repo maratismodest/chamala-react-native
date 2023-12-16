@@ -2,8 +2,10 @@ import Happy from "@assets/svg/happy.svg";
 import Button from "@components/Button";
 import { Text, View } from "@components/Themed";
 import { useIsFocused } from "@react-navigation/native";
+import * as Google from "expo-auth-session/providers/google";
+import * as WebBrowser from "expo-web-browser";
 import React, { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import { Image, StyleSheet, Platform } from "react-native";
 
 import {
   deleteAsyncData,
@@ -21,7 +23,59 @@ const initialProfile: Profile = {
   wrong: 0,
 };
 
+WebBrowser.maybeCompleteAuthSession();
+
 export default function TabTwoScreen() {
+  const [accessToken, setAccessToken] = React.useState();
+  const [userInfo, setUserInfo] = React.useState<any>();
+  const [message, setMessage] = React.useState();
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    androidClientId:
+      "608106149141-ao3j9c74j63lonenfarbn4anp31rvq65.apps.googleusercontent.com",
+    expoClientId:
+      "608106149141-ao3j9c74j63lonenfarbn4anp31rvq65.apps.googleusercontent.com",
+    iosClientId:
+      "608106149141-ao3j9c74j63lonenfarbn4anp31rvq65.apps.googleusercontent.com",
+    webClientId:
+      "608106149141-ao3j9c74j63lonenfarbn4anp31rvq65.apps.googleusercontent.com",
+    clientSecret: "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",
+  });
+
+  React.useEffect(() => {
+    // @ts-ignore
+    setMessage(JSON.stringify(response));
+    if (response?.type === "success") {
+      // @ts-ignore
+      setAccessToken(response.authentication.accessToken);
+    }
+  }, [response]);
+
+  async function getUserData() {
+    const userInfoResponse = await fetch(
+      "https://www.googleapis.com/userinfo/v2/me",
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      },
+    );
+
+    userInfoResponse.json().then((data) => {
+      setUserInfo(data);
+    });
+  }
+
+  function showUserInfo() {
+    if (userInfo) {
+      // @ts-ignore
+      return (
+        <View>
+          <Image source={{ uri: userInfo.picture }} />
+          <Text>Welcome {userInfo.name}</Text>
+          <Text>{userInfo.email}</Text>
+        </View>
+      );
+    }
+  }
+
   const isFocused = useIsFocused();
   const [profile, setProfile] = useState<Profile | undefined>();
   useEffect(() => {
@@ -47,17 +101,31 @@ export default function TabTwoScreen() {
 
   return (
     <View style={styles.container}>
-      <div className="mx-auto">
+      {showUserInfo()}
+      {Platform.OS === "web" && (
+        <Button
+          title={accessToken ? "Get User Data" : "Login"}
+          onPress={
+            accessToken
+              ? getUserData
+              : () => {
+                  // @ts-ignore
+                  promptAsync({ useProxy: false, showInRecents: true });
+                }
+          }
+        />
+      )}
+      <View className="mx-auto">
         <Happy width={96} height={96} />
-      </div>
-      <Text>Profile Page</Text>
+      </View>
+      <Text className="text-2xl">Профиль</Text>
       {profile && (
         <View>
-          <Text className="flex">correct: {profile.correct}</Text>
-          <Text className="flex">wrong: {profile.wrong}</Text>
+          <Text className="flex text-lg">верно: {profile.correct}</Text>
+          <Text className="flex text-lg">неверно: {profile.wrong}</Text>
           {profile.correct + profile.wrong > 0 && (
-            <Text className="flex">
-              accuracy:{" "}
+            <Text className="flex text-lg">
+              точность:{" "}
               {(
                 (Number(profile.correct) /
                   (Number(profile.correct) + Number(profile.wrong))) *
