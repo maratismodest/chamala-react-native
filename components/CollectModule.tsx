@@ -1,80 +1,64 @@
+// @ts-ignore
 import Happy from "@assets/svg/happy.svg";
+// @ts-ignore
 import Sad from "@assets/svg/sad.svg";
 import AudioButton from "@components/AudioButton";
 import AppButton from "@components/Button";
+import { View } from "@components/Themed";
+import { appStyles } from "@styles";
 import { IWord } from "@types";
 import { getShuffled } from "@utils/getShuffled";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   Alert,
-  Button,
-  FlatList,
   Modal,
+  Pressable,
   StyleSheet,
   Text,
-  View,
 } from "react-native";
-import * as Progress from "react-native-progress";
 
-import { words } from "../data/words";
 import { useStore } from "../store";
-
-interface GuessModuleProps {
-  collection: IWord[];
-  option: "words" | "phrases";
-  count?: number;
-}
-
-interface AnswerProps {
-  id: number;
-  origin: string;
-  correct: string | number;
-  answer: string | number | undefined;
-}
-
-interface Result {
-  item: AnswerProps;
-  index: number;
-}
-
-const Result = ({ item, index }: Result) => {
-  const { answer, correct, origin } = item;
-  return (
-    <View className="flex-row gap-2 mx-auto">
-      <Text className={answer === correct ? "text-green-500" : "text-red-500"}>
-        <>{index + 1}</>
-        <>&nbsp;</>
-        {answer === correct ? <>&#9745;</> : <>&#9746;</>}
-      </Text>
-      <Text className="text-left">{origin}</Text>
-      <View className="flex-row flex-1 justify-end">
-        <Text
-          className="text-red-500"
-          style={{ textDecorationLine: "line-through" }}
-        >
-          {answer !== correct && answer}
-        </Text>
-        <Text>&nbsp;</Text>
-        <Text className="text-green-500">{correct}</Text>
-      </View>
-    </View>
-  );
-};
 
 interface CollectProps {
   id: number;
   word: string;
 }
 
-export default function CollectModule({
-  collection,
-  option,
-  count = 2,
-}: GuessModuleProps) {
+export default function CollectModule() {
+  const phrases = useStore((state) => state.phrases);
   const [isTrue, setIsTrue] = useState(false);
   const [correct, setCorrect] = useState<IWord | undefined>(undefined);
   const [options, setOptions] = useState<CollectProps[]>([]);
   const [chosens, setChosens] = useState<CollectProps[]>([]);
+  const [visible, setVisible] = useState(false);
+
+  const getNewPhrase = useCallback(() => {
+    const correct = getShuffled(phrases)[0];
+    const fake = getShuffled(phrases)[1];
+    setCorrect(correct);
+    const realOptions = correct.ta.toLowerCase().split(" ");
+    const fakeOptions = fake.ta.toLowerCase().split(" ");
+
+    setOptions(
+      getShuffled([...realOptions, ...fakeOptions]).map((x, index) => ({
+        word: x,
+        id: index,
+      })),
+    );
+    setVisible(false);
+    setIsTrue(false);
+    setChosens([]);
+  }, [phrases]);
+
+  useEffect(() => {
+    getNewPhrase();
+  }, [getNewPhrase]);
+
+  const closeModal = () => {
+    getNewPhrase();
+  };
+
   const handleAdd = (x: CollectProps) => {
     setChosens((prev) => [...prev, x]);
     setOptions((prev) => prev.filter((item) => item.id !== x.id));
@@ -84,130 +68,55 @@ export default function CollectModule({
     setChosens((prev) => prev.filter((item) => item.id !== x.id));
     setOptions((prev) => [...prev, x]);
   };
-  const [visible, setVisible] = useState(false);
-  const click = useStore(useCallback((state) => state.count, []));
-  const inc = useStore(useCallback((state) => state.incrementClick, []));
-  const reset = useStore(useCallback((state) => state.resetCount, []));
-  const [list, setList] = useState<IWord[]>(() =>
-    getShuffled(collection).slice(0, 4),
-  );
 
-  const [answer, setAnswer] = useState<IWord | undefined>(undefined);
-  const [result, setResult] = useState<AnswerProps[]>([]);
-
-  const getNewPhrase = useCallback(() => {
-    const correct = getShuffled(words)[0];
-    setCorrect(correct);
-    const realOptions = correct.ta.toLowerCase().split("");
-    setOptions(
-      getShuffled(realOptions).map((x, index) => ({
-        word: x,
-        id: index,
-      })),
-    );
-    setVisible(false);
-    setIsTrue(false);
-    setChosens([]);
-  }, [words]);
-
-  useEffect(() => {
-    getNewPhrase();
-  }, [getNewPhrase]);
-
-  const handleNext = () => {
-    // setResult((prevState) =>
-    //   prevState.concat({
-    //     id: correct.id,
-    //     origin: correct?.ta,
-    //     correct: correct?.ru,
-    //     answer: answer?.ru,
-    //   }),
-    // );
-    // inc();
-    // setVisible(false);
-    // setAnswer(undefined);
-    // setList(
-    //   getShuffled(
-    //     collection.filter((x) => !result.map((x) => x.id).includes(x.id)),
-    //   ).slice(0, 4),
-    // );
-  };
-
-  const handleAnswer = (id: number) => {
-    setAnswer(list.find((x) => x.id === id));
+  const handleCheck = () => {
+    const original = correct?.ta.toLowerCase();
+    const current = chosens.map((x) => x.word.toLowerCase()).join(" ");
+    setIsTrue(original === current);
     setVisible(true);
   };
-  if (result.length >= count) {
-    return (
-      <>
-        <Happy width={96} height={96} className="mx-auto" />
-        <FlatList
-          data={result}
-          style={{
-            flexGrow: 0,
-            marginTop: 16,
-            width: "100%",
-          }}
-          renderItem={({ item, index }) => <Result item={item} index={index} />}
-          contentContainerStyle={{ gap: 8 }}
-        />
-        <AppButton
-          onPress={() => {
-            setResult([]);
-            reset();
-          }}
-          title="Снова"
-          style={{ width: 200, marginHorizontal: "auto", marginTop: 16 }}
-        />
-      </>
-    );
+
+  if (!correct) {
+    return <ActivityIndicator size="large" />;
   }
 
   return (
     <>
-      <AudioButton uri={correct?.audio as string} />
-      <Text
-        style={{
-          fontSize: 24,
-          textAlign: "center",
-          textTransform: "uppercase",
-        }}
-      >
-        {correct?.ta as string}
-      </Text>
-      <View className="flex min-h-[100px] flex-wrap gap-4 flex-row">
-        {chosens.map((x) => (
-          <AppButton
-            key={x.id}
-            className="h-fit w-fit cursor-pointer rounded border p-1"
-            onPress={() => handleRemove(x)}
-            title={x.word}
-          />
-        ))}
-      </View>
-
-      <View className="flex min-h-[100px] flex-wrap gap-4 flex-row">
-        {options.map((x) => (
-          <AppButton
-            key={x.id}
-            className="h-fit w-fit cursor-pointer rounded border px-4 py-2"
-            onPress={() => handleAdd(x)}
-            title={x.word}
-          />
-        ))}
-      </View>
-
-      <Text style={{ textAlign: "center" }}>
-        {click + 1} / {count}
-      </Text>
-      <Progress.Bar
-        progress={click / count}
-        borderWidth={2}
-        width={null}
-        color="green"
-        className="w-full"
+      <>
+        <Text className="text-3xl">{correct.ta}</Text>
+        <AudioButton uri={correct.audio} />
+        <Text className="flex min-h-[100px] flex-wrap gap-4 flex-row w-full">
+          {chosens.map((x) => (
+            <AppButton
+              key={x.id}
+              onPress={() => handleRemove(x)}
+              title={x.word}
+              style={{ paddingVertical: 8, paddingHorizontal: 16, margin: 8 }}
+            />
+          ))}
+        </Text>
+        <hr />
+        <Text className="w-full">
+          {options.map((x) => (
+            <AppButton
+              key={x.id}
+              onPress={() => handleAdd(x)}
+              title={x.word}
+              style={{
+                paddingVertical: 8,
+                paddingHorizontal: 16,
+                margin: 8,
+              }}
+            />
+          ))}
+        </Text>
+      </>
+      <AppButton
+        // disabled={chosens.length === 0}
+        className="mt-4"
+        onPress={handleCheck}
+        title="Дальше"
       />
-
       <Modal
         animationType="slide"
         transparent
@@ -219,19 +128,19 @@ export default function CollectModule({
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <View className="flex-row items-center">
-              {correct?.id === answer?.id ? (
+            <View>
+              {isTrue ? (
                 <Happy width={90} height={90} />
               ) : (
                 <Sad width={90} height={90} />
               )}
               <View>
-                {correct?.id === answer?.id ? (
+                {isTrue ? (
                   <Text>Верно</Text>
                 ) : (
                   <>
                     <Text style={{ color: "rgb(239, 68, 68)" }}>Неверно</Text>
-                    <Text>Верно: {correct?.ru}</Text>
+                    <Text>Верно: {correct.ru}</Text>
                   </>
                 )}
               </View>
@@ -239,7 +148,7 @@ export default function CollectModule({
 
             <AppButton
               title="Дальше"
-              onPress={handleNext}
+              onPress={closeModal}
               style={{ width: 200 }}
             />
           </View>
