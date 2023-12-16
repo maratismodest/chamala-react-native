@@ -60,14 +60,6 @@ export default function TabLayout() {
           href: null,
         }}
       />
-      <Tabs.Screen
-        name="four"
-        options={{
-          title: "Collect",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          href: null,
-        }}
-      />
     </Tabs>
   );
 }

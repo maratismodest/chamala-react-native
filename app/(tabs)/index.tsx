@@ -1,9 +1,30 @@
 import Welcome from "@assets/svg/welcome.svg";
 import Button from "@components/Button";
 import { Text, View } from "@components/Themed";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { appStyles } from "@styles";
 import { Link } from "expo-router";
-import { StyleSheet } from "react-native";
+import { Alert, StyleSheet } from "react-native";
+
+const storeData = async (value: any) => {
+  try {
+    await AsyncStorage.setItem("my-key", value);
+  } catch (e) {
+    // saving error
+  }
+};
+
+const getData = async () => {
+  try {
+    const value = await AsyncStorage.getItem("my-key");
+    if (value !== null) {
+      // value previously stored
+      Alert.alert(value);
+    }
+  } catch (e) {
+    // error reading value
+  }
+};
 
 export default function TabOneScreen() {
   return (
