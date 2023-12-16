@@ -11,12 +11,12 @@ const buttons = [
     href: "/three",
     isDisabled: false,
   },
-  // {
-  //   id: 2,
-  //   title: "Собери",
-  //   href: "/four",
-  //   isDisabled: true,
-  // },
+  {
+    id: 2,
+    title: "Собери",
+    href: "/four",
+    isDisabled: true,
+  },
 ] as const;
 
 export default function TabTwoScreen() {
@@ -26,7 +26,7 @@ export default function TabTwoScreen() {
       // className="flex-1 justify-center items-center gap-4"
     >
       <Text className="font-bold text-2xl">Выбери игру</Text>
-      <View className="grid grid-cols-1 gap-4">
+      <View className="gap-4">
         {buttons.map(({ id, href, title, isDisabled }) => (
           <Link key={id} href={href as any} asChild>
             <Button title={title} />
