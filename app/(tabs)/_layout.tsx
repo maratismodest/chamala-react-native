@@ -45,7 +45,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="pick"
         options={{
           title: "Pick",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
@@ -53,17 +53,17 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="three"
+        name="word"
         options={{
-          title: "Words",
+          title: "Word",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           href: null,
         }}
       />
       <Tabs.Screen
-        name="four"
+        name="phrase"
         options={{
-          title: "Phrases",
+          title: "Phrase",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           href: null,
         }}

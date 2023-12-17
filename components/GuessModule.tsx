@@ -2,6 +2,7 @@ import Happy from "@assets/svg/happy.svg";
 import Sad from "@assets/svg/sad.svg";
 import AudioButton from "@components/AudioButton";
 import AppButton from "@components/Button";
+import { useIsFocused } from "@react-navigation/native";
 import { appStyles } from "@styles";
 import { IWord } from "@types";
 import { getShuffled } from "@utils/getShuffled";
@@ -57,8 +58,9 @@ const Result = ({ item, index }: Result) => {
 export default function GuessModule({
   collection,
   option,
-  count = 2,
+  count = 6,
 }: GuessModuleProps) {
+  const isFocused = useIsFocused();
   const [visible, setVisible] = useState(false);
   const click = useStore(useCallback((state) => state.count, []));
   const inc = useStore(useCallback((state) => state.incrementClick, []));
@@ -69,6 +71,16 @@ export default function GuessModule({
   const correct = useMemo(() => getShuffled(list)[0], [list]);
   const [answer, setAnswer] = useState<IWord | undefined>(undefined);
   const [result, setResult] = useState<AnswerProps[]>([]);
+
+  useEffect(() => {
+    console.log("called");
+
+    // Call only when screen open or when back on screen
+    if (isFocused) {
+      reset();
+      setResult([]);
+    }
+  }, [isFocused]);
 
   const handleNext = () => {
     setResult((prevState) =>
@@ -146,19 +158,14 @@ export default function GuessModule({
   return (
     <>
       <AudioButton uri={correct.audio} />
-      <Text
-        style={{
-          fontSize: 24,
-          textAlign: "center",
-          textTransform: "uppercase",
-        }}
-      >
+      <Text style={[appStyles.h1, { textTransform: "capitalize" }]}>
         {correct.ta}
       </Text>
       <FlatList
         style={{
           flexGrow: 0,
           marginTop: 16,
+          maxWidth: 300,
         }}
         data={list}
         renderItem={({ item }) => (
@@ -166,12 +173,12 @@ export default function GuessModule({
             key={item.id}
             title={item.ru}
             onPress={() => handleAnswer(item.id)}
-            style={{ width: 240 }}
+            style={{}}
           />
         )}
         contentContainerStyle={{ gap: 16 }}
       />
-      <Text style={{ textAlign: "center" }}>
+      <Text style={appStyles.text}>
         {click + 1} / {count}
       </Text>
       <Progress.Bar
@@ -179,7 +186,7 @@ export default function GuessModule({
         borderWidth={2}
         width={null}
         color="green"
-        className="w-full"
+        style={{ maxWidth: 300, marginHorizontal: "auto", width: "100%" }}
       />
 
       <Modal

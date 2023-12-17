@@ -49,6 +49,8 @@ const appStyles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  h1: { fontSize: 30, lineHeight: 36, maxWidth: 512 },
+  text: { fontSize: 18, lineHeight: 28 },
 });
 
 export { appStyles };

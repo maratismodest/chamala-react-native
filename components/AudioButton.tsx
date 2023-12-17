@@ -1,8 +1,8 @@
 import Play from "@assets/svg/play.svg";
-import { Audio } from "expo-av";
-import { useRef } from "react";
+import { Audio, InterruptionModeIOS } from "expo-av";
 import * as React from "react";
-import { Animated, Button, Pressable, Text } from "react-native";
+import { useRef } from "react";
+import { Animated, Pressable } from "react-native";
 
 export default function AudioButton({ uri }: { uri: string }) {
   const fadeAnim = useRef(new Animated.Value(1)).current;
@@ -27,6 +27,12 @@ export default function AudioButton({ uri }: { uri: string }) {
   const [sound, setSound] = React.useState<any>();
 
   async function playSound() {
+    await Audio.setAudioModeAsync({
+      interruptionModeIOS: InterruptionModeIOS.DuckOthers,
+      playsInSilentModeIOS: true,
+      staysActiveInBackground: false,
+      allowsRecordingIOS: false,
+    });
     console.log("Loading Sound");
     const { sound } = await Audio.Sound.createAsync({
       uri,
@@ -48,7 +54,7 @@ export default function AudioButton({ uri }: { uri: string }) {
 
   return (
     <Pressable
-      className="mb-2"
+      style={{ marginBottom: 8 }}
       onPress={playSound}
       onPressIn={fadeIn}
       onPressOut={fadeOut}

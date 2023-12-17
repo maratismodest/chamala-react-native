@@ -72,7 +72,7 @@ export default function CollectModule() {
 
   return (
     <>
-      <Text className="text-3xl">{correct.ta}</Text>
+      <Text style={appStyles.h1}>{correct.ta}</Text>
       <AudioButton uri={correct.audio} />
       <Text style={{ minHeight: 100 }}>
         {chosens.map((x) => (
