@@ -29,7 +29,7 @@ export default function TabTwoScreen() {
   return (
     <View style={appStyles.container}>
       <Text style={appStyles.h1}>Выбери игру</Text>
-      <View style={{ gap: 16 }}>
+      <View style={{ gap: 16, marginTop: 16 }}>
         {buttons.map(({ id, href, title, isDisabled }) => (
           <Link key={id} href={href} asChild>
             <Button title={title} />

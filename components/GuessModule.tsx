@@ -1,6 +1,6 @@
 import Happy from "@assets/svg/happy.svg";
 import Sad from "@assets/svg/sad.svg";
-import AudioButton from "@components/AudioButton";
+import AudioPlayer from "@components/AudioPlayer";
 import AppButton from "@components/Button";
 import { useIsFocused } from "@react-navigation/native";
 import { appStyles } from "@styles";
@@ -157,7 +157,8 @@ export default function GuessModule({
 
   return (
     <>
-      <AudioButton uri={correct.audio} />
+      <AudioPlayer uri={correct.audio} />
+      {/*<AudioButton uri={encodeURIComponent(correct.audio)} />*/}
       <Text style={[appStyles.h1, { textTransform: "capitalize" }]}>
         {correct.ta}
       </Text>
@@ -166,6 +167,7 @@ export default function GuessModule({
           flexGrow: 0,
           marginTop: 16,
           maxWidth: 300,
+          width: "100%",
         }}
         data={list}
         renderItem={({ item }) => (
