@@ -1,4 +1,4 @@
-  {
+{
   "expo": {
     "name": "chamala",
     "slug": "chamala",
@@ -16,7 +16,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.maratismodest.chamala"
     },
     "android": {
       "adaptiveIcon": {
