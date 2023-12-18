@@ -10,24 +10,24 @@
 //
 // module.exports = config;
 
-const {getDefaultConfig} = require("expo/metro-config");
+const { getDefaultConfig } = require("expo/metro-config");
+const sourceExts = ["jsx", "js", "ts", "tsx", "json", "svg", "d.ts", "mjs"];
 
 module.exports = (() => {
-    const config = getDefaultConfig(__dirname);
+  const config = getDefaultConfig(__dirname);
 
-    const {transformer, resolver} = config;
+  const { transformer, resolver } = config;
 
-    config.transformer = {
-        ...transformer,
-        babelTransformerPath: require.resolve("react-native-svg-transformer")
-    };
-    config.resolver = {
-        ...resolver,
-        assetExts: resolver.assetExts.filter((ext) => ext !== "svg"),
-        sourceExts: [...resolver.sourceExts, "svg"]
-    };
+  config.transformer = {
+    ...transformer,
+    babelTransformerPath: require.resolve("react-native-svg-transformer"),
+  };
+  config.resolver = {
+    assetExts: resolver.assetExts.filter((ext) => ext !== "svg"),
+    sourceExts: [...resolver.sourceExts, "svg", ...sourceExts],
+  };
 
-    config.isCSSEnabled = true
+  config.isCSSEnabled = true;
 
-    return config;
+  return config;
 })();
