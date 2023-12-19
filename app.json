@@ -24,7 +24,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.maratismodest.chamala"
+      "package": "com.maratismodest.chamala",
+      "versionCode": 1
     },
     "web": {
       "bundler": "metro",
