@@ -8,6 +8,7 @@ import { getShuffled } from "@utils/getShuffled";
 import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, Alert, Modal, Text, View } from "react-native";
 
+import i18n from "../i18n";
 import { useStore } from "../store";
 
 interface CollectProps {
@@ -107,7 +108,7 @@ export default function CollectModule() {
         disabled={chosens.length === 0}
         className="mt-4"
         onPress={handleCheck}
-        title="Дальше"
+        title={i18n.t("next")}
       />
       <Modal
         animationType="slide"
@@ -128,18 +129,22 @@ export default function CollectModule() {
               )}
               <View>
                 {isTrue ? (
-                  <Text>Верно</Text>
+                  <Text>{i18n.t("correct")}</Text>
                 ) : (
                   <>
-                    <Text style={{ color: "rgb(239, 68, 68)" }}>Неверно</Text>
-                    <Text>Верно: {correct.ru}</Text>
+                    <Text style={{ color: "rgb(239, 68, 68)" }}>
+                      {i18n.t("wrong")}
+                    </Text>
+                    <Text>
+                      {i18n.t("correct")}: {correct.ru}
+                    </Text>
                   </>
                 )}
               </View>
             </View>
 
             <AppButton
-              title="Дальше"
+              title={i18n.t("next")}
               onPress={closeModal}
               style={{ width: 200 }}
             />

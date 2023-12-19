@@ -7,6 +7,7 @@ import * as WebBrowser from "expo-web-browser";
 import React, { useEffect, useState } from "react";
 import { Image } from "react-native";
 
+import i18n from "../../i18n";
 import {
   deleteAsyncData,
   getAsyncData,
@@ -126,14 +127,18 @@ export default function TabTwoScreen() {
       <View className="mx-auto">
         <Happy width={96} height={96} />
       </View>
-      <Text style={appStyles.h1}>Профиль</Text>
+      <Text style={appStyles.h1}>{i18n.t("profile")}</Text>
       {profile && (
         <View>
-          <Text style={appStyles.text}>верно: {profile.correct}</Text>
-          <Text style={appStyles.text}>неверно: {profile.wrong}</Text>
+          <Text style={appStyles.text}>
+            {i18n.t("correct")}: {profile.correct}
+          </Text>
+          <Text style={appStyles.text}>
+            {i18n.t("wrong")}: {profile.wrong}
+          </Text>
           {profile.correct + profile.wrong > 0 && (
             <Text style={appStyles.text}>
-              точность:{" "}
+              {i18n.t("accuracy")}:{" "}
               {(
                 (Number(profile.correct) /
                   (Number(profile.correct) + Number(profile.wrong))) *
@@ -152,7 +157,7 @@ export default function TabTwoScreen() {
                 ),
               );
             }}
-            title="Сбросить статистику"
+            title={i18n.t("reset")}
           />
         </View>
       )}

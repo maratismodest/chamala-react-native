@@ -1,6 +1,46 @@
 const translations = {
-  en: { welcome: "Learning the Tatar language in the format of mini-games" },
-  ru: { welcome: "Изучение татарского языка в формате мини-игр" },
+  en: {
+    title: "Hello world!",
+    start: "Start",
+    welcomeTitle: "Learning the Tatar language in the format of mini-games",
+    pickGame: "Pick Game",
+    word: "Word",
+    phrase: "Phrase",
+    collect: "Collect",
+    next: "Next",
+    correct: "Correct",
+    wrong: "Wrong",
+    check: "Check",
+    alias: {
+      alias: "Alias",
+      startTitle: "Press Start to start the game!",
+      start: "Start",
+    },
+    profile: "Profile",
+    accuracy: "Accuracy",
+    reset: "Reset",
+  },
+  ru: {
+    title: "Привет мир!",
+    start: "Начать",
+    welcomeTitle: "Изучение татарского языка в формате мини-игр",
+    pickGame: "Выбери игру",
+    word: "Слово",
+    phrase: "Фраза",
+    collect: "Собери",
+    next: "Далее",
+    correct: "Верно",
+    wrong: "Неверно",
+    check: "Проверить",
+    alias: {
+      alias: "Alias",
+      startTitle: "Нажми Старт для начала игры!",
+      start: "Start",
+    },
+    profile: "Профиль",
+    accuracy: "Точность",
+    reset: "Сбросить",
+  },
 } as const;
 
 export default translations;

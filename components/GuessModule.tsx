@@ -10,6 +10,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Alert, FlatList, Modal, Text, View } from "react-native";
 import * as Progress from "react-native-progress";
 
+import i18n from "../i18n";
 import { useStore } from "../store";
 import { getAsyncData, storeAsyncData } from "../store/async-storage";
 
@@ -148,7 +149,7 @@ export default function GuessModule({
             setResult([]);
             reset();
           }}
-          title="Снова"
+          title={i18n.t("next")}
           style={{ width: 200, marginHorizontal: "auto", marginTop: 16 }}
         />
       </>
@@ -158,7 +159,6 @@ export default function GuessModule({
   return (
     <>
       <AudioPlayer uri={correct.audio} />
-      {/*<AudioButton uri={encodeURIComponent(correct.audio)} />*/}
       <Text style={[appStyles.h1, { textTransform: "capitalize" }]}>
         {correct.ta}
       </Text>
@@ -210,18 +210,22 @@ export default function GuessModule({
               )}
               <View>
                 {correct.id === answer?.id ? (
-                  <Text>Верно</Text>
+                  <Text>{i18n.t("correct")}</Text>
                 ) : (
                   <>
-                    <Text style={{ color: "rgb(239, 68, 68)" }}>Неверно</Text>
-                    <Text>Верно: {correct.ru}</Text>
+                    <Text style={{ color: "rgb(239, 68, 68)" }}>
+                      {i18n.t("wrong")}
+                    </Text>
+                    <Text>
+                      {i18n.t("correct")}: {correct.ru}
+                    </Text>
                   </>
                 )}
               </View>
             </View>
 
             <AppButton
-              title="Дальше"
+              title={i18n.t("next")}
               onPress={handleNext}
               style={{ width: 200 }}
             />

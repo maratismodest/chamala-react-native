@@ -14,7 +14,7 @@ export default function TabOneScreen() {
       <Welcome />
       <StatusBar style="auto" />
       <Text style={[appStyles.h1, { textAlign: "center" }]}>
-        {i18n.t("welcome")}
+        {i18n.t("welcomeTitle")}
       </Text>
       <Link href="/pick" asChild>
         <Button title="Начать" />

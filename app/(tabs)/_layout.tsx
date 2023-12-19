@@ -3,6 +3,7 @@ import { Link, Tabs } from "expo-router";
 import { Pressable, useColorScheme } from "react-native";
 
 import Colors from "../../constants/Colors";
+import i18n from "../../i18n";
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -47,7 +48,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="pick"
         options={{
-          title: "Pick",
+          title: i18n.t("pickGame"),
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           href: null,
         }}
@@ -55,7 +56,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="word"
         options={{
-          title: "Word",
+          title: i18n.t("word"),
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           href: null,
         }}
@@ -63,7 +64,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="phrase"
         options={{
-          title: "Phrase",
+          title: i18n.t("phrase"),
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           href: null,
         }}
@@ -79,7 +80,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Profile",
+          title: i18n.t("profile"),
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
