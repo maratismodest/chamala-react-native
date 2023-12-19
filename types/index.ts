@@ -5,3 +5,5 @@ export interface IWord {
   en: string;
   audio: string;
 }
+
+export type Language = "en" | "ru";

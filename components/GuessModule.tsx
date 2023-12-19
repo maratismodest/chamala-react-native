@@ -2,17 +2,16 @@ import Happy from "@assets/svg/happy.svg";
 import Sad from "@assets/svg/sad.svg";
 import AudioPlayer from "@components/AudioPlayer";
 import AppButton from "@components/Button";
+import i18n from "@i18n";
 import { useIsFocused } from "@react-navigation/native";
+import { getAsyncData, storeAsyncData } from "@store/async-storage";
+import { useStore } from "@store/zustand";
 import { appStyles } from "@styles";
 import { IWord } from "@types";
 import { getShuffled } from "@utils/getShuffled";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Alert, FlatList, Modal, Text, View } from "react-native";
 import * as Progress from "react-native-progress";
-
-import i18n from "../i18n";
-import { useStore } from "../store";
-import { getAsyncData, storeAsyncData } from "../store/async-storage";
 
 interface GuessModuleProps {
   collection: IWord[];

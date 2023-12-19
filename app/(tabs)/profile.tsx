@@ -1,18 +1,17 @@
 import Happy from "@assets/svg/happy.svg";
 import Button from "@components/Button";
 import { Text, View } from "@components/Themed";
+import i18n from "@i18n";
 import { useIsFocused } from "@react-navigation/native";
-import { appStyles } from "@styles";
-import * as WebBrowser from "expo-web-browser";
-import React, { useEffect, useState } from "react";
-import { Image } from "react-native";
-
-import i18n from "../../i18n";
 import {
   deleteAsyncData,
   getAsyncData,
   storeAsyncData,
-} from "../../store/async-storage";
+} from "@store/async-storage";
+import { appStyles } from "@styles";
+import * as WebBrowser from "expo-web-browser";
+import React, { useEffect, useState } from "react";
+import { Image } from "react-native";
 
 interface Profile {
   correct: number;
@@ -64,7 +63,7 @@ async function getUserData(accessToken: string) {
   });
 }
 
-export default function TabTwoScreen() {
+export default function ProfilePage() {
   // const [accessToken, setAccessToken] = React.useState<string | undefined>();
   // const [userInfo, setUserInfo] = React.useState<any>();
   // const [message, setMessage] = React.useState();

@@ -1,9 +1,9 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import i18n from "@i18n";
 import { Link, Tabs } from "expo-router";
 import { Pressable, useColorScheme } from "react-native";
 
 import Colors from "../../constants/Colors";
-import i18n from "../../i18n";
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -14,6 +14,39 @@ function TabBarIcon(props: {
 }) {
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
 }
+
+interface TabProps {
+  name: string;
+  title: string;
+  href?: null;
+}
+
+const tabs: TabProps[] = [
+  {
+    name: "pick",
+    title: i18n.t("pickGame"),
+    href: null,
+  },
+  {
+    name: "word",
+    title: i18n.t("word"),
+    href: null,
+  },
+  {
+    name: "phrase",
+    title: i18n.t("word"),
+    href: null,
+  },
+  {
+    name: "collect",
+    title: i18n.t("collect"),
+    href: null,
+  },
+  {
+    name: "profile",
+    title: i18n.t("profile"),
+  },
+];
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -45,45 +78,17 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="pick"
-        options={{
-          title: i18n.t("pickGame"),
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          href: null,
-        }}
-      />
-      <Tabs.Screen
-        name="word"
-        options={{
-          title: i18n.t("word"),
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          href: null,
-        }}
-      />
-      <Tabs.Screen
-        name="phrase"
-        options={{
-          title: i18n.t("phrase"),
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          href: null,
-        }}
-      />
-      <Tabs.Screen
-        name="collect"
-        options={{
-          title: "Collect",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          href: null,
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: i18n.t("profile"),
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      />
+      {tabs.map(({ name, href, title }) => (
+        <Tabs.Screen
+          key={name}
+          name={name}
+          options={{
+            title,
+            tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+            href,
+          }}
+        />
+      ))}
     </Tabs>
   );
 }

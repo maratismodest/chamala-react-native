@@ -1,14 +1,13 @@
 import GuessModule from "@components/GuessModule";
 import { View } from "@components/Themed";
+import { useStore } from "@store/zustand";
 import { appStyles } from "@styles";
 
-import { useStore } from "../../store";
-
-export default function TabTwoThree() {
-  const _words = useStore((state) => state.words);
+export default function WordPage() {
+  const words = useStore((state) => state.words);
   return (
     <View style={appStyles.container}>
-      <GuessModule collection={_words} option="words" />
+      <GuessModule collection={words} option="words" />
     </View>
   );
 }

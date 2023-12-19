@@ -2,14 +2,13 @@ import Happy from "@assets/svg/happy.svg";
 import Sad from "@assets/svg/sad.svg";
 import AudioButton from "@components/AudioButton";
 import AppButton from "@components/Button";
+import i18n from "@i18n";
+import { useStore } from "@store/zustand";
 import { appStyles } from "@styles";
 import { IWord } from "@types";
 import { getShuffled } from "@utils/getShuffled";
 import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, Alert, Modal, Text, View } from "react-native";
-
-import i18n from "../i18n";
-import { useStore } from "../store";
 
 interface CollectProps {
   id: number;
