@@ -13,6 +13,10 @@
     "production": {}
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android" : {
+        "serviceAccountKeyPath": "./chamala-396209-c3ac90321c4a.json"
+      }
+    }
   }
 }
