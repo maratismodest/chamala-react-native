@@ -34,22 +34,21 @@ interface Result {
 const Result = ({ item, index }: Result) => {
   const { answer, correct, origin } = item;
   return (
-    <View className="flex-row gap-2 mx-auto">
-      <Text className={answer === correct ? "text-green-500" : "text-red-500"}>
+    <View style={{ flexDirection: "row", gap: 8, marginHorizontal: "auto" }}>
+      <Text style={{ color: answer === correct ? "green" : "red" }}>
         <>{index + 1}</>
         <>&nbsp;</>
         {answer === correct ? <>&#9745;</> : <>&#9746;</>}
       </Text>
-      <Text className="text-left">{origin}</Text>
-      <View className="flex-row flex-1 justify-end">
-        <Text
-          className="text-red-500"
-          style={{ textDecorationLine: "line-through" }}
-        >
+      <Text style={{ textAlign: "left" }}>{origin}</Text>
+      <View
+        style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end" }}
+      >
+        <Text style={{ textDecorationLine: "line-through", color: "red" }}>
           {answer !== correct && answer}
         </Text>
         <Text>&nbsp;</Text>
-        <Text className="text-green-500">{correct}</Text>
+        <Text style={{ color: "green" }}>{correct}</Text>
       </View>
     </View>
   );
@@ -132,7 +131,7 @@ export default function GuessModule({
   if (result.length >= count) {
     return (
       <>
-        <Happy width={96} height={96} className="mx-auto" />
+        <Happy width={96} height={96} style={{ marginHorizontal: "auto" }} />
         <FlatList
           data={result}
           style={{
@@ -201,7 +200,7 @@ export default function GuessModule({
       >
         <View style={appStyles.centeredView}>
           <View style={appStyles.modalView}>
-            <View className="flex-row items-center">
+            <View style={{ alignItems: "center", flexDirection: "row" }}>
               {correct.id === answer?.id ? (
                 <Happy width={90} height={90} />
               ) : (
