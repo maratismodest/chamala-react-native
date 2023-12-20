@@ -19,7 +19,6 @@ interface Props {
 
 const FancyButton = React.forwardRef((props: Props, ref) => {
   const animated = useRef(new Animated.Value(1)).current;
-  console.log("className");
   const fadeIn = () => {
     Animated.timing(animated, {
       toValue: 0.4,
