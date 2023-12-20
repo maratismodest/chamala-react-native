@@ -123,7 +123,7 @@ export default function ProfilePage() {
       {/*    }*/}
       {/*  />*/}
       {/*)}*/}
-      <View style={{ marginHorizontal: "auto" }}>
+      <View className="mx-auto">
         <Happy width={96} height={96} />
       </View>
       <Text style={appStyles.h1}>{i18n.t("profile")}</Text>
@@ -147,7 +147,7 @@ export default function ProfilePage() {
             </Text>
           )}
           <Button
-            style={{ marginTop: 16 }}
+            className="mt-4"
             // onPress={() => signOut({ callbackUrl: "/" })}
             onPress={() => {
               deleteAsyncData("statistics").then(() =>

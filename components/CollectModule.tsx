@@ -105,7 +105,7 @@ export default function CollectModule() {
       </Text>
       <AppButton
         disabled={chosens.length === 0}
-        style={{ marginTop: 16 }}
+        className="mt-4"
         onPress={handleCheck}
         title={i18n.t("next")}
       />
@@ -120,7 +120,7 @@ export default function CollectModule() {
       >
         <View style={appStyles.centeredView}>
           <View style={appStyles.modalView}>
-            <View style={{ alignItems: "center", flexDirection: "row" }}>
+            <View className="flex-row items-center">
               {isTrue ? (
                 <Happy width={90} height={90} />
               ) : (

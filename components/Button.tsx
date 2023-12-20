@@ -13,11 +13,13 @@ interface Props {
   title: string;
   onPress?: any;
   style?: StyleProp<ViewStyle>;
+  className?: string;
   disabled?: boolean;
 }
 
 const FancyButton = React.forwardRef((props: Props, ref) => {
   const animated = useRef(new Animated.Value(1)).current;
+  console.log("className");
   const fadeIn = () => {
     Animated.timing(animated, {
       toValue: 0.4,
@@ -32,7 +34,14 @@ const FancyButton = React.forwardRef((props: Props, ref) => {
       useNativeDriver: true,
     }).start();
   };
-  const { style, onPress, title, disabled = false, ...otherProps } = props;
+  const {
+    style,
+    onPress,
+    title,
+    className,
+    disabled = false,
+    ...otherProps
+  } = props;
   return (
     <Pressable
       style={[
@@ -43,6 +52,7 @@ const FancyButton = React.forwardRef((props: Props, ref) => {
       onPress={onPress}
       onPressIn={fadeIn}
       onPressOut={fadeOut}
+      className={className}
       disabled={disabled}
       {...otherProps}
     >
