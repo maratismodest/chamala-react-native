@@ -8,7 +8,14 @@ import { appStyles } from "@styles";
 import { IWord } from "@types";
 import { getShuffled } from "@utils/getShuffled";
 import React, { useCallback, useEffect, useState } from "react";
-import { ActivityIndicator, Alert, Modal, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  Modal,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 interface CollectProps {
   id: number;
@@ -74,35 +81,27 @@ export default function CollectModule() {
     <>
       <Text style={appStyles.h1}>{correct.ta}</Text>
       <AudioButton uri={correct.audio} />
-      <Text style={{ minHeight: 100 }}>
+      <View style={styles.buttons}>
         {chosens.map((x) => (
           <AppButton
             key={x.id}
             onPress={() => handleRemove(x)}
             title={x.word}
-            style={{
-              paddingVertical: 8,
-              paddingHorizontal: 16,
-              margin: 4,
-            }}
+            style={styles.button}
           />
         ))}
-      </Text>
+      </View>
       <View style={[appStyles.divider, { backgroundColor: "#eee" }]} />
-      <Text style={{ minHeight: 100 }}>
+      <View style={styles.buttons}>
         {options.map((x) => (
           <AppButton
             key={x.id}
             onPress={() => handleAdd(x)}
             title={x.word}
-            style={{
-              paddingVertical: 8,
-              paddingHorizontal: 16,
-              margin: 4,
-            }}
+            style={styles.button}
           />
         ))}
-      </Text>
+      </View>
       <AppButton
         disabled={chosens.length === 0}
         className="mt-4"
@@ -135,7 +134,7 @@ export default function CollectModule() {
                       {i18n.t("wrong")}
                     </Text>
                     <Text>
-                      {i18n.t("correct")}: {correct.ru}
+                      {i18n.t("correct")}: {correct.ta}
                     </Text>
                   </>
                 )}
@@ -153,3 +152,16 @@ export default function CollectModule() {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  buttons: {
+    minHeight: 100,
+    gap: 8,
+    flexDirection: "row",
+  },
+  button: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    maxHeight: 38,
+  },
+});
