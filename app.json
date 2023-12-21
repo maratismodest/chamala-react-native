@@ -2,7 +2,7 @@
   "expo": {
     "name": "Chamala",
     "slug": "chamala",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -25,7 +25,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.maratismodest.chamala",
-      "versionCode": 2
+      "versionCode": 3
     },
     "web": {
       "bundler": "metro",
