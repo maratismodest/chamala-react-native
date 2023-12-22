@@ -1,15 +1,17 @@
 import Welcome from "@assets/svg/welcome.svg";
 import Button from "@components/Button";
 import { Text, View } from "@components/Themed";
-import i18n from "@i18n";
 import { appStyles } from "@styles";
 import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, {useContext} from "react";
+import {LocaleContext} from "../../providers/LocaleProvider";
 
 export default function MainPage() {
+  const {setLocale,i18n} = useContext(LocaleContext)
   return (
     <View style={appStyles.container}>
+
       <Welcome />
       <StatusBar style="auto" />
       <Text style={[appStyles.h1, { textAlign: "center" }]}>

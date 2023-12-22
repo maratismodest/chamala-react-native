@@ -1,9 +1,10 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import i18n from "@i18n";
-import { Link, Tabs } from "expo-router";
-import { Pressable, useColorScheme } from "react-native";
+import {Link, Tabs} from "expo-router";
+import {useContext} from "react";
+import {Pressable, useColorScheme} from "react-native";
 
 import Colors from "../../constants/Colors";
+import {LocaleContext} from "../../providers/LocaleProvider";
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -21,36 +22,37 @@ interface TabProps {
   href?: null;
 }
 
-const tabs: TabProps[] = [
-  {
-    name: "pick",
-    title: i18n.t("pickGame"),
-    href: null,
-  },
-  {
-    name: "word",
-    title: i18n.t("word"),
-    href: null,
-  },
-  {
-    name: "phrase",
-    title: i18n.t("word"),
-    href: null,
-  },
-  {
-    name: "collect",
-    title: i18n.t("collect"),
-    href: null,
-  },
-  {
-    name: "profile",
-    title: i18n.t("profile"),
-  },
-];
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
+  const {i18n} = useContext(LocaleContext)
+  const tabs: TabProps[] = [
+    {
+      name: "pick",
+      title: i18n.t("pickGame"),
+      href: null,
+    },
+    {
+      name: "word",
+      title: i18n.t("word"),
+      href: null,
+    },
+    {
+      name: "phrase",
+      title: i18n.t("word"),
+      href: null,
+    },
+    {
+      name: "collect",
+      title: i18n.t("collect"),
+      href: null,
+    },
+    {
+      name: "profile",
+      title: i18n.t("profile"),
+    },
+  ];
   return (
     <Tabs
       screenOptions={{

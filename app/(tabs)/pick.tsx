@@ -1,32 +1,35 @@
 import Button from "@components/Button";
 import { Text, View } from "@components/Themed";
-import i18n from "@i18n";
+
 import { appStyles } from "@styles";
 import { Link } from "expo-router";
-import React from "react";
+import React, {useContext} from "react";
+import {LocaleContext} from "../../providers/LocaleProvider";
 
-const buttons = [
-  {
-    id: 1,
-    title: i18n.t("word"),
-    href: "/word",
-    isDisabled: false,
-  },
-  {
-    id: 2,
-    title: i18n.t("phrase"),
-    href: "/phrase",
-    isDisabled: true,
-  },
-  {
-    id: 3,
-    title: i18n.t("collect"),
-    href: "/collect",
-    isDisabled: true,
-  },
-] as const;
+
 
 export default function PickPage() {
+  const {i18n} = useContext(LocaleContext)
+  const buttons = [
+    {
+      id: 1,
+      title: i18n.t("word"),
+      href: "/word",
+      isDisabled: false,
+    },
+    {
+      id: 2,
+      title: i18n.t("phrase"),
+      href: "/phrase",
+      isDisabled: true,
+    },
+    {
+      id: 3,
+      title: i18n.t("collect"),
+      href: "/collect",
+      isDisabled: true,
+    },
+  ] as const;
   return (
     <View style={appStyles.container}>
       <Text style={appStyles.h1}>{i18n.t("pickGame")}</Text>
