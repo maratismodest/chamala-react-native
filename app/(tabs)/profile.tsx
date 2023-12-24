@@ -2,6 +2,7 @@ import Happy from "@assets/svg/happy.svg";
 import Button from "@components/Button";
 import {Text, View} from "@components/Themed";
 import {LocaleContext} from "@providers/LocaleProvider";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useIsFocused} from "@react-navigation/native";
 import {deleteAsyncData, getAsyncData, storeAsyncData,} from "@store/async-storage";
 import {appStyles} from "@styles";
@@ -33,43 +34,51 @@ export default function ProfilePage() {
 
   const isFocused = useIsFocused();
   const [profile, setProfile] = useState<Profile | undefined>();
-  useEffect(() => {
-    console.log("called");
-
-    // Call only when screen open or when back on screen
-    if (isFocused) {
-      getInitialData();
-    }
-  }, [isFocused]);
-
 
   const [accessToken, setAccessToken] = React.useState<string | undefined>();
+  useEffect(() => {
+    if (isFocused) {
+      getAsyncData('token').then((res) => {
+        if (res) {
+          setAccessToken(res)
+          getUserInfo(res)
+        }
+      })
+    }
+  }, [isFocused]);
   const [userInfo, setUserInfo] = React.useState<any>();
-  const [message, setMessage] = React.useState();
   const [request, response, promptAsync] =
     Google.useAuthRequest(authRequestConfig);
 
   React.useEffect(() => {
-    // @ts-ignore
-    setMessage(JSON.stringify(response));
     if (response?.type === "success") {
       // @ts-ignore
       setAccessToken(response.authentication.accessToken);
+      storeAsyncData('token', response?.authentication?.accessToken).then(() => getUserInfo(response?.authentication?.accessToken as string))
     } else {
       setAccessToken(undefined);
     }
   }, [response]);
-
-  const getInitialData = async () => {
-    getAsyncData("statistics").then((res) => {
-      if (!res) {
-        storeAsyncData("statistics", initialProfile).then(() =>
-          setProfile(initialProfile),
-        );
-      } else {
-        setProfile(JSON.parse(res));
-      }
-    });
+  const getUserInfo = async (token: string) => {
+    //absent token
+    if (!token) return;
+    //present token
+    try {
+      const response = await fetch(
+        "https://www.googleapis.com/userinfo/v2/me",
+        {
+          headers: {Authorization: `Bearer ${token}`},
+        }
+      );
+      const user = await response.json();
+      //store user information  in Asyncstorage
+      await AsyncStorage.setItem("user", JSON.stringify(user));
+      setUserInfo(user);
+    } catch (error) {
+      console.error(
+        "Failed to fetch user data:", error
+      );
+    }
   };
 
   const signOut = () => {
@@ -122,18 +131,20 @@ export default function ProfilePage() {
           <Button title='Ru' onPress={() => setLocale('ru')}/>
           <Button title='En' onPress={() => setLocale('en')}/>
         </View>
-        <Text>...</Text>
-        <Button
-          title={accessToken ? i18n.t("login") : i18n.t("logout")}
-          onPress={
-            accessToken
-              ? signOut
-              : () => {
-                // @ts-ignore
-                promptAsync({useProxy: false, showInRecents: true});
-              }
-          }
-        />
+        <View style={{marginTop: 16}}>
+          {userInfo && <Text style={{textAlign: 'center'}}>{userInfo.email}</Text>}
+          <Button
+            title={accessToken ? i18n.t("logout") : i18n.t("login")}
+            onPress={
+              accessToken
+                ? signOut
+                : () => {
+                  // @ts-ignore
+                  promptAsync({useProxy: false, showInRecents: true});
+                }
+            }
+          />
+        </View>
       </View>
 
     </View>

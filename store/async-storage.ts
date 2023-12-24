@@ -8,7 +8,7 @@ const storeAsyncData = async (key: string, value: any) => {
   }
 };
 
-const getAsyncData = async (key: "statistics") => {
+const getAsyncData = async (key: "statistics" | 'token') => {
   console.log("key", key);
   try {
     const value = await AsyncStorage.getItem(key);
