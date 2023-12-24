@@ -2,10 +2,10 @@
   "expo": {
     "name": "Chamala",
     "slug": "chamala",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "chamala",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -17,15 +17,15 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.maratismodest.chamala"
+      "bundleIdentifier": "com.chamala.chamala"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.maratismodest.chamala",
-      "versionCode": 5
+      "package": "com.chamala.chamala",
+      "versionCode": 6
     },
     "web": {
       "bundler": "metro",
