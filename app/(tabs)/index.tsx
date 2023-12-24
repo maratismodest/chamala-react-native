@@ -11,7 +11,6 @@ export default function MainPage() {
   const {setLocale,i18n} = useContext(LocaleContext)
   return (
     <View style={appStyles.container}>
-
       <Welcome />
       <StatusBar style="auto" />
       <Text style={[appStyles.h1, { textAlign: "center" }]}>
