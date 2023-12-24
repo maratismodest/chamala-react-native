@@ -2,11 +2,12 @@ import Happy from "@assets/svg/happy.svg";
 import Sad from "@assets/svg/sad.svg";
 import AudioButton from "@components/AudioButton";
 import AppButton from "@components/Button";
-import {useStore} from "@store/zustand";
-import {appStyles} from "@styles";
-import {IWord} from "@types";
-import {getShuffled} from "@utils/getShuffled";
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import i18n from "@i18n";
+import { useStore } from "@store/zustand";
+import { appStyles } from "@styles";
+import { IWord } from "@types";
+import { getShuffled } from "@utils/getShuffled";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -15,7 +16,6 @@ import {
   Text,
   View,
 } from "react-native";
-import useTransitions from "../hooks/useTransitions";
 
 interface CollectProps {
   id: number;
@@ -23,7 +23,6 @@ interface CollectProps {
 }
 
 export default function CollectModule() {
-  const {i18n} = useTransitions()
   const phrases = useStore((state) => state.phrases);
   const [isTrue, setIsTrue] = useState(false);
   const [correct, setCorrect] = useState<IWord | undefined>(undefined);
@@ -75,13 +74,13 @@ export default function CollectModule() {
   };
 
   if (!correct) {
-    return <ActivityIndicator size="large"/>;
+    return <ActivityIndicator size="large" />;
   }
 
   return (
     <>
       <Text style={appStyles.h1}>{correct.ta}</Text>
-      <AudioButton uri={correct.audio}/>
+      <AudioButton uri={correct.audio} />
       <View style={styles.buttons}>
         {chosens.map((x) => (
           <AppButton
@@ -92,7 +91,7 @@ export default function CollectModule() {
           />
         ))}
       </View>
-      <View style={[appStyles.divider, {backgroundColor: "#eee"}]}/>
+      <View style={[appStyles.divider, { backgroundColor: "#eee" }]} />
       <View style={styles.buttons}>
         {options.map((x) => (
           <AppButton
@@ -122,16 +121,16 @@ export default function CollectModule() {
           <View style={appStyles.modalView}>
             <View className="flex-row items-center">
               {isTrue ? (
-                <Happy width={90} height={90}/>
+                <Happy width={90} height={90} />
               ) : (
-                <Sad width={90} height={90}/>
+                <Sad width={90} height={90} />
               )}
               <View>
                 {isTrue ? (
                   <Text>{i18n.t("correct")}</Text>
                 ) : (
                   <>
-                    <Text style={{color: "rgb(239, 68, 68)"}}>
+                    <Text style={{ color: "rgb(239, 68, 68)" }}>
                       {i18n.t("wrong")}
                     </Text>
                     <Text>
@@ -145,7 +144,7 @@ export default function CollectModule() {
             <AppButton
               title={i18n.t("next")}
               onPress={closeModal}
-              style={{width: 200}}
+              style={{ width: 200 }}
             />
           </View>
         </View>
@@ -159,7 +158,7 @@ const styles = StyleSheet.create({
     minHeight: 100,
     gap: 8,
     flexDirection: "row",
-    flexWrap: 'wrap'
+    flexWrap:'wrap'
   },
   button: {
     paddingVertical: 8,
