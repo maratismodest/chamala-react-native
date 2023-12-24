@@ -55,6 +55,8 @@ export default function ProfilePage() {
     if (response?.type === "success") {
       // @ts-ignore
       setAccessToken(response.authentication.accessToken);
+    } else {
+      setAccessToken(undefined);
     }
   }, [response]);
 
@@ -77,17 +79,6 @@ export default function ProfilePage() {
 
   return (
     <View style={appStyles.container}>
-      {/*<Button*/}
-      {/*  title={accessToken ? "Logout" : "Login"}*/}
-      {/*  onPress={*/}
-      {/*    accessToken*/}
-      {/*      ? signOut*/}
-      {/*      : () => {*/}
-      {/*        // @ts-ignore*/}
-      {/*        promptAsync({useProxy: false, showInRecents: true});*/}
-      {/*      }*/}
-      {/*  }*/}
-      {/*/>*/}
       <View className="mx-auto">
         <Happy width={96} height={96}/>
       </View>
@@ -131,7 +122,18 @@ export default function ProfilePage() {
           <Button title='Ru' onPress={() => setLocale('ru')}/>
           <Button title='En' onPress={() => setLocale('en')}/>
         </View>
-        <Text style={{textAlign: 'center'}}>Поменять язык</Text>
+        <Text>...</Text>
+        <Button
+          title={accessToken ? i18n.t("login") : i18n.t("logout")}
+          onPress={
+            accessToken
+              ? signOut
+              : () => {
+                // @ts-ignore
+                promptAsync({useProxy: false, showInRecents: true});
+              }
+          }
+        />
       </View>
 
     </View>

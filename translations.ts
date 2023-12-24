@@ -19,6 +19,8 @@ const translations = {
     profile: "Profile",
     accuracy: "Accuracy",
     reset: "Reset",
+    login: "Login",
+    logout: "Logout"
   },
   ru: {
     title: "Привет мир!",
@@ -40,6 +42,8 @@ const translations = {
     profile: "Профиль",
     accuracy: "Точность",
     reset: "Сбросить",
+    login: "Войти",
+    logout: "Выйти"
   },
 } as const;
 
