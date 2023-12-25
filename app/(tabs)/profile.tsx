@@ -11,6 +11,7 @@ import React, {useContext, useEffect, useState} from "react";
 
 import {Image} from 'react-native'
 import {env} from "../../data/env";
+import {useIsFocused} from "@react-navigation/native";
 
 interface Profile {
   correct: number;
@@ -40,6 +41,7 @@ const ShowUserInfo = ({userInfo}: any) => {
 }
 
 export default function ProfilePage() {
+  const isFocused = useIsFocused()
   const {setLocale, i18n} = useContext(LocaleContext)
   const [userInfo, setUserInfo] = useState<any>(null);
   const [request, response, promptAsync] =
@@ -76,8 +78,10 @@ export default function ProfilePage() {
   }
 
   useEffect(() => {
-    getInitialData()
-  }, []);
+    if (isFocused) {
+      getInitialData()
+    }
+  }, [isFocused]);
 
   useEffect(() => {
     signIn()
@@ -109,11 +113,11 @@ export default function ProfilePage() {
       <Text style={appStyles.h1}>{i18n.t("profile")}</Text>
       {userInfo && <ShowUserInfo userInfo={userInfo}/>}
       {profile && (
-        <View>
-          <Text style={appStyles.text}>
+        <View style={{maxWidth: 300, width:'100%'}}>
+          <Text style={[appStyles.text, {color: 'green'}]}>
             {i18n.t("correct")}: {profile.correct}
           </Text>
-          <Text style={appStyles.text}>
+          <Text style={[appStyles.text, {color:'red'}]}>
             {i18n.t("wrong")}: {profile.wrong}
           </Text>
           {profile.correct + profile.wrong > 0 && (
@@ -127,22 +131,22 @@ export default function ProfilePage() {
               %
             </Text>
           )}
-          <Button
-            className="mt-4"
-            // onPress={() => signOut({ callbackUrl: "/" })}
-            onPress={() => {
-              deleteAsyncData("statistics").then(() =>
-                storeAsyncData("statistics", initialProfile).then(() =>
-                  setProfile(initialProfile),
-                ),
-              );
-            }}
-            title={i18n.t("reset")}
-          />
+
         </View>
       )}
-
-      <View style={{flexDirection: 'row', justifyContent: 'space-between', gap: 16}}>
+      <Button
+          style={{marginTop:16, width: 'auto'}}
+          // onPress={() => signOut({ callbackUrl: "/" })}
+          onPress={() => {
+            deleteAsyncData("statistics").then(() =>
+                storeAsyncData("statistics", initialProfile).then(() =>
+                    setProfile(initialProfile),
+                ),
+            );
+          }}
+          title={i18n.t("reset")}
+      />
+      <View style={{flexDirection: 'row', justifyContent: 'space-between', gap: 16, marginTop: 16}}>
         <Button title='Ru' onPress={() => changeLanguage('ru')}/>
         <Button title='En' onPress={() => changeLanguage('en')}/>
       </View>
