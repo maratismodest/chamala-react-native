@@ -47,7 +47,6 @@ export default function AudioPlayer({ uri }: { uri: string }) {
 
   return (
     <Pressable
-      style={{ marginBottom: 8 }}
       onPress={playSound}
       onPressIn={fadeIn}
       onPressOut={fadeOut}

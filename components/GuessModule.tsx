@@ -2,7 +2,6 @@ import Happy from "@assets/svg/happy.svg";
 import Sad from "@assets/svg/sad.svg";
 import AudioPlayer from "@components/AudioPlayer";
 import AppButton from "@components/Button";
-import i18n from "@i18n";
 import { useIsFocused } from "@react-navigation/native";
 import { getAsyncData, storeAsyncData } from "@store/async-storage";
 import { useStore } from "@store/zustand";
@@ -12,6 +11,7 @@ import { getShuffled } from "@utils/getShuffled";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Alert, FlatList, Modal, Text, View } from "react-native";
 import * as Progress from "react-native-progress";
+import useTransitions from "../hooks/useTransitions";
 
 interface GuessModuleProps {
   collection: IWord[];
@@ -34,14 +34,14 @@ interface Result {
 const Result = ({ item, index }: Result) => {
   const { answer, correct, origin } = item;
   return (
-    <View className="flex-row gap-2 mx-auto">
+    <View style={{flexDirection:'row', gap: 4, marginHorizontal:'auto', width: '100%'}}>
       <Text className={answer === correct ? "text-green-500" : "text-red-500"}>
         <>{index + 1}</>
         <>&nbsp;</>
         {answer === correct ? <>&#9745;</> : <>&#9746;</>}
       </Text>
       <Text className="text-left">{origin}</Text>
-      <View className="flex-row flex-1 justify-end">
+      <View style={{flexDirection:'row', justifyContent:'flex-end', flex:1}}>
         <Text
           className="text-red-500"
           style={{ textDecorationLine: "line-through" }}
@@ -60,6 +60,7 @@ export default function GuessModule({
   option,
   count = 6,
 }: GuessModuleProps) {
+    const {i18n} = useTransitions()
   const isFocused = useIsFocused();
   const [visible, setVisible] = useState(false);
   const click = useStore(useCallback((state) => state.count, []));
@@ -132,13 +133,14 @@ export default function GuessModule({
   if (result.length >= count) {
     return (
       <>
-        <Happy width={96} height={96} className="mx-auto" />
+        <Happy width={96} height={96} style={{marginHorizontal:'auto'}} />
         <FlatList
           data={result}
           style={{
             flexGrow: 0,
             marginTop: 16,
             width: "100%",
+              maxWidth: 400
           }}
           renderItem={({ item, index }) => <Result item={item} index={index} />}
           contentContainerStyle={{ gap: 8 }}

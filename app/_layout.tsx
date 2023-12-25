@@ -9,6 +9,8 @@ import {SplashScreen, Stack} from "expo-router";
 import {useEffect} from "react";
 import {useColorScheme} from "react-native";
 import LocaleProvider from "../providers/LocaleProvider";
+import useTransitions from "../hooks/useTransitions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export {
   // Catch any errors thrown by the Layout component.

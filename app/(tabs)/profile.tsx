@@ -95,6 +95,12 @@ export default function ProfilePage() {
     }
   }
 
+  const changeLanguage = (locale: 'ru' | 'en') => {
+    AsyncStorage.setItem('locale', locale).then(()=>{
+      setLocale(locale)
+    })
+  }
+
   return (
     <View style={appStyles.container}>
       <View className="mx-auto">
@@ -137,8 +143,8 @@ export default function ProfilePage() {
       )}
 
       <View style={{flexDirection: 'row', justifyContent: 'space-between', gap: 16}}>
-        <Button title='Ru' onPress={() => setLocale('ru')}/>
-        <Button title='En' onPress={() => setLocale('en')}/>
+        <Button title='Ru' onPress={() => changeLanguage('ru')}/>
+        <Button title='En' onPress={() => changeLanguage('en')}/>
       </View>
       <View style={{marginTop: 16}}>
         {!userInfo && <Button

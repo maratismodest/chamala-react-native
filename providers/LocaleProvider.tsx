@@ -1,7 +1,8 @@
 import * as Localization from 'expo-localization';
 import {I18n} from "i18n-js";
-import React, {createContext, Dispatch, ReactNode, SetStateAction, useState} from 'react';
+import React, {createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState} from 'react';
 import translations from "../translations";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type LocaleContextType = {
   locale: string;
@@ -28,6 +29,14 @@ export default function LocaleProvider({children}: AppProviderProps) {
   i18n.locale = locale
   i18n.enableFallback = true
   i18n.defaultLocale = "ru";
+
+  useEffect(() => {
+    AsyncStorage.getItem('locale').then((locale)=>{
+      if (locale) {
+        setLocale(locale)
+      }
+    })
+  }, []);
 
   return (
     <LocaleContext.Provider value={{locale, setLocale, i18n}}>
