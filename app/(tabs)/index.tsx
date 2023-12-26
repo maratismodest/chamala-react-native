@@ -4,11 +4,11 @@ import { Text, View } from "@components/Themed";
 import { appStyles } from "@styles";
 import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import React, {useContext} from "react";
-import {LocaleContext} from "../../providers/LocaleProvider";
+import React, { useContext } from "react";
+import { LocaleContext } from "@providers/LocaleProvider";
 
 export default function MainPage() {
-  const {setLocale,i18n} = useContext(LocaleContext)
+  const { i18n } = useContext(LocaleContext);
   return (
     <View style={appStyles.container}>
       <Welcome />

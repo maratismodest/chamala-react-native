@@ -28,6 +28,9 @@
       ],
       "@providers/*": [
         "providers/*"
+      ],
+      "@pages-lib/*": [
+        "pages-lib/*"
       ]
     }
   },

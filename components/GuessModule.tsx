@@ -2,6 +2,7 @@ import Happy from "@assets/svg/happy.svg";
 import Sad from "@assets/svg/sad.svg";
 import AudioPlayer from "@components/AudioPlayer";
 import AppButton from "@components/Button";
+import { Profile } from "@pages-lib/profile/utils";
 import { useIsFocused } from "@react-navigation/native";
 import { getAsyncData, storeAsyncData } from "@store/async-storage";
 import { useStore } from "@store/zustand";
@@ -34,14 +35,23 @@ interface Result {
 const Result = ({ item, index }: Result) => {
   const { answer, correct, origin } = item;
   return (
-    <View style={{flexDirection:'row', gap: 4, marginHorizontal:'auto', width: '100%'}}>
+    <View
+      style={{
+        flexDirection: "row",
+        gap: 4,
+        marginHorizontal: "auto",
+        width: "100%",
+      }}
+    >
       <Text className={answer === correct ? "text-green-500" : "text-red-500"}>
         <>{index + 1}</>
         <>&nbsp;</>
         {answer === correct ? <>&#9745;</> : <>&#9746;</>}
       </Text>
       <Text className="text-left">{origin}</Text>
-      <View style={{flexDirection:'row', justifyContent:'flex-end', flex:1}}>
+      <View
+        style={{ flexDirection: "row", justifyContent: "flex-end", flex: 1 }}
+      >
         <Text
           className="text-red-500"
           style={{ textDecorationLine: "line-through" }}
@@ -60,7 +70,7 @@ export default function GuessModule({
   option,
   count = 6,
 }: GuessModuleProps) {
-    const {i18n} = useTransitions()
+  const { i18n } = useTransitions();
   const isFocused = useIsFocused();
   const [visible, setVisible] = useState(false);
   const click = useStore(useCallback((state) => state.count, []));
@@ -110,17 +120,25 @@ export default function GuessModule({
   useEffect(() => {
     if (result.length >= count) {
       getAsyncData("statistics").then((previousStat) => {
-        const statistics = {
-          correct: result.filter((x) => x.answer === x.correct).length,
-          wrong: result.filter((x) => x.answer !== x.correct).length,
+        const correct = result.filter((x) => x.answer === x.correct).length;
+        const wrong = result.filter((x) => x.answer !== x.correct).length;
+        const accuracy = correct / (correct + wrong);
+        const statistics: Profile = {
+          correct,
+          wrong,
+          accuracy,
         };
 
         if (previousStat) {
           const _x = JSON.parse(previousStat);
-          const res = {
+          const _correct = statistics.correct + _x.correct;
+          const _wrong = statistics.wrong + _x.wrong;
+          const _accuracy = _correct / (_correct + _wrong);
+          const res: Profile = {
             ...statistics,
-            correct: statistics.correct + _x.correct,
-            wrong: statistics.wrong + _x.wrong,
+            correct: _correct,
+            wrong: _wrong,
+            accuracy: _accuracy,
           };
           storeAsyncData("statistics", res);
         } else {
@@ -133,14 +151,14 @@ export default function GuessModule({
   if (result.length >= count) {
     return (
       <>
-        <Happy width={96} height={96} style={{marginHorizontal:'auto'}} />
+        <Happy width={96} height={96} style={{ marginHorizontal: "auto" }} />
         <FlatList
           data={result}
           style={{
             flexGrow: 0,
             marginTop: 16,
             width: "100%",
-              maxWidth: 400
+            maxWidth: 400,
           }}
           renderItem={({ item, index }) => <Result item={item} index={index} />}
           contentContainerStyle={{ gap: 8 }}
