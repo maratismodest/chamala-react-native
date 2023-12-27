@@ -71,11 +71,10 @@ export default function GuessModule({
 }: GuessModuleProps) {
   const { i18n } = useTransitions();
   const isFocused = useIsFocused();
-  const [visible, setVisible] = useState(false);
   const click = useStore(useCallback((state) => state.count, []));
   const inc = useStore(useCallback((state) => state.incrementClick, []));
   const reset = useStore(useCallback((state) => state.resetCount, []));
-  const { profile, setProfile } = useStore((state) => state);
+  const { profile, setProfile, modal, setModal } = useStore((state) => state);
   const [list, setList] = useState<IWord[]>(() =>
     getShuffled(collection).slice(0, 4),
   );
@@ -91,6 +90,8 @@ export default function GuessModule({
       reset();
       setResult([]);
     }
+
+    return () => setModal(false);
   }, [isFocused]);
 
   const handleNext = () => {
@@ -103,7 +104,7 @@ export default function GuessModule({
       }),
     );
     inc();
-    setVisible(false);
+    setModal(false);
     setAnswer(undefined);
     setList(
       getShuffled(
@@ -114,7 +115,7 @@ export default function GuessModule({
 
   const handleAnswer = (id: number) => {
     setAnswer(list.find((x) => x.id === id));
-    setVisible(true);
+    setModal(true);
   };
 
   useEffect(() => {
@@ -207,10 +208,10 @@ export default function GuessModule({
       <Modal
         animationType="slide"
         transparent
-        visible={visible}
+        visible={modal}
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
-          setVisible(!visible);
+          setModal(!modal);
         }}
       >
         <View style={appStyles.centeredView}>

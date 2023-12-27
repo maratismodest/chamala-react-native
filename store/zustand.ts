@@ -11,6 +11,7 @@ type State = {
   phrases: IWord[];
   language: Language;
   profile: Profile;
+  modal: boolean;
 };
 
 type Actions = {
@@ -19,6 +20,7 @@ type Actions = {
   resetCount: () => void;
   changeLanguage: (language: Language) => void;
   setProfile: (profile: Profile) => void;
+  setModal: (visible: boolean) => void;
 };
 
 export const useStore = create<State & Actions>((set) => ({
@@ -27,9 +29,11 @@ export const useStore = create<State & Actions>((set) => ({
   phrases,
   language: "ru",
   profile: initialProfile,
+  modal: false,
   incrementClick: () => set((state) => ({ count: state.count + 1 })),
   decrementClick: () => set((state) => ({ count: state.count - 1 })),
   resetCount: () => set((state) => ({ count: 0 })),
-  changeLanguage: (language: Language) => set((state) => ({ language })),
-  setProfile: (profile: Profile) => set((state) => ({ profile })),
+  changeLanguage: (language) => set((state) => ({ language })),
+  setProfile: (profile) => set((state) => ({ profile })),
+  setModal: (visible) => set((state) => ({ modal: visible })),
 }));

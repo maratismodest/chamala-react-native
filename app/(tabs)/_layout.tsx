@@ -1,12 +1,9 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link, Tabs } from "expo-router";
-import { useContext, useEffect } from "react";
 import { Pressable, useColorScheme } from "react-native";
 
 import Colors from "../../constants/Colors";
-import { LocaleContext } from "../../providers/LocaleProvider";
-import useTransitions from "../../hooks/useTransitions";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import useTransitions from "@hooks/useTransitions";
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -56,6 +53,7 @@ export default function TabLayout() {
     {
       name: "letters",
       title: i18n.t("letters"),
+      href: null,
     },
   ];
   return (

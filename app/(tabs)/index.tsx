@@ -17,7 +17,7 @@ export default function MainPage() {
         {i18n.t("welcomeTitle")}
       </Text>
       <Link href="/pick" asChild>
-        <Button title={i18n.t("start")} />
+        <Button title={i18n.t("start")} style={{ paddingHorizontal: 64 }} />
       </Link>
     </View>
   );

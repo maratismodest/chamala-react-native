@@ -24,12 +24,13 @@ interface CollectProps {
 }
 
 export default function LettersModule() {
-  const { words, profile, setProfile } = useStore((state) => state);
+  const { words, profile, setProfile, modal, setModal } = useStore(
+    (state) => state,
+  );
   const [isTrue, setIsTrue] = useState(false);
   const [correct, setCorrect] = useState<IWord | undefined>(undefined);
   const [options, setOptions] = useState<CollectProps[]>([]);
   const [chosens, setChosens] = useState<CollectProps[]>([]);
-  const [visible, setVisible] = useState(false);
 
   const getNewWord = useCallback(() => {
     const correct = getShuffled(words)[0];
@@ -41,7 +42,7 @@ export default function LettersModule() {
         id: index,
       })),
     );
-    setVisible(false);
+    setModal(false);
     setIsTrue(false);
     setChosens([]);
   }, [words]);
@@ -68,7 +69,7 @@ export default function LettersModule() {
     const original = correct?.ta.toLowerCase();
     const current = chosens.map((x) => x.word.toLowerCase()).join("");
     setIsTrue(original === current);
-    setVisible(true);
+    setModal(true);
     const isCorrect = original === current;
     const _correct = profile.correct + (isCorrect ? 1 : 0);
     const _wrong = profile.wrong + (!isCorrect ? 1 : 0);
@@ -121,10 +122,10 @@ export default function LettersModule() {
       <Modal
         animationType="slide"
         transparent
-        visible={visible}
+        visible={modal}
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
-          setVisible(!visible);
+          setModal(!modal);
         }}
       >
         <View style={appStyles.centeredView}>
