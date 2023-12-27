@@ -3,9 +3,10 @@ import Sad from "@assets/svg/sad.svg";
 import AudioButton from "@components/AudioButton";
 import AppButton from "@components/Button";
 import i18n from "@i18n";
+import { storeAsyncData } from "@store/async-storage";
 import { useStore } from "@store/zustand";
 import { appStyles } from "@styles";
-import { IWord } from "@types";
+import { IWord, Profile } from "@types";
 import { getShuffled } from "@utils/getShuffled";
 import React, { useCallback, useEffect, useState } from "react";
 import {
@@ -23,7 +24,7 @@ interface CollectProps {
 }
 
 export default function CollectModule() {
-  const phrases = useStore((state) => state.phrases);
+  const { phrases, profile, setProfile } = useStore((state) => state);
   const [isTrue, setIsTrue] = useState(false);
   const [correct, setCorrect] = useState<IWord | undefined>(undefined);
   const [options, setOptions] = useState<CollectProps[]>([]);
@@ -71,6 +72,18 @@ export default function CollectModule() {
     const current = chosens.map((x) => x.word.toLowerCase()).join(" ");
     setIsTrue(original === current);
     setVisible(true);
+    const isCorrect = original === current;
+    const _correct = profile.correct + (isCorrect ? 1 : 0);
+    const _wrong = profile.wrong + (!isCorrect ? 1 : 0);
+    const _accuracy = _correct / (_correct + _wrong);
+    const res: Profile = {
+      ...profile,
+      correct: _correct,
+      wrong: _wrong,
+      accuracy: _accuracy,
+    };
+    setProfile(res);
+    storeAsyncData("statistics", res);
   };
 
   if (!correct) {
@@ -158,7 +171,7 @@ const styles = StyleSheet.create({
     minHeight: 100,
     gap: 8,
     flexDirection: "row",
-    flexWrap:'wrap'
+    flexWrap: "wrap",
   },
   button: {
     paddingVertical: 8,

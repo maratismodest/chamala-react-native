@@ -2,17 +2,16 @@ import Happy from "@assets/svg/happy.svg";
 import Sad from "@assets/svg/sad.svg";
 import AudioPlayer from "@components/AudioPlayer";
 import AppButton from "@components/Button";
-import { Profile } from "@pages-lib/profile/utils";
+import useTransitions from "@hooks/useTransitions";
 import { useIsFocused } from "@react-navigation/native";
-import { getAsyncData, storeAsyncData } from "@store/async-storage";
+import { storeAsyncData } from "@store/async-storage";
 import { useStore } from "@store/zustand";
 import { appStyles } from "@styles";
-import { IWord } from "@types";
+import { IWord, Profile } from "@types";
 import { getShuffled } from "@utils/getShuffled";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Alert, FlatList, Modal, Text, View } from "react-native";
 import * as Progress from "react-native-progress";
-import useTransitions from "../hooks/useTransitions";
 
 interface GuessModuleProps {
   collection: IWord[];
@@ -76,6 +75,7 @@ export default function GuessModule({
   const click = useStore(useCallback((state) => state.count, []));
   const inc = useStore(useCallback((state) => state.incrementClick, []));
   const reset = useStore(useCallback((state) => state.resetCount, []));
+  const { profile, setProfile } = useStore((state) => state);
   const [list, setList] = useState<IWord[]>(() =>
     getShuffled(collection).slice(0, 4),
   );
@@ -119,32 +119,26 @@ export default function GuessModule({
 
   useEffect(() => {
     if (result.length >= count) {
-      getAsyncData("statistics").then((previousStat) => {
-        const correct = result.filter((x) => x.answer === x.correct).length;
-        const wrong = result.filter((x) => x.answer !== x.correct).length;
-        const accuracy = correct / (correct + wrong);
-        const statistics: Profile = {
-          correct,
-          wrong,
-          accuracy,
-        };
+      const correct = result.filter((x) => x.answer === x.correct).length;
+      const wrong = result.filter((x) => x.answer !== x.correct).length;
+      const accuracy = correct / (correct + wrong);
+      const statistics: Profile = {
+        correct,
+        wrong,
+        accuracy,
+      };
 
-        if (previousStat) {
-          const _x = JSON.parse(previousStat);
-          const _correct = statistics.correct + _x.correct;
-          const _wrong = statistics.wrong + _x.wrong;
-          const _accuracy = _correct / (_correct + _wrong);
-          const res: Profile = {
-            ...statistics,
-            correct: _correct,
-            wrong: _wrong,
-            accuracy: _accuracy,
-          };
-          storeAsyncData("statistics", res);
-        } else {
-          storeAsyncData("statistics", statistics);
-        }
-      });
+      const _correct = statistics.correct + profile.correct;
+      const _wrong = statistics.wrong + profile.wrong;
+      const _accuracy = _correct / (_correct + _wrong);
+      const res: Profile = {
+        ...statistics,
+        correct: _correct,
+        wrong: _wrong,
+        accuracy: _accuracy,
+      };
+      setProfile(res);
+      storeAsyncData("statistics", res);
     }
   }, [result.length, count]);
 

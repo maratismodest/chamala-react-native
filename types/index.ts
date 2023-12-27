@@ -7,3 +7,9 @@ export interface IWord {
 }
 
 export type Language = "en" | "ru";
+
+export interface Profile {
+  correct: number;
+  wrong: number;
+  accuracy: number;
+}

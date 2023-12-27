@@ -1,8 +1,4 @@
-interface Profile {
-  correct: number;
-  wrong: number;
-  accuracy: number;
-}
+import {Profile} from "@types";
 
 const initialProfile: Profile = {
   correct: 0,
@@ -11,4 +7,3 @@ const initialProfile: Profile = {
 };
 
 export { initialProfile };
-export type { Profile };

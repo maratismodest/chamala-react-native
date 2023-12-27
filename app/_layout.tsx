@@ -1,16 +1,19 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import {useFonts} from "expo-font";
-import {SplashScreen, Stack} from "expo-router";
-import {useEffect} from "react";
-import {useColorScheme} from "react-native";
-import LocaleProvider from "../providers/LocaleProvider";
+import { getAsyncData, storeAsyncData } from "@store/async-storage";
+import { useStore } from "@store/zustand";
+import { useFonts } from "expo-font";
+import { SplashScreen, Stack } from "expo-router";
+import { useEffect } from "react";
+import { useColorScheme } from "react-native";
+
 import useTransitions from "../hooks/useTransitions";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import LocaleProvider from "../providers/LocaleProvider";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -46,18 +49,33 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav/>;
+  return <RootLayoutNav />;
 }
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+  const { profile, setProfile } = useStore((state) => state);
+  const getInitialData = async () => {
+    getAsyncData("statistics").then(async (res) => {
+      if (!res) {
+        await storeAsyncData("statistics", profile);
+      } else {
+        setProfile(JSON.parse(res));
+      }
+    });
+  };
+
+  useEffect(() => {
+    getInitialData();
+    console.log("render", profile);
+  }, []);
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <LocaleProvider>
         <Stack>
-          <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
-          <Stack.Screen name="modal" options={{presentation: "modal"}}/>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: "modal" }} />
         </Stack>
       </LocaleProvider>
     </ThemeProvider>
