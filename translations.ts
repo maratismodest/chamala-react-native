@@ -20,7 +20,8 @@ const translations = {
     accuracy: "Accuracy",
     reset: "Reset",
     login: "Login",
-    logout: "Logout"
+    logout: "Logout",
+    letters: "Letters",
   },
   ru: {
     title: "Привет мир!",
@@ -43,7 +44,8 @@ const translations = {
     accuracy: "Точность",
     reset: "Сбросить",
     login: "Войти",
-    logout: "Выйти"
+    logout: "Выйти",
+    letters: "Буквы",
   },
 } as const;
 

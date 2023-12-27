@@ -1,10 +1,10 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import {Link, Tabs} from "expo-router";
-import {useContext, useEffect} from "react";
-import {Pressable, useColorScheme} from "react-native";
+import { Link, Tabs } from "expo-router";
+import { useContext, useEffect } from "react";
+import { Pressable, useColorScheme } from "react-native";
 
 import Colors from "../../constants/Colors";
-import {LocaleContext} from "../../providers/LocaleProvider";
+import { LocaleContext } from "../../providers/LocaleProvider";
 import useTransitions from "../../hooks/useTransitions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -24,11 +24,9 @@ interface TabProps {
   href?: null;
 }
 
-
-
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const {i18n} = useTransitions()
+  const { i18n } = useTransitions();
 
   const tabs: TabProps[] = [
     {
@@ -54,6 +52,10 @@ export default function TabLayout() {
     {
       name: "profile",
       title: i18n.t("profile"),
+    },
+    {
+      name: "letters",
+      title: i18n.t("letters"),
     },
   ];
   return (

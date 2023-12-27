@@ -3,13 +3,11 @@ import { Text, View } from "@components/Themed";
 
 import { appStyles } from "@styles";
 import { Link } from "expo-router";
-import React, {useContext} from "react";
-import {LocaleContext} from "../../providers/LocaleProvider";
-
-
+import React, { useContext } from "react";
+import { LocaleContext } from "@providers/LocaleProvider";
 
 export default function PickPage() {
-  const {i18n} = useContext(LocaleContext)
+  const { i18n } = useContext(LocaleContext);
   const buttons = [
     {
       id: 1,
@@ -27,6 +25,12 @@ export default function PickPage() {
       id: 3,
       title: i18n.t("collect"),
       href: "/collect",
+      isDisabled: true,
+    },
+    {
+      id: 4,
+      title: i18n.t("letters"),
+      href: "/letters",
       isDisabled: true,
     },
   ] as const;
