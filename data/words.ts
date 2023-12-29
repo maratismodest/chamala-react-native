@@ -55,7 +55,7 @@ export const words: IWord[] = [
     ru: "дом",
     ta: "Өй",
     en: "house",
-    audio: "https://chamala.tatar/uploads/Өй.mp3",
+    audio: "https://chamala.tatar/uploads/өй.mp3",
   },
   {
     id: 340,
@@ -125,7 +125,7 @@ export const words: IWord[] = [
     ru: "центр",
     ta: "Үзәк",
     en: "centre",
-    audio: "https://chamala.tatar/uploads/Үзәк.mp3",
+    audio: "https://chamala.tatar/uploads/үзәк.mp3",
   },
   {
     id: 35,
@@ -202,7 +202,7 @@ export const words: IWord[] = [
     ru: "область",
     ta: "Өлкә",
     en: "area",
-    audio: "https://chamala.tatar/uploads/Өлкә.mp3",
+    audio: "https://chamala.tatar/uploads/өлкә.mp3",
   },
   {
     id: 64,
@@ -258,7 +258,7 @@ export const words: IWord[] = [
     ru: "руководитель",
     ta: "Җитәкче",
     en: "Director",
-    audio: "https://chamala.tatar/uploads/Җитәкче.mp3",
+    audio: "https://chamala.tatar/uploads/җитәкче.mp3",
   },
   {
     id: 371,
@@ -293,7 +293,7 @@ export const words: IWord[] = [
     ru: "произведение",
     ta: "Әсәр",
     en: "composition",
-    audio: "https://chamala.tatar/uploads/Әсәр.mp3",
+    audio: "https://chamala.tatar/uploads/әсәр.mp3",
   },
   {
     id: 68,
@@ -377,7 +377,7 @@ export const words: IWord[] = [
     ru: "рост, прирост",
     ta: "Үсеш",
     en: "growth",
-    audio: "https://chamala.tatar/uploads/Үсеш.mp3",
+    audio: "https://chamala.tatar/uploads/үсеш.mp3",
   },
   {
     id: 78,
@@ -727,7 +727,7 @@ export const words: IWord[] = [
     ru: "можно?",
     ta: "мөмкинме?",
     en: "may I?",
-    audio: "https://chamala.tatar/uploads/мөмкинме?.mp3",
+    audio: "https://chamala.tatar/uploads/мөмкинме.mp3",
   },
   {
     id: 366,
@@ -1840,7 +1840,7 @@ export const words: IWord[] = [
     ru: "часть, доля, порция",
     ta: "Өлеш",
     en: "part",
-    audio: "https://chamala.tatar/uploads/Өлеш.mp3",
+    audio: "https://chamala.tatar/uploads/өлеш.mp3",
   },
   {
     id: 95,
@@ -1917,7 +1917,7 @@ export const words: IWord[] = [
     ru: "земля",
     ta: "Җир",
     en: "Earth",
-    audio: "https://chamala.tatar/uploads/Җир.mp3",
+    audio: "https://chamala.tatar/uploads/җир.mp3",
   },
   {
     id: 173,
