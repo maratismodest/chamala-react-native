@@ -1,14 +1,14 @@
-import Happy from "@assets/svg/happy.svg";
-import Sad from "@assets/svg/sad.svg";
-import AudioButton from "@components/AudioButton";
-import AppButton from "@components/Button";
-import i18n from "@i18n";
-import { storeAsyncData } from "@store/async-storage";
-import { useStore } from "@store/zustand";
-import { appStyles } from "@styles";
-import { IWord, Profile } from "@types";
-import { getShuffled } from "@utils/getShuffled";
-import React, { useCallback, useEffect, useState } from "react";
+import Happy from '@assets/svg/happy.svg';
+import Sad from '@assets/svg/sad.svg';
+import AudioButton from '@components/AudioButton';
+import AppButton from '@components/Button';
+import i18n from '@i18n';
+import { storeAsyncData } from '@store/async-storage';
+import { useStore } from '@store/zustand';
+import { appStyles } from '@styles';
+import { IWord, Profile } from '@types';
+import { getShuffled } from '@utils/getShuffled';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -16,7 +16,7 @@ import {
   StyleSheet,
   Text,
   View,
-} from "react-native";
+} from 'react-native';
 
 interface CollectProps {
   id: number;
@@ -36,8 +36,8 @@ export default function CollectModule() {
     const correct = getShuffled(phrases)[0];
     const fake = getShuffled(phrases)[1];
     setCorrect(correct);
-    const realOptions = correct.ta.toLowerCase().split(" ");
-    const fakeOptions = fake.ta.toLowerCase().split(" ");
+    const realOptions = correct.ta.toLowerCase().split(' ');
+    const fakeOptions = fake.ta.toLowerCase().split(' ');
 
     setOptions(
       getShuffled([...realOptions, ...fakeOptions]).map((x, index) => ({
@@ -70,7 +70,7 @@ export default function CollectModule() {
 
   const handleCheck = () => {
     const original = correct?.ta.toLowerCase();
-    const current = chosens.map((x) => x.word.toLowerCase()).join(" ");
+    const current = chosens.map((x) => x.word.toLowerCase()).join(' ');
     setIsTrue(original === current);
     setModal(true);
     const isCorrect = original === current;
@@ -84,16 +84,17 @@ export default function CollectModule() {
       accuracy: _accuracy,
     };
     setProfile(res);
-    storeAsyncData("statistics", res);
+    storeAsyncData('statistics', res);
+    setChosens([]);
   };
 
   if (!correct) {
-    return <ActivityIndicator size="large" />;
+    return <ActivityIndicator size='large' />;
   }
 
   return (
     <>
-      <Text style={appStyles.h1}>{correct.ta}</Text>
+      {/*<Text style={appStyles.h1}>Воспроизвести</Text>*/}
       <AudioButton uri={correct.audio} />
       <View style={styles.buttons}>
         {chosens.map((x) => (
@@ -105,7 +106,7 @@ export default function CollectModule() {
           />
         ))}
       </View>
-      <View style={[appStyles.divider, { backgroundColor: "#eee" }]} />
+      <View style={[appStyles.divider, { backgroundColor: '#eee' }]} />
       <View style={styles.buttons}>
         {options.map((x) => (
           <AppButton
@@ -118,22 +119,23 @@ export default function CollectModule() {
       </View>
       <AppButton
         disabled={chosens.length === 0}
-        className="mt-4"
+        className='mt-4'
         onPress={handleCheck}
-        title={i18n.t("next")}
+        title={i18n.t('check')}
+        opacity={modal}
       />
       <Modal
-        animationType="slide"
+        animationType='slide'
         transparent
         visible={modal}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
+          Alert.alert('Modal has been closed.');
           setModal(!modal);
         }}
       >
         <View style={appStyles.centeredView}>
           <View style={appStyles.modalView}>
-            <View className="flex-row items-center">
+            <View className='flex-row items-center'>
               {isTrue ? (
                 <Happy width={90} height={90} />
               ) : (
@@ -141,14 +143,14 @@ export default function CollectModule() {
               )}
               <View>
                 {isTrue ? (
-                  <Text>{i18n.t("correct")}</Text>
+                  <Text>{i18n.t('correct')}</Text>
                 ) : (
                   <>
-                    <Text style={{ color: "rgb(239, 68, 68)" }}>
-                      {i18n.t("wrong")}
+                    <Text style={{ color: 'rgb(239, 68, 68)' }}>
+                      {i18n.t('wrong')}
                     </Text>
                     <Text>
-                      {i18n.t("correct")}: {correct.ta}
+                      {i18n.t('correct')}: {correct.ta}
                     </Text>
                   </>
                 )}
@@ -156,7 +158,7 @@ export default function CollectModule() {
             </View>
 
             <AppButton
-              title={i18n.t("next")}
+              title={i18n.t('next')}
               onPress={closeModal}
               style={{ width: 200 }}
             />
@@ -171,8 +173,8 @@ const styles = StyleSheet.create({
   buttons: {
     minHeight: 100,
     gap: 8,
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   button: {
     paddingVertical: 8,
