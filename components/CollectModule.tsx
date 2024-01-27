@@ -1,6 +1,6 @@
 import Happy from '@assets/svg/happy.svg';
 import Sad from '@assets/svg/sad.svg';
-import AudioButton from '@components/AudioButton';
+import AudioPlayer from '@components/AudioPlayer';
 import AppButton from '@components/Button';
 import i18n from '@i18n';
 import { storeAsyncData } from '@store/async-storage';
@@ -95,7 +95,7 @@ export default function CollectModule() {
   return (
     <>
       {/*<Text style={appStyles.h1}>Воспроизвести</Text>*/}
-      <AudioButton uri={correct.audio} />
+      <AudioPlayer uri={correct.audio} />
       <View style={styles.buttons}>
         {chosens.map((x) => (
           <AppButton

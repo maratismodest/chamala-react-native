@@ -23,6 +23,11 @@
     "production": {
       "android" : {
         "serviceAccountKeyPath": "./chamala-396209-c3ac90321c4a.json"
+      },
+      "ios": {
+        "appleId": "maratismodest@gmail.com",
+        "ascAppId": "6476805352",
+        "appleTeamId": "T3MS8GM9TK"
       }
     }
   }

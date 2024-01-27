@@ -1,6 +1,6 @@
 import Happy from '@assets/svg/happy.svg';
 import Sad from '@assets/svg/sad.svg';
-import AudioButton from '@components/AudioButton';
+import AudioPlayer from '@components/AudioPlayer';
 import AppButton from '@components/Button';
 import { CollectProps, initialState, State } from './utils';
 import i18n from '@i18n';
@@ -90,7 +90,7 @@ export default function LettersModule({ words }: Props) {
   return (
     <>
       {/*<Text style={appStyles.h1}>Воспроизвести</Text>*/}
-      <AudioButton uri={correct.audio} />
+      <AudioPlayer uri={correct.audio} />
       <View style={styles.buttons}>
         {chosens.map((x) => (
           <AppButton
