@@ -17,7 +17,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.chamala.chamala"
+      "bundleIdentifier": "com.chamala.chamala",
+      "buildNumber": "13"
     },
     "android": {
       "adaptiveIcon": {
