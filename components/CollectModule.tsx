@@ -13,10 +13,10 @@ import {
   ActivityIndicator,
   Alert,
   Modal,
-  StyleSheet,
   Text,
   View,
 } from 'react-native';
+import { collectStyles } from '../styles/collect';
 
 interface CollectProps {
   id: number;
@@ -85,7 +85,6 @@ export default function CollectModule() {
     };
     setProfile(res);
     storeAsyncData('statistics', res);
-    setChosens([]);
   };
 
   if (!correct) {
@@ -96,24 +95,24 @@ export default function CollectModule() {
     <>
       {/*<Text style={appStyles.h1}>Воспроизвести</Text>*/}
       <AudioPlayer uri={correct.audio} />
-      <View style={styles.buttons}>
+      <View style={collectStyles.buttons}>
         {chosens.map((x) => (
           <AppButton
             key={x.id}
             onPress={() => handleRemove(x)}
             title={x.word}
-            style={styles.button}
+            style={collectStyles.button}
           />
         ))}
       </View>
       <View style={[appStyles.divider, { backgroundColor: '#eee' }]} />
-      <View style={styles.buttons}>
+      <View style={collectStyles.buttons}>
         {options.map((x) => (
           <AppButton
             key={x.id}
             onPress={() => handleAdd(x)}
             title={x.word}
-            style={styles.button}
+            style={collectStyles.button}
           />
         ))}
       </View>
@@ -168,17 +167,3 @@ export default function CollectModule() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  buttons: {
-    minHeight: 100,
-    gap: 8,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  button: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    maxHeight: 38,
-  },
-});

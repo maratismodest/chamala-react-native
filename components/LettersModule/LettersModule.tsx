@@ -2,7 +2,6 @@ import Happy from '@assets/svg/happy.svg';
 import Sad from '@assets/svg/sad.svg';
 import AudioPlayer from '@components/AudioPlayer';
 import AppButton from '@components/Button';
-import { CollectProps, initialState, State } from './utils';
 import i18n from '@i18n';
 import { storeAsyncData } from '@store/async-storage';
 import { useStore } from '@store/zustand';
@@ -10,14 +9,9 @@ import { appStyles } from '@styles';
 import { IWord, Profile } from '@types';
 import { getShuffled } from '@utils/getShuffled';
 import React, { useCallback, useEffect, useState } from 'react';
-import {
-  ActivityIndicator,
-  Alert,
-  Modal,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { ActivityIndicator, Alert, Modal, Text, View } from 'react-native';
+import { collectStyles } from '../../styles/collect';
+import { CollectProps, initialState, State } from './utils';
 
 
 interface Props {
@@ -91,24 +85,24 @@ export default function LettersModule({ words }: Props) {
     <>
       {/*<Text style={appStyles.h1}>Воспроизвести</Text>*/}
       <AudioPlayer uri={correct.audio} />
-      <View style={styles.buttons}>
+      <View style={collectStyles.buttons}>
         {chosens.map((x) => (
           <AppButton
             key={x.id}
             onPress={() => handleRemove(x)}
             title={x.word}
-            style={styles.button}
+            style={collectStyles.button}
           />
         ))}
       </View>
       <View style={[appStyles.divider, { backgroundColor: '#eee' }]} />
-      <View style={styles.buttons}>
+      <View style={collectStyles.buttons}>
         {options.map((x) => (
           <AppButton
             key={x.id}
             onPress={() => handleAdd(x)}
             title={x.word}
-            style={styles.button}
+            style={collectStyles.button}
           />
         ))}
       </View>
@@ -163,17 +157,3 @@ export default function LettersModule({ words }: Props) {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  buttons: {
-    minHeight: 100,
-    gap: 8,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  button: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    maxHeight: 38,
-  },
-});
