@@ -2,7 +2,7 @@
   "expo": {
     "name": "Chamala",
     "slug": "chamala",
-    "version": "1.1.6",
+    "version": "1.1.5",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "chamala",
@@ -18,7 +18,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.chamala.chamala",
-      "buildNumber": "16"
+      "buildNumber": "15"
     },
     "android": {
       "adaptiveIcon": {
@@ -26,7 +26,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.chamala.chamala",
-      "versionCode": 16
+      "versionCode": 15
     },
     "web": {
       "bundler": "metro",
