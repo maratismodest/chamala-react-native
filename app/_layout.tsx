@@ -1,5 +1,6 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Updates from 'expo-updates';
+
 import {
   DarkTheme,
   DefaultTheme,
@@ -11,8 +12,6 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
-
-import useTransitions from "../hooks/useTransitions";
 import LocaleProvider from "../providers/LocaleProvider";
 
 export {
@@ -29,6 +28,23 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  async function onFetchUpdateAsync() {
+    try {
+      const update = await Updates.checkForUpdateAsync();
+
+      if (update.isAvailable) {
+        await Updates.fetchUpdateAsync();
+        await Updates.reloadAsync();
+      }
+    } catch (error) {
+      // You can also add an alert() to see the error message in case of an error when fetching updates.
+      alert(`Error fetching latest Expo update: ${error}`);
+    }
+  }
+  useEffect(() => {
+    onFetchUpdateAsync();
+  }, []);
+
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
