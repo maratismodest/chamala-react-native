@@ -2,6 +2,7 @@ import Happy from "@assets/svg/happy.svg";
 import Sad from "@assets/svg/sad.svg";
 import AudioPlayer from "@components/AudioPlayer";
 import AppButton from "@components/Button";
+import { Text, View } from "@components/Themed";
 import useTransitions from "@hooks/useTransitions";
 import { useIsFocused } from "@react-navigation/native";
 import { storeAsyncData } from "@store/async-storage";
@@ -10,7 +11,7 @@ import { appStyles } from "@styles";
 import { IWord, Profile } from "@types";
 import { getShuffled } from "@utils/getShuffled";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Alert, FlatList, Modal, Text, View } from "react-native";
+import { Alert, FlatList, Modal } from "react-native";
 import * as Progress from "react-native-progress";
 
 interface GuessModuleProps {
