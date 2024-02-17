@@ -1,6 +1,4 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import * as Updates from 'expo-updates';
-
 import {
   DarkTheme,
   DefaultTheme,
@@ -10,8 +8,10 @@ import { getAsyncData, storeAsyncData } from "@store/async-storage";
 import { useStore } from "@store/zustand";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
+import * as Updates from "expo-updates";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
+
 import LocaleProvider from "../providers/LocaleProvider";
 
 export {
@@ -42,7 +42,7 @@ export default function RootLayout() {
     }
   }
   useEffect(() => {
-    onFetchUpdateAsync();
+    // onFetchUpdateAsync();
   }, []);
 
   const [loaded, error] = useFonts({
