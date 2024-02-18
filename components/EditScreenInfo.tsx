@@ -1,10 +1,15 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 
 import { ExternalLink } from "./ExternalLink";
 import { MonoText } from "./StyledText";
 import { Text, View } from "./Themed";
 import Colors from "../constants/Colors";
+
+const data = [
+  "16.02.2024: Исправлено поведение темной темы",
+  "18.02.2024: Ограничение ширины окна в играх Собери",
+];
 
 export default function EditScreenInfo({ path }: { path: string }) {
   return (
@@ -25,7 +30,6 @@ export default function EditScreenInfo({ path }: { path: string }) {
         >
           <MonoText>18.02.2024</MonoText>
         </View>
-
         <Text
           style={styles.getStartedText}
           lightColor="rgba(0,0,0,0.8)"
@@ -33,6 +37,10 @@ export default function EditScreenInfo({ path }: { path: string }) {
         >
           Приложение находится в режиме разработки
         </Text>
+        <FlatList
+          data={data}
+          renderItem={({ item, index }) => <Text key={index}>{item}</Text>}
+        />
       </View>
 
       <View style={styles.helpContainer}>
