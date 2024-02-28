@@ -1,18 +1,18 @@
-import Happy from '@assets/svg/happy.svg';
-import Sad from '@assets/svg/sad.svg';
-import AudioPlayer from '@components/AudioPlayer';
-import AppButton from '@components/Button';
-import i18n from '@i18n';
-import { storeAsyncData } from '@store/async-storage';
-import { useStore } from '@store/zustand';
-import { appStyles } from '@styles';
-import { IWord, Profile } from '@types';
-import { getShuffled } from '@utils/getShuffled';
-import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Modal, Text, View } from 'react-native';
-import { collectStyles } from '../../styles/collect';
-import { CollectProps, initialState, State } from './utils';
+import Happy from "@assets/svg/happy.svg";
+import Sad from "@assets/svg/sad.svg";
+import AudioPlayer from "@components/AudioPlayer";
+import AppButton from "@components/Button";
+import i18n from "@i18n";
+// import { storeAsyncData } from "@store/async-storage";
+import { useStore } from "@store/zustand";
+import { appStyles } from "@styles";
+import { IWord, Profile } from "@types";
+import { getShuffled } from "@utils/getShuffled";
+import React, { useCallback, useEffect, useState } from "react";
+import { ActivityIndicator, Alert, Modal, Text, View } from "react-native";
 
+import { CollectProps, initialState, State } from "./utils";
+import { collectStyles } from "../../styles/collect";
 
 interface Props {
   words: IWord[];
@@ -21,12 +21,13 @@ interface Props {
 export default function LettersModule({ words }: Props) {
   const { profile, setProfile, modal, setModal } = useStore((state) => state);
 
-  const [{ isTrue, correct, chosens, options }, setState] = useState<State>(initialState);
+  const [{ isTrue, correct, chosens, options }, setState] =
+    useState<State>(initialState);
 
   const getNewWord = useCallback(() => {
     setModal(false);
     const correct = getShuffled(words)[0];
-    const realOptions = correct.ta.toLowerCase().split('');
+    const realOptions = correct.ta.toLowerCase().split("");
     const options = getShuffled(realOptions).map((x, index) => ({
       word: x,
       id: index,
@@ -43,7 +44,7 @@ export default function LettersModule({ words }: Props) {
   };
 
   const handleAdd = (x: CollectProps) => {
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       chosens: [...prev.chosens, x],
       options: prev.options.filter((item) => item.id !== x.id),
@@ -51,7 +52,7 @@ export default function LettersModule({ words }: Props) {
   };
 
   const handleRemove = (x: CollectProps) => {
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       chosens: prev.chosens.filter((item) => item.id !== x.id),
       options: [...prev.options, x],
@@ -60,7 +61,7 @@ export default function LettersModule({ words }: Props) {
 
   const handleCheck = () => {
     const original = correct?.ta.toLowerCase();
-    const current = chosens.map((x) => x.word.toLowerCase()).join('');
+    const current = chosens.map((x) => x.word.toLowerCase()).join("");
     const isCorrect = original === current;
     const _correct = profile.correct + (isCorrect ? 1 : 0);
     const _wrong = profile.wrong + (!isCorrect ? 1 : 0);
@@ -71,14 +72,14 @@ export default function LettersModule({ words }: Props) {
       wrong: _wrong,
       accuracy: _accuracy,
     };
-    setState(prev => ({ ...prev, isTrue: original === current }));
+    setState((prev) => ({ ...prev, isTrue: original === current }));
     setModal(true);
     setProfile(res);
-    storeAsyncData('statistics', res);
+    // storeAsyncData('statistics', res);
   };
 
   if (!correct) {
-    return <ActivityIndicator size='large' />;
+    return <ActivityIndicator size="large" />;
   }
 
   return (
@@ -95,7 +96,7 @@ export default function LettersModule({ words }: Props) {
           />
         ))}
       </View>
-      <View style={[appStyles.divider, { backgroundColor: '#eee' }]} />
+      <View style={[appStyles.divider, { backgroundColor: "#eee" }]} />
       <View style={collectStyles.buttons}>
         {options.map((x) => (
           <AppButton
@@ -108,23 +109,23 @@ export default function LettersModule({ words }: Props) {
       </View>
       <AppButton
         disabled={chosens.length < correct.ta.length}
-        className='mt-4'
+        className="mt-4"
         onPress={handleCheck}
-        title={i18n.t('check')}
+        title={i18n.t("check")}
         opacity={modal}
       />
       <Modal
-        animationType='slide'
+        animationType="slide"
         transparent
         visible={modal}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
+          Alert.alert("Modal has been closed.");
           setModal(!modal);
         }}
       >
         <View style={appStyles.centeredView}>
           <View style={appStyles.modalView}>
-            <View className='flex-row items-center'>
+            <View className="flex-row items-center">
               {isTrue ? (
                 <Happy width={90} height={90} />
               ) : (
@@ -132,14 +133,14 @@ export default function LettersModule({ words }: Props) {
               )}
               <View>
                 {isTrue ? (
-                  <Text>{i18n.t('correct')}</Text>
+                  <Text>{i18n.t("correct")}</Text>
                 ) : (
                   <>
-                    <Text style={{ color: 'rgb(239, 68, 68)' }}>
-                      {i18n.t('wrong')}
+                    <Text style={{ color: "rgb(239, 68, 68)" }}>
+                      {i18n.t("wrong")}
                     </Text>
                     <Text>
-                      {i18n.t('correct')}: {correct.ta}
+                      {i18n.t("correct")}: {correct.ta}
                     </Text>
                   </>
                 )}
@@ -147,7 +148,7 @@ export default function LettersModule({ words }: Props) {
             </View>
 
             <AppButton
-              title={i18n.t('next')}
+              title={i18n.t("next")}
               onPress={closeModal}
               style={{ width: 200 }}
             />

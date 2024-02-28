@@ -30,4 +30,4 @@ const deleteAsyncData = async (key: "statistics") => {
   }
 };
 
-export { storeAsyncData, getAsyncData, deleteAsyncData };
+// export { storeAsyncData, getAsyncData, deleteAsyncData };

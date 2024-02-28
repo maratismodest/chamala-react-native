@@ -3,18 +3,18 @@ import Button from "@components/Button";
 import { Text, View } from "@components/Themed";
 import { LocaleContext } from "@providers/LocaleProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  deleteAsyncData,
-  getAsyncData,
-  storeAsyncData,
-} from "@store/async-storage";
+import { useIsFocused } from "@react-navigation/native";
+// import {
+//   deleteAsyncData,
+//   getAsyncData,
+//   storeAsyncData,
+// } from "@store/async-storage";
 import { appStyles } from "@styles";
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
 import React, { useContext, useEffect, useState } from "react";
-
 import { Image } from "react-native";
-import { useIsFocused } from "@react-navigation/native";
+
 import { env } from "../data/env";
 
 interface Profile {
@@ -73,23 +73,23 @@ export default function ProfilePage() {
     }
   };
 
-  const getInitialData = () => {
-    getAsyncData("statistics").then((res) => {
-      if (!res) {
-        storeAsyncData("statistics", initialProfile).then(() =>
-          setProfile(initialProfile),
-        );
-      } else {
-        setProfile(JSON.parse(res));
-      }
-    });
-  };
+  // const getInitialData = () => {
+  //   getAsyncData("statistics").then((res) => {
+  //     if (!res) {
+  //       storeAsyncData("statistics", initialProfile).then(() =>
+  //         setProfile(initialProfile),
+  //       );
+  //     } else {
+  //       setProfile(JSON.parse(res));
+  //     }
+  //   });
+  // };
 
-  useEffect(() => {
-    if (isFocused) {
-      getInitialData();
-    }
-  }, [isFocused]);
+  // useEffect(() => {
+  //   if (isFocused) {
+  //     getInitialData();
+  //   }
+  // }, [isFocused]);
 
   useEffect(() => {
     signIn();
@@ -144,11 +144,12 @@ export default function ProfilePage() {
         style={{ marginTop: 16, width: "auto" }}
         // onPress={() => signOut({ callbackUrl: "/" })}
         onPress={() => {
-          deleteAsyncData("statistics").then(() =>
-            storeAsyncData("statistics", initialProfile).then(() =>
-              setProfile(initialProfile),
-            ),
-          );
+          // deleteAsyncData("statistics").then(() =>
+          //   storeAsyncData("statistics", initialProfile).then(() =>
+          //     setProfile(initialProfile),
+          //   ),
+          // );
+          setProfile(initialProfile);
         }}
         title={i18n.t("reset")}
       />

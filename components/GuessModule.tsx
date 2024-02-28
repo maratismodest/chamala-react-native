@@ -5,7 +5,7 @@ import AppButton from "@components/Button";
 import { Text } from "@components/Themed";
 import useTransitions from "@hooks/useTransitions";
 import { useIsFocused } from "@react-navigation/native";
-import { storeAsyncData } from "@store/async-storage";
+// import { storeAsyncData } from "@store/async-storage";
 import { useStore } from "@store/zustand";
 import { appStyles } from "@styles";
 import { IWord, Profile } from "@types";
@@ -140,7 +140,7 @@ export default function GuessModule({
         accuracy: _accuracy,
       };
       setProfile(res);
-      storeAsyncData("statistics", res);
+      // storeAsyncData("statistics", res);
     }
   }, [result.length, count]);
 
