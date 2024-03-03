@@ -22,6 +22,7 @@ const translations = {
     login: "Login",
     logout: "Logout",
     letters: "Letters",
+    modal: "About",
   },
   ru: {
     title: "Привет мир!",
@@ -46,6 +47,7 @@ const translations = {
     login: "Войти",
     logout: "Выйти",
     letters: "Буквы",
+    modal: "О проекте",
   },
 } as const;
 
