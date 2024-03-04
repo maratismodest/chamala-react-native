@@ -1,7 +1,7 @@
 import AudioPlayer from "@components/AudioPlayer";
 import AppButton from "@components/Button";
-import GuessModal from "@components/GuessModule/GuessModal";
-import Result from "@components/GuessModule/Result";
+import GameModal from "@components/Games/GameModal";
+import Result from "@components/Games/GuessModule/Result";
 import { Text } from "@components/Themed";
 import useTransitions from "@hooks/useTransitions";
 import { useIsFocused } from "@react-navigation/native";
@@ -117,7 +117,13 @@ export default function GuessModule({
         style={{ maxWidth: 300, marginHorizontal: "auto", width: "100%" }}
       />
       <>
-        <GuessModal answer={answer} correct={correct} handleNext={handleNext} />
+        {answer && (
+          <GameModal
+            answer={answer}
+            correct={correct}
+            handleNext={handleNext}
+          />
+        )}
       </>
     </>
   );

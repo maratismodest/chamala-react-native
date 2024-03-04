@@ -1,7 +1,6 @@
-import Happy from "@assets/svg/happy.svg";
-import Sad from "@assets/svg/sad.svg";
 import AudioPlayer from "@components/AudioPlayer";
 import AppButton from "@components/Button";
+import GameModal from "@components/Games/GameModal";
 import i18n from "@i18n";
 // import { storeAsyncData } from "@store/async-storage";
 import { useStore } from "@store/zustand";
@@ -9,10 +8,10 @@ import { appStyles } from "@styles";
 import { IWord, Profile } from "@types";
 import { getShuffled } from "@utils/getShuffled";
 import React, { useCallback, useEffect, useState } from "react";
-import { ActivityIndicator, Alert, Modal, Text, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 
 import { CollectProps, initialState, State } from "./utils";
-import { collectStyles } from "../../styles/collect";
+import { collectStyles } from "../../../styles/collect";
 
 interface Props {
   words: IWord[];
@@ -21,7 +20,7 @@ interface Props {
 export default function LettersModule({ words }: Props) {
   const { profile, setProfile, modal, setModal } = useStore((state) => state);
 
-  const [{ isTrue, correct, chosens, options }, setState] =
+  const [{ isTrue, correct, chosens, options, answer }, setState] =
     useState<State>(initialState);
 
   const getNewWord = useCallback(() => {
@@ -48,6 +47,13 @@ export default function LettersModule({ words }: Props) {
       ...prev,
       chosens: [...prev.chosens, x],
       options: prev.options.filter((item) => item.id !== x.id),
+      answer: {
+        id: 0,
+        ru: "ru",
+        ta: [...prev.chosens, x].map((x) => x.word).join(""),
+        en: "en",
+        audio: "audio",
+      },
     }));
   };
 
@@ -75,7 +81,6 @@ export default function LettersModule({ words }: Props) {
     setState((prev) => ({ ...prev, isTrue: original === current }));
     setModal(true);
     setProfile(res);
-    // storeAsyncData('statistics', res);
   };
 
   if (!correct) {
@@ -84,7 +89,6 @@ export default function LettersModule({ words }: Props) {
 
   return (
     <>
-      {/*<Text style={appStyles.h1}>Воспроизвести</Text>*/}
       <AudioPlayer uri={correct.audio} />
       <View style={collectStyles.buttons}>
         {chosens.map((x) => (
@@ -114,47 +118,9 @@ export default function LettersModule({ words }: Props) {
         title={i18n.t("check")}
         opacity={modal}
       />
-      <Modal
-        animationType="slide"
-        transparent
-        visible={modal}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModal(!modal);
-        }}
-      >
-        <View style={appStyles.centeredView}>
-          <View style={appStyles.modalView}>
-            <View className="flex-row items-center">
-              {isTrue ? (
-                <Happy width={90} height={90} />
-              ) : (
-                <Sad width={90} height={90} />
-              )}
-              <View>
-                {isTrue ? (
-                  <Text>{i18n.t("correct")}</Text>
-                ) : (
-                  <>
-                    <Text style={{ color: "rgb(239, 68, 68)" }}>
-                      {i18n.t("wrong")}
-                    </Text>
-                    <Text>
-                      {i18n.t("correct")}: {correct.ta}
-                    </Text>
-                  </>
-                )}
-              </View>
-            </View>
-
-            <AppButton
-              title={i18n.t("next")}
-              onPress={closeModal}
-              style={{ width: 200 }}
-            />
-          </View>
-        </View>
-      </Modal>
+      {answer && (
+        <GameModal answer={answer} correct={correct} handleNext={closeModal} />
+      )}
     </>
   );
 }

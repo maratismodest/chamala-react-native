@@ -1,4 +1,4 @@
-import GuessModule from "@components/GuessModule/GuessModule";
+import GuessModule from "@components/Games/GuessModule/GuessModule";
 import { View } from "@components/Themed";
 import { useStore } from "@store/zustand";
 import { appStyles } from "@styles";

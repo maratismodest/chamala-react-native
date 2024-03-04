@@ -1,4 +1,4 @@
-import CollectModule from "@components/CollectModule";
+import CollectModule from "@components/Games/CollectModule/CollectModule";
 import { View } from "@components/Themed";
 import { appStyles } from "@styles";
 import React from "react";

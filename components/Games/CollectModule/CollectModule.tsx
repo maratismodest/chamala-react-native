@@ -1,7 +1,6 @@
-import Happy from "@assets/svg/happy.svg";
-import Sad from "@assets/svg/sad.svg";
 import AudioPlayer from "@components/AudioPlayer";
 import AppButton from "@components/Button";
+import GameModal from "@components/Games/GameModal";
 import i18n from "@i18n";
 // import { storeAsyncData } from '@store/async-storage';
 import { useStore } from "@store/zustand";
@@ -9,9 +8,9 @@ import { appStyles } from "@styles";
 import { IWord, Profile } from "@types";
 import { getShuffled } from "@utils/getShuffled";
 import React, { useCallback, useEffect, useState } from "react";
-import { ActivityIndicator, Alert, Modal, Text, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 
-import { collectStyles } from "../styles/collect";
+import { collectStyles } from "../../../styles/collect";
 
 interface CollectProps {
   id: number;
@@ -22,10 +21,10 @@ export default function CollectModule() {
   const { phrases, profile, setProfile, modal, setModal } = useStore(
     (state) => state,
   );
-  const [isTrue, setIsTrue] = useState(false);
   const [correct, setCorrect] = useState<IWord | undefined>(undefined);
   const [options, setOptions] = useState<CollectProps[]>([]);
   const [chosens, setChosens] = useState<CollectProps[]>([]);
+  const [answer, setAnswer] = useState<IWord | undefined>(undefined);
 
   const getNewPhrase = useCallback(() => {
     const correct = getShuffled(phrases)[0];
@@ -41,7 +40,6 @@ export default function CollectModule() {
       })),
     );
     setModal(false);
-    setIsTrue(false);
     setChosens([]);
   }, [phrases]);
 
@@ -66,7 +64,13 @@ export default function CollectModule() {
   const handleCheck = () => {
     const original = correct?.ta.toLowerCase();
     const current = chosens.map((x) => x.word.toLowerCase()).join(" ");
-    setIsTrue(original === current);
+    setAnswer({
+      id: 0,
+      ru: "ru",
+      ta: current,
+      en: "en",
+      audio: "audio",
+    });
     setModal(true);
     const isCorrect = original === current;
     const _correct = profile.correct + (isCorrect ? 1 : 0);
@@ -79,7 +83,6 @@ export default function CollectModule() {
       accuracy: _accuracy,
     };
     setProfile(res);
-    // storeAsyncData("statistics", res);
   };
 
   if (!correct) {
@@ -88,7 +91,6 @@ export default function CollectModule() {
 
   return (
     <>
-      {/*<Text style={appStyles.h1}>Воспроизвести</Text>*/}
       <AudioPlayer uri={correct.audio} />
       <View style={collectStyles.buttons}>
         {chosens.map((x) => (
@@ -118,47 +120,9 @@ export default function CollectModule() {
         title={i18n.t("check")}
         opacity={modal}
       />
-      <Modal
-        animationType="slide"
-        transparent
-        visible={modal}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModal(!modal);
-        }}
-      >
-        <View style={appStyles.centeredView}>
-          <View style={appStyles.modalView}>
-            <View className="flex-row items-center">
-              {isTrue ? (
-                <Happy width={90} height={90} />
-              ) : (
-                <Sad width={90} height={90} />
-              )}
-              <View>
-                {isTrue ? (
-                  <Text>{i18n.t("correct")}</Text>
-                ) : (
-                  <>
-                    <Text style={{ color: "rgb(239, 68, 68)" }}>
-                      {i18n.t("wrong")}
-                    </Text>
-                    <Text>
-                      {i18n.t("correct")}: {correct.ta}
-                    </Text>
-                  </>
-                )}
-              </View>
-            </View>
-
-            <AppButton
-              title={i18n.t("next")}
-              onPress={closeModal}
-              style={{ width: 200 }}
-            />
-          </View>
-        </View>
-      </Modal>
+      {answer && (
+        <GameModal correct={correct} answer={answer} handleNext={closeModal} />
+      )}
     </>
   );
 }

@@ -5,20 +5,20 @@ import { Text } from "@components/Themed";
 import useTransitions from "@hooks/useTransitions";
 import { useStore } from "@store/zustand";
 import { appStyles } from "@styles";
-import { IWord, Language } from "@types";
+import { IWord } from "@types";
 import React from "react";
 import { Alert, Modal, View } from "react-native";
 
 interface GuessModalProps {
   correct: IWord;
-  answer: IWord | undefined;
+  answer: IWord;
   handleNext: () => void;
 }
 
-const GuessModal = ({ correct, answer, handleNext }: GuessModalProps) => {
+const GameModal = ({ correct, answer, handleNext }: GuessModalProps) => {
   const { i18n } = useTransitions();
   const { modal, setModal } = useStore((state) => state);
-
+  const isCorrect = answer.ta === correct.ta;
   return (
     <Modal
       animationType="slide"
@@ -32,13 +32,13 @@ const GuessModal = ({ correct, answer, handleNext }: GuessModalProps) => {
       <View style={appStyles.centeredView}>
         <View style={appStyles.modalView}>
           <View className="flex-row items-center">
-            {correct.id === answer?.id ? (
+            {isCorrect ? (
               <Happy width={90} height={90} />
             ) : (
               <Sad width={90} height={90} />
             )}
             <View>
-              {correct.id === answer?.id ? (
+              {isCorrect ? (
                 <Text>{i18n.t("correct")}</Text>
               ) : (
                 <>
@@ -46,7 +46,7 @@ const GuessModal = ({ correct, answer, handleNext }: GuessModalProps) => {
                     {i18n.t("wrong")}
                   </Text>
                   <Text>
-                    {i18n.t("correct")}: {correct[i18n.locale as Language]}
+                    {i18n.t("correct")}: {correct.ta}
                   </Text>
                 </>
               )}
@@ -64,4 +64,4 @@ const GuessModal = ({ correct, answer, handleNext }: GuessModalProps) => {
   );
 };
 
-export default GuessModal;
+export default GameModal;
