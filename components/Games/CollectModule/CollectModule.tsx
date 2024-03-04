@@ -2,10 +2,10 @@ import AudioPlayer from "@components/AudioPlayer";
 import AppButton from "@components/Button";
 import GameModal from "@components/Games/GameModal";
 import i18n from "@i18n";
-// import { storeAsyncData } from '@store/async-storage';
 import { useStore } from "@store/zustand";
 import { appStyles } from "@styles";
 import { IWord, Profile } from "@types";
+import getRandomInt from "@utils/getRandomInt";
 import { getShuffled } from "@utils/getShuffled";
 import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
@@ -21,26 +21,29 @@ export default function CollectModule() {
   const { phrases, profile, setProfile, modal, setModal } = useStore(
     (state) => state,
   );
-  const [correct, setCorrect] = useState<IWord | undefined>(undefined);
+  const [correct, setCorrect] = useState<IWord | undefined>();
+  const [answer, setAnswer] = useState<IWord | undefined>();
   const [options, setOptions] = useState<CollectProps[]>([]);
   const [chosens, setChosens] = useState<CollectProps[]>([]);
-  const [answer, setAnswer] = useState<IWord | undefined>(undefined);
 
   const getNewPhrase = useCallback(() => {
-    const correct = getShuffled(phrases)[0];
-    const fake = getShuffled(phrases)[1];
-    setCorrect(correct);
+    const correct = phrases[getRandomInt(phrases.length)];
+    const fake = phrases[getRandomInt(phrases.length)];
     const realOptions = correct.ta.toLowerCase().split(" ");
     const fakeOptions = fake.ta.toLowerCase().split(" ");
 
-    setOptions(
-      getShuffled([...realOptions, ...fakeOptions]).map((x, index) => ({
+    const realFakeOptions = getShuffled([...realOptions, ...fakeOptions]).map(
+      (x, index) => ({
         word: x,
         id: index,
-      })),
+      }),
     );
-    setModal(false);
+
+    setOptions(realFakeOptions);
     setChosens([]);
+    setCorrect(correct);
+
+    setModal(false);
   }, [phrases]);
 
   useEffect(() => {
