@@ -29,7 +29,7 @@ export default function GuessModule({
   const click = useStore(useCallback((state) => state.count, []));
   const inc = useStore(useCallback((state) => state.incrementClick, []));
   const reset = useStore(useCallback((state) => state.resetCount, []));
-  const { profile, setProfile, modal, setModal } = useStore((state) => state);
+  const { profile, setProfile, setModal } = useStore((state) => state);
   const [list, setList] = useState<IWord[]>(() =>
     getShuffled(collection).slice(0, 4),
   );

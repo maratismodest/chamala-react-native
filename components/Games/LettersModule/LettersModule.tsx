@@ -1,16 +1,19 @@
 import AudioPlayer from "@components/AudioPlayer";
 import AppButton from "@components/Button";
 import GameModal from "@components/Games/GameModal";
-import i18n from "@i18n";
-// import { storeAsyncData } from "@store/async-storage";
+import useTransitions from "@hooks/useTransitions";
 import { useStore } from "@store/zustand";
 import { appStyles } from "@styles";
 import { IWord, Profile } from "@types";
-import { getShuffled } from "@utils/getShuffled";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
-import { CollectProps, initialState, State } from "./utils";
+import {
+  CollectProps,
+  getNewWord,
+  initialState,
+  LettersModuleState,
+} from "./utils";
 import { collectStyles } from "../../../styles/collect";
 
 interface Props {
@@ -18,28 +21,27 @@ interface Props {
 }
 
 export default function LettersModule({ words }: Props) {
+  const { i18n } = useTransitions();
   const { profile, setProfile, modal, setModal } = useStore((state) => state);
 
-  const [{ isTrue, correct, chosens, options, answer }, setState] =
-    useState<State>(initialState);
+  const [state, setState] = useState<LettersModuleState>(() => {
+    const { correct, options } = getNewWord(words);
+    return {
+      ...initialState,
+      correct,
+      options,
+    };
+  });
+  const { correct, answer, chosens, options } = state;
 
-  const getNewWord = useCallback(() => {
+  const handleNext = () => {
     setModal(false);
-    const correct = getShuffled(words)[0];
-    const realOptions = correct.ta.toLowerCase().split("");
-    const options = getShuffled(realOptions).map((x, index) => ({
-      word: x,
-      id: index,
-    }));
-    setState({ ...initialState, options, correct });
-  }, [words]);
-
-  useEffect(() => {
-    getNewWord();
-  }, [getNewWord]);
-
-  const closeModal = () => {
-    getNewWord();
+    const { correct, options } = getNewWord(words);
+    setState({
+      ...initialState,
+      correct,
+      options,
+    });
   };
 
   const handleAdd = (x: CollectProps) => {
@@ -47,13 +49,6 @@ export default function LettersModule({ words }: Props) {
       ...prev,
       chosens: [...prev.chosens, x],
       options: prev.options.filter((item) => item.id !== x.id),
-      answer: {
-        id: 0,
-        ru: "ru",
-        ta: [...prev.chosens, x].map((x) => x.word).join(""),
-        en: "en",
-        audio: "audio",
-      },
     }));
   };
 
@@ -66,11 +61,21 @@ export default function LettersModule({ words }: Props) {
   };
 
   const handleCheck = () => {
+    const current = chosens
+      .map((x) => x.word)
+      .join("")
+      .toLowerCase();
+    const _answer = {
+      id: 0,
+      ru: "ru",
+      en: "en",
+      audio: "audio",
+      ta: current,
+    };
     const original = correct?.ta.toLowerCase();
-    const current = chosens.map((x) => x.word.toLowerCase()).join("");
     const isCorrect = original === current;
-    const _correct = profile.correct + (isCorrect ? 1 : 0);
-    const _wrong = profile.wrong + (!isCorrect ? 1 : 0);
+    const _correct = profile.correct + Number(isCorrect);
+    const _wrong = profile.wrong + Number(isCorrect);
     const _accuracy = _correct / (_correct + _wrong);
     const res: Profile = {
       ...profile,
@@ -78,7 +83,7 @@ export default function LettersModule({ words }: Props) {
       wrong: _wrong,
       accuracy: _accuracy,
     };
-    setState((prev) => ({ ...prev, isTrue: original === current }));
+    setState((prev) => ({ ...prev, answer: _answer }));
     setModal(true);
     setProfile(res);
   };
@@ -119,7 +124,7 @@ export default function LettersModule({ words }: Props) {
         opacity={modal}
       />
       {answer && (
-        <GameModal answer={answer} correct={correct} handleNext={closeModal} />
+        <GameModal answer={answer} correct={correct} handleNext={handleNext} />
       )}
     </>
   );
