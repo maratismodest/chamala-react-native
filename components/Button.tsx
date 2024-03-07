@@ -1,5 +1,5 @@
-import { useRef } from 'react';
-import * as React from 'react';
+import { useRef } from "react";
+import * as React from "react";
 import {
   Text,
   StyleSheet,
@@ -7,7 +7,7 @@ import {
   Animated,
   StyleProp,
   ViewStyle,
-} from 'react-native';
+} from "react-native";
 
 interface Props {
   title: string;
@@ -18,7 +18,7 @@ interface Props {
   opacity?: boolean;
 }
 
-const FancyButton = React.forwardRef((props: Props, ref) => {
+const Button = React.forwardRef((props: Props, ref) => {
   const animated = useRef(new Animated.Value(1)).current;
   const fadeIn = () => {
     Animated.timing(animated, {
@@ -48,7 +48,7 @@ const FancyButton = React.forwardRef((props: Props, ref) => {
       style={[
         styles.button,
         style,
-        disabled ? { backgroundColor: 'gray' } : {},
+        disabled ? { backgroundColor: "gray" } : {},
         opacity ? { opacity: 0.5 } : {},
       ]}
       onPress={onPress}
@@ -70,23 +70,23 @@ const FancyButton = React.forwardRef((props: Props, ref) => {
     </Pressable>
   );
 });
-export default FancyButton;
+export default Button;
 
 const styles = StyleSheet.create({
   button: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 12,
     paddingHorizontal: 48,
     borderRadius: 32,
     elevation: 3,
-    backgroundColor: 'rgb(15, 128, 18)',
+    backgroundColor: "rgb(15, 128, 18)",
   },
   text: {
     fontSize: 16,
     lineHeight: 21,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     letterSpacing: 0.25,
-    color: 'white',
+    color: "white",
   },
 });

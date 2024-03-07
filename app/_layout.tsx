@@ -5,7 +5,6 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 // import { getAsyncData, storeAsyncData } from "@store/async-storage";
-import { useStore } from "@store/zustand";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import * as Updates from "expo-updates";
@@ -71,21 +70,6 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-  // const { profile, setProfile } = useStore((state) => state);
-  // const getInitialData = async () => {
-  //   getAsyncData("statistics").then(async (res) => {
-  //     if (!res) {
-  //       await storeAsyncData("statistics", profile);
-  //     } else {
-  //       setProfile(JSON.parse(res));
-  //     }
-  //   });
-  // };
-  //
-  // useEffect(() => {
-  //   getInitialData();
-  //   console.log("render", profile);
-  // }, []);
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
