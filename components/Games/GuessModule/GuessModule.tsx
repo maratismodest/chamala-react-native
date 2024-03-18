@@ -72,7 +72,7 @@ export default function GuessModule({
     const answer = list.find((x) => x.id === id);
     const isCorrect = answer === correct;
     const _correct = profile.correct + Number(isCorrect);
-    const _wrong = profile.wrong + Number(isCorrect);
+    const _wrong = profile.wrong + Number(!isCorrect);
     const _accuracy = _correct / (_correct + _wrong);
     setProfile({ correct: _correct, wrong: _wrong, accuracy: _accuracy });
     setAnswer(answer);

@@ -75,7 +75,7 @@ export default function LettersModule({ words }: Props) {
     const original = correct?.ta.toLowerCase();
     const isCorrect = original === current;
     const _correct = profile.correct + Number(isCorrect);
-    const _wrong = profile.wrong + Number(isCorrect);
+    const _wrong = profile.wrong + Number(!isCorrect);
     const _accuracy = _correct / (_correct + _wrong);
     const res: Profile = {
       ...profile,
