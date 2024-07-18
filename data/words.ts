@@ -2151,3 +2151,6 @@ export const words: IWord[] = [
     audio: "https://chamala.tatar/uploads/балалар бакчасы.mp3",
   },
 ];
+
+const phrasesTa = words.map((x) => `"${x.ta}"`);
+console.log(phrasesTa.join(","));

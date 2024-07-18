@@ -311,4 +311,7 @@ const phrases: IWord[] = [
   },
 ];
 
+const phrasesTa = phrases.map((x) => `"${x.ta}"`);
+console.log(phrasesTa.join(","));
+
 export { phrases };
