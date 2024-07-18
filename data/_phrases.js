@@ -200,7 +200,7 @@ const _phrases = [
   },
   {
     id: 35,
-    ru: "как дела",
+    ru: "как твои дела",
     ta: "хәлләрең ничек",
     en: "how are you",
   },
@@ -233,12 +233,6 @@ const _phrases = [
     ru: "меня зовут Алсу",
     ta: "минем исемем Алсу",
     en: "my name is Alsu",
-  },
-  {
-    id: 18,
-    ru: "как дела",
-    ta: "ни хәл",
-    en: "how are you",
   },
   {
     id: 42,

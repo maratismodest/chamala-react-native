@@ -234,7 +234,7 @@ const phrases: IWord[] = [
   },
   {
     id: 35,
-    ru: "как дела",
+    ru: "как твои дела",
     ta: "хәлләрең ничек",
     en: "how are you",
     audio: "https://chamala.tatar/uploads/хәлләрең ничек.mp3",
@@ -275,13 +275,6 @@ const phrases: IWord[] = [
     audio: "https://chamala.tatar/uploads/минем исемем алсу.mp3",
   },
   {
-    id: 18,
-    ru: "как дела",
-    ta: "ни хәл",
-    en: "how are you",
-    audio: "https://chamala.tatar/uploads/ни хәл.mp3",
-  },
-  {
     id: 42,
     ru: "добро пожаловать",
     ta: "рәхим итегез",
@@ -308,6 +301,13 @@ const phrases: IWord[] = [
     ta: "син кайда",
     en: "where are you",
     audio: "https://chamala.tatar/uploads/син кайда.mp3",
+  },
+  {
+    id: 333,
+    ru: "очень вкусно",
+    ta: "бик тәмле",
+    en: "so tasty",
+    audio: "https://chamala.tatar/uploads/бик тәмле.mp3",
   },
 ];
 
