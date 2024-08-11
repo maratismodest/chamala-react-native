@@ -8,5 +8,5 @@ eas submit -p ios --latest
 ## Update without package updates
 ```
 eas update --auto
-eas update --branch production --message "14.08.2024"
+eas update --branch production --message "DD.MM.YYYY"
 ```
