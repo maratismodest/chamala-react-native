@@ -7,7 +7,7 @@ import {
 // import { getAsyncData, storeAsyncData } from "@store/async-storage";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
-// import * as Updates from "expo-updates";
+import * as Updates from "expo-updates";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 
