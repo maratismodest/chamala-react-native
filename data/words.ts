@@ -2153,4 +2153,4 @@ export const words: IWord[] = [
 ];
 
 const phrasesTa = words.map((x) => `"${x.ta}"`);
-console.log(phrasesTa.join(","));
+// console.log(phrasesTa.join(","));
