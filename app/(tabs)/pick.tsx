@@ -1,10 +1,10 @@
-import Button from "@components/Button";
-import { Text, View } from "@components/Themed";
-
-import { appStyles } from "@styles";
 import { Link } from "expo-router";
 import React, { useContext } from "react";
-import { LocaleContext } from "@providers/LocaleProvider";
+
+import Button from "@/components/Button";
+import { Text, View } from "@/components/Themed";
+import { LocaleContext } from "@/providers/LocaleProvider";
+import { appStyles } from "@/styles";
 
 export default function PickPage() {
   const { i18n } = useContext(LocaleContext);

@@ -1,4 +1,3 @@
-import { useStore } from "@store/zustand";
 import * as Localization from "expo-localization";
 import { I18n } from "i18n-js";
 import React, {
@@ -10,7 +9,9 @@ import React, {
   useState,
 } from "react";
 
-import translations from "../translations";
+import { LOCALE } from "@/constants";
+import { useStore } from "@/store/zustand";
+import translations from "@/translations";
 
 type LocaleContextType = {
   locale: string;
@@ -19,7 +20,7 @@ type LocaleContextType = {
 };
 
 const localeContextDefaultValues: LocaleContextType = {
-  locale: "ru",
+  locale: LOCALE,
   setLocale: () => {},
   i18n: new I18n(translations),
 };
@@ -38,7 +39,7 @@ export default function LocaleProvider({ children }: AppProviderProps) {
   const i18n = new I18n(translations);
   i18n.locale = locale;
   i18n.enableFallback = true;
-  i18n.defaultLocale = "ru";
+  i18n.defaultLocale = LOCALE;
 
   useEffect(() => {
     setLocale(language);

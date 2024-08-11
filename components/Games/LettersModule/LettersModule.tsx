@@ -1,26 +1,24 @@
-import AudioPlayer from "@components/AudioPlayer";
-import AppButton from "@components/Button";
-import GameModal from "@components/Games/GameModal";
-import useTransitions from "@hooks/useTransitions";
-import { useStore } from "@store/zustand";
-import { appStyles } from "@styles";
-import { IWord, Profile } from "@types";
 import React, { useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
-import {
-  CollectProps,
-  getNewWord,
-  initialState,
-  LettersModuleState,
-} from "./utils";
-import { collectStyles } from "../../../styles/collect";
+import { initialState } from "./constants";
+import { CollectProps, LettersModuleState } from "./types";
+import { getNewWord } from "./utils";
 
-interface Props {
+import AudioPlayer from "@/components/AudioPlayer";
+import AppButton from "@/components/Button";
+import { collectStyles } from "@/components/Games/CollectModule/collectStyles";
+import GameModal from "@/components/Games/GameModal";
+import useTransitions from "@/hooks/useTransitions";
+import { useStore } from "@/store/zustand";
+import { appStyles } from "@/styles";
+import type { IWord, Profile } from "@/types";
+
+type Props = {
   words: IWord[];
-}
+};
 
-export default function LettersModule({ words }: Props) {
+export function LettersModule({ words }: Props) {
   const { i18n } = useTransitions();
   const { profile, setProfile, modal, setModal } = useStore((state) => state);
 

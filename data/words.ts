@@ -1,4 +1,4 @@
-import { IWord } from "@types";
+import type { IWord } from "@/types";
 
 export const words: IWord[] = [
   {

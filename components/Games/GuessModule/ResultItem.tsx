@@ -1,15 +1,16 @@
-import { Text } from "@components/Themed";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
 import { AnswerProps } from "./utils";
 
-interface ResultItem {
+import { Text } from "@/components/Themed";
+
+type Props = {
   item: AnswerProps;
   index: number;
-}
+};
 
-export default function ResultItem({ item, index }: ResultItem) {
+export default function ResultItem({ item, index }: Props) {
   const { answer, correct, origin } = item;
   return (
     <View style={styles.container}>

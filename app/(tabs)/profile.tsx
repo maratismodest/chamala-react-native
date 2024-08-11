@@ -1,13 +1,13 @@
-import Happy from "@assets/svg/happy.svg";
-import Button from "@components/Button";
-import { Text, View } from "@components/Themed";
-import { initialProfile } from "@pages-lib/profile/utils";
-import { LocaleContext } from "@providers/LocaleProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import { deleteAsyncData, storeAsyncData } from '@store/async-storage';
-import { useStore } from "@store/zustand";
-import { appStyles } from "@styles";
 import React, { useContext } from "react";
+
+import Happy from "@/assets/svg/happy.svg";
+import Button from "@/components/Button";
+import { Text, View } from "@/components/Themed";
+import { initialProfile } from "@/pages-lib/profile/utils";
+import { LocaleContext } from "@/providers/LocaleProvider";
+import { useStore } from "@/store/zustand";
+import { appStyles } from "@/styles";
 
 export default function ProfilePage() {
   const { setLocale, i18n } = useContext(LocaleContext);
@@ -20,11 +20,6 @@ export default function ProfilePage() {
   };
 
   const handleReset = () => {
-    // deleteAsyncData("statistics").then(() =>
-    //   storeAsyncData("statistics", initialProfile).then(() =>
-    //     setProfile(initialProfile),
-    //   ),
-    // );
     setProfile(initialProfile);
   };
 

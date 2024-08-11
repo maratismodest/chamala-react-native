@@ -1,21 +1,21 @@
-import Happy from "@assets/svg/happy.svg";
-import Button from "@components/Button";
-import { Text, View } from "@components/Themed";
-import { LocaleContext } from "@providers/LocaleProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 // import {
 //   deleteAsyncData,
 //   getAsyncData,
 //   storeAsyncData,
-// } from "@store/async-storage";
-import { appStyles } from "@styles";
+// } from "@/store/async-storage";
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
 import React, { useContext, useEffect, useState } from "react";
 import { Image } from "react-native";
 
-import { env } from "../data/env";
+import Happy from "@/assets/svg/happy.svg";
+import Button from "@/components/Button";
+import { Text, View } from "@/components/Themed";
+import { env } from "@/data/env";
+import { LocaleContext } from "@/providers/LocaleProvider";
+import { appStyles } from "@/styles";
 
 interface Profile {
   correct: number;

@@ -1,7 +1,8 @@
-import CollectModule from "@components/Games/CollectModule/CollectModule";
-import { View } from "@components/Themed";
-import { appStyles } from "@styles";
 import React from "react";
+
+import CollectModule from "@/components/Games/CollectModule";
+import { View } from "@/components/Themed";
+import { appStyles } from "@/styles";
 
 export default function CollectPage() {
   return (

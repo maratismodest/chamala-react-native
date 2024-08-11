@@ -4,36 +4,8 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@components/*": [
-        "components/*"
-      ],
-      "@assets/*": [
-        "assets/*"
-      ],
-      "@types": [
-        "types",
-        "types/*"
-      ],
-      "@utils/*": [
-        "utils/*"
-      ],
-      "@styles": [
-        "styles"
-      ],
-      "@store/*": [
-        "store/*"
-      ],
-      "@i18n": [
-        "i18n"
-      ],
-      "@providers/*": [
-        "providers/*"
-      ],
-      "@pages-lib/*": [
-        "pages-lib/*"
-      ],
-      "@hooks/*": [
-        "hooks/*"
+      "@/*": [
+        "./*"
       ]
     }
   },

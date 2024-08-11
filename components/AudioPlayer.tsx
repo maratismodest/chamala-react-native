@@ -1,7 +1,8 @@
-import Play from "@assets/svg/play.svg";
 import { Audio } from "expo-av";
 import React, { useEffect, useRef, useState } from "react";
 import { Animated, Pressable } from "react-native";
+
+import Play from "@/assets/svg/play.svg";
 
 export default function AudioPlayer({ uri }: { uri: string }) {
   const fadeAnim = useRef(new Animated.Value(1)).current;
@@ -46,11 +47,7 @@ export default function AudioPlayer({ uri }: { uri: string }) {
   };
 
   return (
-    <Pressable
-      onPress={playSound}
-      onPressIn={fadeIn}
-      onPressOut={fadeOut}
-    >
+    <Pressable onPress={playSound} onPressIn={fadeIn} onPressOut={fadeOut}>
       <Animated.View
         style={{
           opacity: fadeAnim,

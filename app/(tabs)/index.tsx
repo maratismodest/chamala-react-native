@@ -1,11 +1,12 @@
-import Welcome from "@assets/svg/welcome.svg";
-import Button from "@components/Button";
-import { Text, View } from "@components/Themed";
-import { appStyles } from "@styles";
 import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React, { useContext } from "react";
-import { LocaleContext } from "@providers/LocaleProvider";
+
+import Welcome from "@/assets/svg/welcome.svg";
+import Button from "@/components/Button";
+import { Text, View } from "@/components/Themed";
+import { LocaleContext } from "@/providers/LocaleProvider";
+import { appStyles } from "@/styles";
 
 export default function MainPage() {
   const { i18n } = useContext(LocaleContext);

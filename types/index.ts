@@ -1,4 +1,4 @@
-export interface IWord {
+interface IWord {
   id: number;
   ru: string;
   ta: string;
@@ -6,10 +6,12 @@ export interface IWord {
   audio: string;
 }
 
-export type Language = "en" | "ru";
+type Language = "en" | "ru";
 
-export interface Profile {
+interface Profile {
   correct: number;
   wrong: number;
   accuracy: number;
 }
+
+export type { IWord, Language, Profile };

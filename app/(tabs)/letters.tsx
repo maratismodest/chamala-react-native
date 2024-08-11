@@ -1,8 +1,9 @@
-import LettersModule from "@components/Games/LettersModule/LettersModule";
-import { View } from "@components/Themed";
-import { useStore } from "@store/zustand";
-import { appStyles } from "@styles";
 import React, { useCallback } from "react";
+
+import LettersModule from "@/components/Games/LettersModule";
+import { View } from "@/components/Themed";
+import { useStore } from "@/store/zustand";
+import { appStyles } from "@/styles";
 
 export default function LettersPage() {
   const words = useStore(useCallback((state) => state.words, []));

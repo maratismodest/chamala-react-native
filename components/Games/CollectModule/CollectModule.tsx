@@ -1,23 +1,24 @@
-import AudioPlayer from "@components/AudioPlayer";
-import AppButton from "@components/Button";
-import GameModal from "@components/Games/GameModal";
-import i18n from "@i18n";
-import { useStore } from "@store/zustand";
-import { appStyles } from "@styles";
-import { IWord, Profile } from "@types";
-import getRandomInt from "@utils/getRandomInt";
-import { getShuffled } from "@utils/getShuffled";
 import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
-import { collectStyles } from "../../../styles/collect";
+import { collectStyles } from "./collectStyles";
+
+import AudioPlayer from "@/components/AudioPlayer";
+import AppButton from "@/components/Button";
+import GameModal from "@/components/Games/GameModal";
+import i18n from "@/i18n";
+import { useStore } from "@/store/zustand";
+import { appStyles } from "@/styles";
+import type { IWord, Profile } from "@/types";
+import getRandomInt from "@/utils/getRandomInt";
+import getShuffled from "@/utils/getShuffled";
 
 interface CollectProps {
   id: number;
   word: string;
 }
 
-export default function CollectModule() {
+export function CollectModule() {
   const { phrases, profile, setProfile, modal, setModal } = useStore(
     (state) => state,
   );

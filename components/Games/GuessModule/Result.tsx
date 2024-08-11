@@ -1,18 +1,19 @@
-import Happy from "@assets/svg/happy.svg";
-import AppButton from "@components/Button";
-import ResultItem from "@components/Games/GuessModule/ResultItem";
-import { AnswerProps } from "@components/Games/GuessModule/utils";
-import useTransitions from "@hooks/useTransitions";
-import { useStore } from "@store/zustand";
 import React, { useCallback } from "react";
 import { FlatList } from "react-native";
 
-interface ResultProps {
+import Happy from "@/assets/svg/happy.svg";
+import AppButton from "@/components/Button";
+import ResultItem from "@/components/Games/GuessModule/ResultItem";
+import { AnswerProps } from "@/components/Games/GuessModule/utils";
+import useTransitions from "@/hooks/useTransitions";
+import { useStore } from "@/store/zustand";
+
+type Props = {
   result: AnswerProps[];
   setResult: (result: AnswerProps[]) => void;
-}
+};
 
-const Result = ({ result, setResult }: ResultProps) => {
+const Result = ({ result, setResult }: Props) => {
   const { i18n } = useTransitions();
   const reset = useStore(useCallback((state) => state.resetCount, []));
 

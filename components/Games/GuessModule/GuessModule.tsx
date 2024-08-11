@@ -1,29 +1,27 @@
-import AudioPlayer from "@components/AudioPlayer";
-import AppButton from "@components/Button";
-import GameModal from "@components/Games/GameModal";
-import Result from "@components/Games/GuessModule/Result";
-import { Text } from "@components/Themed";
-import useTransitions from "@hooks/useTransitions";
 import { useIsFocused } from "@react-navigation/native";
-import { useStore } from "@store/zustand";
-import { appStyles } from "@styles";
-import { IWord, Language } from "@types";
-import { getShuffled } from "@utils/getShuffled";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { FlatList } from "react-native";
 import * as Progress from "react-native-progress";
 
 import { AnswerProps } from "./utils";
 
-interface GuessModuleProps {
+import AudioPlayer from "@/components/AudioPlayer";
+import AppButton from "@/components/Button";
+import GameModal from "@/components/Games/GameModal";
+import Result from "@/components/Games/GuessModule/Result";
+import { Text } from "@/components/Themed";
+import useTransitions from "@/hooks/useTransitions";
+import { useStore } from "@/store/zustand";
+import { appStyles } from "@/styles";
+import type { IWord, Language } from "@/types";
+import getShuffled from "@/utils/getShuffled";
+
+type Props = {
   collection: IWord[];
   count?: number;
-}
+};
 
-export default function GuessModule({
-  collection,
-  count = 6,
-}: GuessModuleProps) {
+export function GuessModule({ collection, count = 6 }: Props) {
   const { i18n } = useTransitions();
   const isFocused = useIsFocused();
   const click = useStore(useCallback((state) => state.count, []));

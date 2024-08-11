@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const collectStyles = StyleSheet.create({
+export const collectStyles = StyleSheet.create({
   buttons: {
     height: 160,
     gap: 8,
@@ -19,5 +19,3 @@ const collectStyles = StyleSheet.create({
     zIndex: 1,
   },
 });
-
-export { collectStyles };

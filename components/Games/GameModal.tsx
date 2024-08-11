@@ -1,13 +1,14 @@
-import Happy from "@assets/svg/happy.svg";
-import Sad from "@assets/svg/sad.svg";
-import AppButton from "@components/Button";
-import { Text } from "@components/Themed";
-import useTransitions from "@hooks/useTransitions";
-import { useStore } from "@store/zustand";
-import { appStyles } from "@styles";
-import { IWord } from "@types";
 import React from "react";
 import { Alert, Modal, View } from "react-native";
+
+import Happy from "@/assets/svg/happy.svg";
+import Sad from "@/assets/svg/sad.svg";
+import AppButton from "@/components/Button";
+import { Text } from "@/components/Themed";
+import useTransitions from "@/hooks/useTransitions";
+import { useStore } from "@/store/zustand";
+import { appStyles } from "@/styles";
+import type { IWord } from "@/types";
 
 interface GuessModalProps {
   correct: IWord;

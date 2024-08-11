@@ -1,5 +1,7 @@
-export const getShuffled = <T>(arr: Array<T>): Array<T> =>
+const getShuffled = <T>(arr: T[]): T[] =>
   arr
-    .map(value => ({value, sort: Math.random()}))
+    .map((value) => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
-    .map(({value}) => value);
+    .map(({ value }) => value);
+
+export default getShuffled;

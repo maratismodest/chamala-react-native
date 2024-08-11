@@ -1,11 +1,11 @@
-import { initialProfile } from "@pages-lib/profile/utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { IWord, Language, Profile } from "@types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { phrases } from "../data/phrases";
-import { words } from "../data/words";
+import { phrases } from "@/data/phrases";
+import { words } from "@/data/words";
+import { initialProfile } from "@/pages-lib/profile/utils";
+import { IWord, Language, Profile } from "@/types";
 
 type State = {
   count: number;
