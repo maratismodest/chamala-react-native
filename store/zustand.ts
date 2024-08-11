@@ -44,7 +44,7 @@ export const useStore = create(
     {
       name: "app-storage", // unique name
       getStorage: () => AsyncStorage, // Add this here!
-      version: 1.3,
+      version: 1.4,
     },
   ),
 );
