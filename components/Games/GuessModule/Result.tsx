@@ -6,7 +6,7 @@ import AppButton from "@/components/Button";
 import ResultItem from "@/components/Games/GuessModule/ResultItem";
 import { AnswerProps } from "@/components/Games/GuessModule/utils";
 import useTransitions from "@/hooks/useTransitions";
-import { useStore } from "@/store/zustand";
+import { useStore } from "@/store";
 
 type Props = {
   result: AnswerProps[];

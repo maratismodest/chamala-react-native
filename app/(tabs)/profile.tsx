@@ -6,7 +6,7 @@ import Button from "@/components/Button";
 import { Text, View } from "@/components/Themed";
 import { initialProfile } from "@/pages-lib/profile/utils";
 import { LocaleContext } from "@/providers/LocaleProvider";
-import { useStore } from "@/store/zustand";
+import { useStore } from "@/store";
 import { appStyles } from "@/styles";
 
 export default function ProfilePage() {

@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 
 import LettersModule from "@/components/Games/LettersModule";
 import { View } from "@/components/Themed";
-import { useStore } from "@/store/zustand";
+import { useStore } from "@/store";
 import { appStyles } from "@/styles";
 
 export default function LettersPage() {

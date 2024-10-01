@@ -7,7 +7,7 @@ import AudioPlayer from "@/components/AudioPlayer";
 import AppButton from "@/components/Button";
 import GameModal from "@/components/Games/GameModal";
 import i18n from "@/i18n";
-import { useStore } from "@/store/zustand";
+import { useStore } from "@/store";
 import { appStyles } from "@/styles";
 import type { IWord, Profile } from "@/types";
 import getRandomInt from "@/utils/getRandomInt";

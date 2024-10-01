@@ -11,7 +11,7 @@ import GameModal from "@/components/Games/GameModal";
 import Result from "@/components/Games/GuessModule/Result";
 import { Text } from "@/components/Themed";
 import useTransitions from "@/hooks/useTransitions";
-import { useStore } from "@/store/zustand";
+import { useStore } from "@/store";
 import { appStyles } from "@/styles";
 import type { IWord, Language } from "@/types";
 import getShuffled from "@/utils/getShuffled";

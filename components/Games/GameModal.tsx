@@ -6,7 +6,7 @@ import Sad from "@/assets/svg/sad.svg";
 import AppButton from "@/components/Button";
 import { Text } from "@/components/Themed";
 import useTransitions from "@/hooks/useTransitions";
-import { useStore } from "@/store/zustand";
+import { useStore } from "@/store";
 import { appStyles } from "@/styles";
 import type { IWord } from "@/types";
 

@@ -10,7 +10,7 @@ import AppButton from "@/components/Button";
 import { collectStyles } from "@/components/Games/CollectModule/collectStyles";
 import GameModal from "@/components/Games/GameModal";
 import useTransitions from "@/hooks/useTransitions";
-import { useStore } from "@/store/zustand";
+import { useStore } from "@/store";
 import { appStyles } from "@/styles";
 import type { IWord, Profile } from "@/types";
 
