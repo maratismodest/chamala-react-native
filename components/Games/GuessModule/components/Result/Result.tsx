@@ -35,7 +35,7 @@ export const Result = ({ result, setResult }: Props) => {
           reset();
         }}
         title={i18n.t("next")}
-        style={{ width: 200, marginHorizontal: "auto", marginTop: 16 }}
+        className="w-[200[px] mx-auto mt-4"
       />
     </>
   );

@@ -28,8 +28,8 @@ export function CollectModule() {
   const [chosens, setChosens] = useState<CollectProps[]>([]);
 
   const getNewPhrase = useCallback(() => {
-    const correct = phrases[getRandomInt(phrases.length)];
-    const fake = phrases[getRandomInt(phrases.length)];
+    const correct = phrases[getRandomInt(0, phrases.length - 1)];
+    const fake = phrases[getRandomInt(0, phrases.length - 1)];
     const realOptions = correct.ta.toLowerCase().split(" ");
     const fakeOptions = fake.ta.toLowerCase().split(" ");
 

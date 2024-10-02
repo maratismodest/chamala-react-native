@@ -1,7 +1,5 @@
-const getShuffled = <T>(arr: T[]): T[] =>
-  arr
-    .map((value) => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value);
+function getShuffled<T>(array: T[]): T[] {
+  return array.sort(() => Math.random() - 0.5);
+}
 
 export default getShuffled;

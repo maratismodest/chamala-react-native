@@ -88,12 +88,7 @@ export function GuessModule({ collection, count = 6 }: Props) {
         {correct.ta}
       </Text>
       <FlatList
-        style={{
-          flexGrow: 0,
-          marginTop: 16,
-          maxWidth: 300,
-          width: "100%",
-        }}
+        className="grow-0 mt-4 w-full max-w-[300px]"
         data={list}
         renderItem={({ item }) => (
           <AppButton
@@ -112,7 +107,7 @@ export function GuessModule({ collection, count = 6 }: Props) {
         borderWidth={2}
         width={null}
         color="green"
-        style={{ maxWidth: 300, marginHorizontal: "auto", width: "100%" }}
+        className="w-full max-w-[300px] mx-auto"
       />
       <>
         {answer && (
