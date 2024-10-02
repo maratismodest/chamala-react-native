@@ -1,24 +1,18 @@
-import { useRef } from "react";
-import * as React from "react";
-import {
-  Text,
-  StyleSheet,
-  Pressable,
-  Animated,
-  StyleProp,
-  ViewStyle,
-} from "react-native";
+import { useRef, forwardRef } from "react";
+import { Animated, Pressable, StyleProp, Text, ViewStyle } from "react-native";
 
-interface Props {
+import { styles } from "./Button.styles";
+
+type Props = {
   title: string;
   onPress?: any;
   style?: StyleProp<ViewStyle>;
   className?: string;
   disabled?: boolean;
   opacity?: boolean;
-}
+};
 
-const Button = React.forwardRef((props: Props, ref) => {
+export const Button = forwardRef((props: Props, ref) => {
   const animated = useRef(new Animated.Value(1)).current;
   const fadeIn = () => {
     Animated.timing(animated, {
@@ -69,24 +63,4 @@ const Button = React.forwardRef((props: Props, ref) => {
       </Animated.View>
     </Pressable>
   );
-});
-export default Button;
-
-const styles = StyleSheet.create({
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 48,
-    borderRadius: 32,
-    elevation: 3,
-    backgroundColor: "rgb(15, 128, 18)",
-  },
-  text: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "white",
-  },
 });
