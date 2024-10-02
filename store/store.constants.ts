@@ -1,7 +1,13 @@
 import { phrases } from "@/data/phrases";
 import { words } from "@/data/words";
-import { initialProfile } from "@/pages-lib/profile/utils";
 import { Store } from "@/store/store.types";
+import { Profile } from "@/types";
+
+export const initialProfile: Profile = {
+  correct: 0,
+  wrong: 0,
+  accuracy: 0,
+};
 
 export const initialStoreState: Store = {
   count: 0,

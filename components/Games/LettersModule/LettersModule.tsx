@@ -9,7 +9,7 @@ import AudioPlayer from "@/components/AudioPlayer";
 import AppButton from "@/components/Button";
 import { collectStyles } from "@/components/Games/CollectModule/collectStyles";
 import GameModal from "@/components/Games/GameModal";
-import useTransitions from "@/hooks/useTransitions";
+import useTranslations from "@/hooks/useTranslations";
 import { useStore } from "@/store";
 import { appStyles } from "@/styles";
 import type { IWord, Profile } from "@/types";
@@ -19,7 +19,7 @@ type Props = {
 };
 
 export function LettersModule({ words }: Props) {
-  const { i18n } = useTransitions();
+  const { i18n } = useTranslations();
   const { profile, setProfile, modal, setModal } = useStore((state) => state);
 
   const [state, setState] = useState<LettersModuleState>(() => {

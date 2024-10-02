@@ -4,23 +4,18 @@ import React, { useContext } from "react";
 import Happy from "@/assets/svg/happy.svg";
 import Button from "@/components/Button";
 import { Text, View } from "@/components/Themed";
-import { initialProfile } from "@/pages-lib/profile/utils";
 import { LocaleContext } from "@/providers/LocaleProvider";
 import { useStore } from "@/store";
 import { appStyles } from "@/styles";
 
 export default function ProfilePage() {
   const { setLocale, i18n } = useContext(LocaleContext);
-  const { profile, setProfile } = useStore((state) => state);
+  const { profile, resetProfile } = useStore((state) => state);
 
   const changeLanguage = (locale: "ru" | "en") => {
     AsyncStorage.setItem("locale", locale).then(() => {
       setLocale(locale);
     });
-  };
-
-  const handleReset = () => {
-    setProfile(initialProfile);
   };
 
   return (
@@ -44,7 +39,7 @@ export default function ProfilePage() {
       )}
       <Button
         style={{ marginTop: 16, width: "auto" }}
-        onPress={handleReset}
+        onPress={resetProfile}
         title={i18n.t("reset")}
       />
       <View

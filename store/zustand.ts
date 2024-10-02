@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-import { initialStoreState } from "./store.constants";
+import { initialProfile, initialStoreState } from "./store.constants";
 import { Store, StoreActions } from "./store.types";
 
 const createActions = (
@@ -14,6 +14,7 @@ const createActions = (
   changeLanguage: (language) => set(() => ({ language })),
   setProfile: (profile) => set(() => ({ profile })),
   setModal: (visible) => set(() => ({ modal: visible })),
+  resetProfile: () => set(() => ({ profile: initialProfile })),
 });
 
 export const useStore = create(

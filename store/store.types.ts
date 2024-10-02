@@ -16,6 +16,7 @@ type StoreActions = {
   changeLanguage: (language: Language) => void;
   setProfile: (profile: Profile) => void;
   setModal: (visible: boolean) => void;
+  resetProfile: () => void;
 };
 
 export type { Store, StoreActions };

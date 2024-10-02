@@ -10,7 +10,7 @@ import AppButton from "@/components/Button";
 import GameModal from "@/components/Games/GameModal";
 import Result from "@/components/Games/GuessModule/Result";
 import { Text } from "@/components/Themed";
-import useTransitions from "@/hooks/useTransitions";
+import useTranslations from "@/hooks/useTranslations";
 import { useStore } from "@/store";
 import { appStyles } from "@/styles";
 import type { IWord, Language } from "@/types";
@@ -22,7 +22,7 @@ type Props = {
 };
 
 export function GuessModule({ collection, count = 6 }: Props) {
-  const { i18n } = useTransitions();
+  const { i18n } = useTranslations();
   const isFocused = useIsFocused();
   const click = useStore(useCallback((state) => state.count, []));
   const inc = useStore(useCallback((state) => state.incrementClick, []));

@@ -3,7 +3,7 @@ import { Link, Tabs } from "expo-router";
 import { Pressable, useColorScheme } from "react-native";
 
 import Colors from "@/constants/Colors";
-import useTransitions from "@/hooks/useTransitions";
+import useTranslations from "@/hooks/useTranslations";
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -23,7 +23,7 @@ interface TabProps {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const { i18n } = useTransitions();
+  const { i18n } = useTranslations();
 
   const tabs: TabProps[] = [
     {

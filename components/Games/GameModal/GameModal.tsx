@@ -5,19 +5,19 @@ import Happy from "@/assets/svg/happy.svg";
 import Sad from "@/assets/svg/sad.svg";
 import AppButton from "@/components/Button";
 import { Text } from "@/components/Themed";
-import useTransitions from "@/hooks/useTransitions";
+import useTranslations from "@/hooks/useTranslations";
 import { useStore } from "@/store";
 import { appStyles } from "@/styles";
 import type { IWord } from "@/types";
 
-interface GuessModalProps {
+type Props = {
   correct: IWord;
   answer: IWord;
   handleNext: () => void;
-}
+};
 
-const GameModal = ({ correct, answer, handleNext }: GuessModalProps) => {
-  const { i18n } = useTransitions();
+export const GameModal = ({ correct, answer, handleNext }: Props) => {
+  const { i18n } = useTranslations();
   const { modal, setModal } = useStore((state) => state);
   const isCorrect = answer.ta === correct.ta;
   return (
@@ -64,5 +64,3 @@ const GameModal = ({ correct, answer, handleNext }: GuessModalProps) => {
     </Modal>
   );
 };
-
-export default GameModal;

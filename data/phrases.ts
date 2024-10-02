@@ -1,6 +1,6 @@
 import type { IWord } from "@/types";
 
-const phrases: IWord[] = [
+export const phrases: IWord[] = [
   {
     id: 9,
     ru: "не беспокойтесь",
@@ -315,8 +315,3 @@ const phrases: IWord[] = [
     audio: "https://fileserver.innoads.ru/uploads/chamala/бик тәмле.mp3",
   },
 ];
-
-const phrasesTa = phrases.map((x) => `"${x.ta}"`);
-// console.log(phrasesTa.join(","));
-
-export { phrases };

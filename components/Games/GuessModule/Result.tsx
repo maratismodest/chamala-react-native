@@ -5,7 +5,7 @@ import Happy from "@/assets/svg/happy.svg";
 import AppButton from "@/components/Button";
 import ResultItem from "@/components/Games/GuessModule/ResultItem";
 import { AnswerProps } from "@/components/Games/GuessModule/utils";
-import useTransitions from "@/hooks/useTransitions";
+import useTranslations from "@/hooks/useTranslations";
 import { useStore } from "@/store";
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
 };
 
 const Result = ({ result, setResult }: Props) => {
-  const { i18n } = useTransitions();
+  const { i18n } = useTranslations();
   const reset = useStore(useCallback((state) => state.resetCount, []));
 
   return (

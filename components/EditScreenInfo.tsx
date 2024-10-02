@@ -24,7 +24,7 @@ export default function EditScreenInfo({ path }: { path: string }) {
           darkColor="rgba(255,255,255,0.05)"
           lightColor="rgba(0,0,0,0.05)"
         >
-          <MonoText>14.08.2024</MonoText>
+          <MonoText>02.10.2024</MonoText>
         </View>
         <Text
           style={styles.getStartedText}
