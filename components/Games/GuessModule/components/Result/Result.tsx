@@ -1,11 +1,11 @@
-import { Button as AppButton } from "components/ui";
+import { Button } from "components/ui";
 import React, { useCallback } from "react";
 import { FlatList } from "react-native";
 
 import ResultItem from "./ResultItem";
 
 import Happy from "@/assets/svg/happy.svg";
-import { AnswerProps } from "@/components/Games/GuessModule/types";
+import { AnswerProps } from "@/components/Games/GuessModule/GuessModule.types";
 import useTranslations from "@/hooks/useTranslations";
 import { useStore } from "@/store";
 
@@ -29,7 +29,7 @@ export const Result = ({ result, setResult }: Props) => {
         )}
         contentContainerStyle={{ gap: 8 }}
       />
-      <AppButton
+      <Button
         onPress={() => {
           setResult([]);
           reset();

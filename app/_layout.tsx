@@ -4,10 +4,8 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-// import { getAsyncData, storeAsyncData } from "@/store/async-storage";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
-import * as Updates from "expo-updates";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 
@@ -26,25 +24,7 @@ export const unstable_settings = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-async function onFetchUpdateAsync() {
-  try {
-    const update = await Updates.checkForUpdateAsync();
-
-    if (update.isAvailable) {
-      await Updates.fetchUpdateAsync();
-      await Updates.reloadAsync();
-    }
-  } catch (error) {
-    // You can also add an alert() to see the error message in case of an error when fetching updates.
-    alert(`Error fetching latest Expo update: ${error}`);
-  }
-}
-
 export default function RootLayout() {
-  useEffect(() => {
-    // onFetchUpdateAsync();
-  }, []);
-
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,

@@ -1,4 +1,4 @@
-import { AudioPlayer, Button as AppButton } from "components/ui";
+import { AudioPlayer, Button } from "components/ui";
 import React, { useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
@@ -19,7 +19,7 @@ type Props = {
 
 export function LettersModule({ words }: Props) {
   const { i18n } = useTranslations();
-  const { profile, setProfile, modal, setModal } = useStore((state) => state);
+  const { profile, setProfile, modal, setModal } = useStore();
 
   const [state, setState] = useState<LettersModuleState>(() => {
     const { correct, options } = getNewWord(words);
@@ -94,7 +94,7 @@ export function LettersModule({ words }: Props) {
       <AudioPlayer uri={correct.audio} />
       <View style={collectStyles.buttons}>
         {chosens.map((x) => (
-          <AppButton
+          <Button
             key={x.id}
             onPress={() => handleRemove(x)}
             title={x.word}
@@ -105,7 +105,7 @@ export function LettersModule({ words }: Props) {
       <View style={[appStyles.divider, { backgroundColor: "#eee" }]} />
       <View style={collectStyles.buttons}>
         {options.map((x) => (
-          <AppButton
+          <Button
             key={x.id}
             onPress={() => handleAdd(x)}
             title={x.word}
@@ -113,7 +113,7 @@ export function LettersModule({ words }: Props) {
           />
         ))}
       </View>
-      <AppButton
+      <Button
         disabled={chosens.length < correct.ta.length}
         className="mt-4"
         onPress={handleCheck}

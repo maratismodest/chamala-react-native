@@ -1,11 +1,11 @@
 import { useIsFocused } from "@react-navigation/native";
 import { AudioPlayer, Button as AppButton } from "components/ui";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { FlatList } from "react-native";
 import * as Progress from "react-native-progress";
 
+import { AnswerProps } from "./GuessModule.types";
 import { Result } from "./components";
-import { AnswerProps } from "./types";
 
 import GameModal from "@/components/Games/GameModal";
 import { Text } from "@/components/Themed";
@@ -13,6 +13,7 @@ import useTranslations from "@/hooks/useTranslations";
 import { useStore } from "@/store";
 import { appStyles } from "@/styles";
 import type { IWord, Language } from "@/types";
+import getRandomInt from "@/utils/getRandomInt";
 import getShuffled from "@/utils/getShuffled";
 
 type Props = {
@@ -23,26 +24,29 @@ type Props = {
 export function GuessModule({ collection, count = 6 }: Props) {
   const { i18n } = useTranslations();
   const isFocused = useIsFocused();
-  const click = useStore(useCallback((state) => state.count, []));
-  const inc = useStore(useCallback((state) => state.incrementClick, []));
-  const reset = useStore(useCallback((state) => state.resetCount, []));
-  const { profile, setProfile, setModal } = useStore((state) => state);
+  const {
+    count: click,
+    incrementClick: inc,
+    resetCount: reset,
+    profile,
+    setProfile,
+    setModal,
+  } = useStore();
+
   const [list, setList] = useState<IWord[]>(() =>
     getShuffled(collection).slice(0, 4),
   );
-  const correct = useMemo(() => getShuffled(list)[0], [list]);
+
+  const correct = useMemo(() => list[getRandomInt(0, list.length - 1)], [list]);
   const [answer, setAnswer] = useState<IWord | undefined>(undefined);
   const [result, setResult] = useState<AnswerProps[]>([]);
 
   useEffect(() => {
-    console.log("called");
-
     // Call only when screen open or when back on screen
     if (isFocused) {
       reset();
       setResult([]);
     }
-
     return () => setModal(false);
   }, [isFocused]);
 
