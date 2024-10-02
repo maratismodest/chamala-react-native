@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
-import { AnswerProps } from "./utils";
+import { AnswerProps } from "../../types/GuessModule.types";
 
 import { Text } from "@/components/Themed";
 

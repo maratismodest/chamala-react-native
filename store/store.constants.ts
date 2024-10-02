@@ -1,5 +1,5 @@
-import { phrases } from "@/data/phrases";
-import { words } from "@/data/words";
+import { phrases } from "@/constants/phrases";
+import { words } from "@/constants/words";
 import { Store } from "@/store/store.types";
 import { Profile } from "@/types";
 

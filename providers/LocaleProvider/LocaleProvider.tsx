@@ -1,39 +1,18 @@
 import * as Localization from "expo-localization";
 import { I18n } from "i18n-js";
-import React, {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import React, { ReactNode, useEffect, useState } from "react";
+
+import { LocaleContext } from "./LocaleContext";
 
 import { LOCALE } from "@/constants";
 import { useStore } from "@/store/zustand";
 import translations from "@/translations";
 
-type LocaleContextType = {
-  locale: string;
-  setLocale: Dispatch<SetStateAction<string>>;
-  i18n: I18n;
-};
-
-const localeContextDefaultValues: LocaleContextType = {
-  locale: LOCALE,
-  setLocale: () => {},
-  i18n: new I18n(translations),
-};
-
-export const LocaleContext = createContext<LocaleContextType>(
-  localeContextDefaultValues,
-);
-
 type AppProviderProps = {
   children: ReactNode;
 };
 
-export default function LocaleProvider({ children }: AppProviderProps) {
+export function LocaleProvider({ children }: AppProviderProps) {
   const { language } = useStore();
   const [locale, setLocale] = useState(Localization.locale);
   const i18n = new I18n(translations);

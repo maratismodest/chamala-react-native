@@ -3,12 +3,12 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { FlatList } from "react-native";
 import * as Progress from "react-native-progress";
 
-import { AnswerProps } from "./utils";
+import { Result } from "./components";
+import { AnswerProps } from "./types";
 
 import AudioPlayer from "@/components/AudioPlayer";
 import AppButton from "@/components/Button";
 import GameModal from "@/components/Games/GameModal";
-import Result from "@/components/Games/GuessModule/Result";
 import { Text } from "@/components/Themed";
 import useTranslations from "@/hooks/useTranslations";
 import { useStore } from "@/store";

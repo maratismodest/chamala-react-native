@@ -25,7 +25,7 @@ export default function ProfilePage() {
       </View>
       <Text style={appStyles.h1}>{i18n.t("profile")}</Text>
       {profile && (
-        <View style={{ maxWidth: 400, width: "100%", paddingHorizontal: 16 }}>
+        <View className="px-4 w-full max-w-[400px]">
           <Text style={[appStyles.text, { color: "green" }]}>
             {i18n.t("correct")}: {profile.correct}
           </Text>

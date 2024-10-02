@@ -1,10 +1,11 @@
 import React, { useCallback } from "react";
 import { FlatList } from "react-native";
 
+import ResultItem from "./ResultItem";
+import { AnswerProps } from "../../types/GuessModule.types";
+
 import Happy from "@/assets/svg/happy.svg";
 import AppButton from "@/components/Button";
-import ResultItem from "@/components/Games/GuessModule/ResultItem";
-import { AnswerProps } from "@/components/Games/GuessModule/utils";
 import useTranslations from "@/hooks/useTranslations";
 import { useStore } from "@/store";
 
@@ -13,7 +14,7 @@ type Props = {
   setResult: (result: AnswerProps[]) => void;
 };
 
-const Result = ({ result, setResult }: Props) => {
+export const Result = ({ result, setResult }: Props) => {
   const { i18n } = useTranslations();
   const reset = useStore(useCallback((state) => state.resetCount, []));
 
@@ -44,5 +45,3 @@ const Result = ({ result, setResult }: Props) => {
     </>
   );
 };
-
-export default Result;

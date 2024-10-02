@@ -1,13 +1,13 @@
 import { Link } from "expo-router";
-import React, { useContext } from "react";
+import React from "react";
 
 import Button from "@/components/Button";
 import { Text, View } from "@/components/Themed";
-import { LocaleContext } from "@/providers/LocaleProvider";
+import useTranslations from "@/hooks/useTranslations";
 import { appStyles } from "@/styles";
 
 export default function PickPage() {
-  const { i18n } = useContext(LocaleContext);
+  const { i18n } = useTranslations();
   const buttons = [
     {
       id: 1,
@@ -37,7 +37,7 @@ export default function PickPage() {
   return (
     <View style={appStyles.container}>
       <Text style={appStyles.h1}>{i18n.t("pickGame")}</Text>
-      <View style={{ gap: 16, marginTop: 16 }}>
+      <View className="gap-4 mt-4">
         {buttons.map(({ id, href, title, isDisabled }) => (
           <Link key={id} href={href} asChild>
             <Button title={title} />

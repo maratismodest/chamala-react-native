@@ -1,24 +1,24 @@
 import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import React, { useContext } from "react";
+import React from "react";
 
 import Welcome from "@/assets/svg/welcome.svg";
 import Button from "@/components/Button";
 import { Text, View } from "@/components/Themed";
-import { LocaleContext } from "@/providers/LocaleProvider";
+import useTranslations from "@/hooks/useTranslations";
 import { appStyles } from "@/styles";
 
 export default function MainPage() {
-  const { i18n } = useContext(LocaleContext);
+  const { i18n } = useTranslations();
   return (
     <View style={appStyles.container}>
       <Welcome />
       <StatusBar style="auto" />
-      <Text style={[appStyles.h1, { textAlign: "center" }]}>
+      <Text style={[appStyles.h1]} className="text-center">
         {i18n.t("welcomeTitle")}
       </Text>
       <Link href="/pick" asChild>
-        <Button title={i18n.t("start")} style={{ paddingHorizontal: 64 }} />
+        <Button title={i18n.t("start")} className="px-16" />
       </Link>
     </View>
   );
