@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 import { initialState } from "./constants";
+import { getNewWord } from "./helpers";
 import { CollectProps, LettersModuleState } from "./types";
-import { getNewWord } from "./utils";
 
 import AudioPlayer from "@/components/AudioPlayer";
 import AppButton from "@/components/Button";

@@ -13,32 +13,28 @@ export default function PickPage() {
       id: 1,
       title: i18n.t("word"),
       href: "/word",
-      isDisabled: false,
     },
     {
       id: 2,
       title: i18n.t("phrase"),
       href: "/phrase",
-      isDisabled: true,
     },
     {
       id: 3,
       title: i18n.t("collect"),
       href: "/collect",
-      isDisabled: true,
     },
     {
       id: 4,
       title: i18n.t("letters"),
       href: "/letters",
-      isDisabled: true,
     },
   ] as const;
   return (
     <View style={appStyles.container}>
       <Text style={appStyles.h1}>{i18n.t("pickGame")}</Text>
       <View className="gap-4 mt-4">
-        {buttons.map(({ id, href, title, isDisabled }) => (
+        {buttons.map(({ id, href, title }) => (
           <Link key={id} href={href} asChild>
             <Button title={title} />
           </Link>

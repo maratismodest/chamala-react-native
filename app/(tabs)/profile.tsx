@@ -7,16 +7,19 @@ import { Text, View } from "@/components/Themed";
 import { LocaleContext } from "@/providers/LocaleProvider";
 import { useStore } from "@/store";
 import { appStyles } from "@/styles";
+import { Language } from "@/types";
 
 export default function ProfilePage() {
   const { setLocale, i18n } = useContext(LocaleContext);
   const { profile, resetProfile } = useStore((state) => state);
 
-  const changeLanguage = (locale: "ru" | "en") => {
+  const changeLanguage = (locale: Language) => {
     AsyncStorage.setItem("locale", locale).then(() => {
       setLocale(locale);
     });
   };
+
+  const { correct, accuracy, wrong } = profile;
 
   return (
     <View style={appStyles.container}>
@@ -27,29 +30,22 @@ export default function ProfilePage() {
       {profile && (
         <View className="px-4 w-full max-w-[400px]">
           <Text style={[appStyles.text, { color: "green" }]}>
-            {i18n.t("correct")}: {profile.correct}
+            {i18n.t("correct")}: {correct}
           </Text>
           <Text style={[appStyles.text, { color: "red" }]}>
-            {i18n.t("wrong")}: {profile.wrong}
+            {i18n.t("wrong")}: {wrong}
           </Text>
           <Text style={appStyles.text}>
-            {i18n.t("accuracy")}: {(100 * profile.accuracy).toFixed(1)}%
+            {i18n.t("accuracy")}: {(100 * accuracy).toFixed(1)}&#37;
           </Text>
         </View>
       )}
       <Button
-        style={{ marginTop: 16, width: "auto" }}
+        className="mt-4 w-auto !my-global-class"
         onPress={resetProfile}
         title={i18n.t("reset")}
       />
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          gap: 16,
-          marginTop: 16,
-        }}
-      >
+      <View className="flex flex-row justify-between gap-4 mt-4">
         <Button title="Ru" onPress={() => changeLanguage("ru")} />
         <Button title="En" onPress={() => changeLanguage("en")} />
       </View>

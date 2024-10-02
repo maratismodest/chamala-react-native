@@ -1,4 +1,4 @@
-import { LettersModuleState } from "@/components/Games/LettersModule/types";
+import { LettersModuleState } from "./types";
 
 export const initialState: LettersModuleState = {
   correct: undefined,

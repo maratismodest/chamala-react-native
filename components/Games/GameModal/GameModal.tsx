@@ -43,9 +43,7 @@ export const GameModal = ({ correct, answer, handleNext }: Props) => {
                 <Text>{i18n.t("correct")}</Text>
               ) : (
                 <>
-                  <Text style={{ color: "rgb(239, 68, 68)" }}>
-                    {i18n.t("wrong")}
-                  </Text>
+                  <Text className="text-red-500">{i18n.t("wrong")}</Text>
                   <Text>
                     {i18n.t("correct")}: {correct.ta}
                   </Text>
@@ -57,7 +55,7 @@ export const GameModal = ({ correct, answer, handleNext }: Props) => {
           <AppButton
             title={i18n.t("next")}
             onPress={handleNext}
-            style={{ width: 200 }}
+            className="w-48"
           />
         </View>
       </View>

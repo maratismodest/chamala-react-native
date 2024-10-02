@@ -2,10 +2,10 @@ import React, { useCallback } from "react";
 import { FlatList } from "react-native";
 
 import ResultItem from "./ResultItem";
-import { AnswerProps } from "../../types/GuessModule.types";
 
 import Happy from "@/assets/svg/happy.svg";
 import AppButton from "@/components/Button";
+import { AnswerProps } from "@/components/Games/GuessModule/types";
 import useTranslations from "@/hooks/useTranslations";
 import { useStore } from "@/store";
 
@@ -20,15 +20,10 @@ export const Result = ({ result, setResult }: Props) => {
 
   return (
     <>
-      <Happy width={96} height={96} style={{ marginHorizontal: "auto" }} />
+      <Happy width={96} height={96} className="mx-auto" />
       <FlatList
         data={result}
-        style={{
-          flexGrow: 0,
-          marginTop: 16,
-          width: "100%",
-          maxWidth: 400,
-        }}
+        className="grow-0 mt-4 w-full max-w-[400px]"
         renderItem={({ item, index }) => (
           <ResultItem item={item} index={index} />
         )}

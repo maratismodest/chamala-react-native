@@ -106,7 +106,7 @@ export function CollectModule() {
           />
         ))}
       </View>
-      <View style={[appStyles.divider, { backgroundColor: "#eee" }]} />
+      <View style={[appStyles.divider]} className="bg-[#eee]" />
       <View style={collectStyles.buttons}>
         {options.map((x) => (
           <AppButton
