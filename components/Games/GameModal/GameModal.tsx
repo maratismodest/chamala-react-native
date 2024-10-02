@@ -1,9 +1,9 @@
+import { Button as AppButton } from "components/ui";
 import React from "react";
 import { Alert, Modal, View } from "react-native";
 
 import Happy from "@/assets/svg/happy.svg";
 import Sad from "@/assets/svg/sad.svg";
-import AppButton from "@/components/Button";
 import { Text } from "@/components/Themed";
 import useTranslations from "@/hooks/useTranslations";
 import { useStore } from "@/store";

@@ -1,10 +1,10 @@
+import { Button as AppButton } from "components/ui";
 import React, { useCallback } from "react";
 import { FlatList } from "react-native";
 
 import ResultItem from "./ResultItem";
 
 import Happy from "@/assets/svg/happy.svg";
-import AppButton from "@/components/Button";
 import { AnswerProps } from "@/components/Games/GuessModule/types";
 import useTranslations from "@/hooks/useTranslations";
 import { useStore } from "@/store";

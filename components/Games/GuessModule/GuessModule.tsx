@@ -1,4 +1,5 @@
 import { useIsFocused } from "@react-navigation/native";
+import { AudioPlayer, Button as AppButton } from "components/ui";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { FlatList } from "react-native";
 import * as Progress from "react-native-progress";
@@ -6,8 +7,6 @@ import * as Progress from "react-native-progress";
 import { Result } from "./components";
 import { AnswerProps } from "./types";
 
-import AudioPlayer from "@/components/AudioPlayer";
-import AppButton from "@/components/Button";
 import GameModal from "@/components/Games/GameModal";
 import { Text } from "@/components/Themed";
 import useTranslations from "@/hooks/useTranslations";

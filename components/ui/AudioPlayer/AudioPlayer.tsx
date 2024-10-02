@@ -4,7 +4,7 @@ import { Animated, Pressable } from "react-native";
 
 import Play from "@/assets/svg/play.svg";
 
-export default function AudioPlayer({ uri }: { uri: string }) {
+export function AudioPlayer({ uri }: { uri: string }) {
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
   const fadeIn = () => {

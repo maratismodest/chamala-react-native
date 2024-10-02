@@ -1,10 +1,9 @@
+import { AudioPlayer, Button as AppButton } from "components/ui";
 import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 import { collectStyles } from "./collectStyles";
 
-import AudioPlayer from "@/components/AudioPlayer";
-import AppButton from "@/components/Button";
 import GameModal from "@/components/Games/GameModal";
 import i18n from "@/i18n";
 import { useStore } from "@/store";

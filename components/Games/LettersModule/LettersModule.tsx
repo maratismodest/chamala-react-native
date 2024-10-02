@@ -1,3 +1,4 @@
+import { AudioPlayer, Button as AppButton } from "components/ui";
 import React, { useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
@@ -5,8 +6,6 @@ import { initialState } from "./constants";
 import { getNewWord } from "./helpers";
 import { CollectProps, LettersModuleState } from "./types";
 
-import AudioPlayer from "@/components/AudioPlayer";
-import AppButton from "@/components/Button";
 import { collectStyles } from "@/components/Games/CollectModule/collectStyles";
 import GameModal from "@/components/Games/GameModal";
 import useTranslations from "@/hooks/useTranslations";
