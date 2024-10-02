@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 
 import { ExternalLink } from "./ExternalLink";
 import { MonoText } from "./StyledText";
@@ -14,9 +13,9 @@ type Props = {
 export default function EditScreenInfo({ path }: Props) {
   return (
     <View>
-      <View style={styles.getStartedContainer}>
+      <View className="items-center mx-12">
         <Text
-          style={styles.getStartedText}
+          className="text-center"
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)"
         >
@@ -24,14 +23,14 @@ export default function EditScreenInfo({ path }: Props) {
         </Text>
 
         <View
-          style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
+          className="my-2 rounded px-1"
           darkColor="rgba(255,255,255,0.05)"
           lightColor="rgba(0,0,0,0.05)"
         >
-          <MonoText>02.10.2024</MonoText>
+          <MonoText>03.10.2024</MonoText>
         </View>
         <Text
-          style={styles.getStartedText}
+          className="text-center"
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)"
         >
@@ -39,9 +38,9 @@ export default function EditScreenInfo({ path }: Props) {
         </Text>
       </View>
 
-      <View style={styles.helpContainer}>
-        <ExternalLink style={styles.helpLink} href="https://t.me/maratfaizer">
-          <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+      <View className="mt-4 mx-5 items-center">
+        <ExternalLink className="py-4" href="https://t.me/maratfaizer">
+          <Text className="text-center" lightColor={Colors.light.tint}>
             Связаться с разработчиком
           </Text>
         </ExternalLink>
@@ -49,33 +48,3 @@ export default function EditScreenInfo({ path }: Props) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  getStartedContainer: {
-    alignItems: "center",
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightContainer: {
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    lineHeight: 24,
-    textAlign: "center",
-  },
-  helpContainer: {
-    marginTop: 15,
-    marginHorizontal: 20,
-    alignItems: "center",
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    textAlign: "center",
-  },
-});
