@@ -115,8 +115,9 @@ export function GuessModule({ collection, count = 6 }: Props) {
       <>
         {answer && (
           <GameModal
+            isCorrect={answer.id === correct.id}
             answer={answer}
-            correct={correct}
+            correct={correct.ru}
             handleNext={handleNext}
           />
         )}

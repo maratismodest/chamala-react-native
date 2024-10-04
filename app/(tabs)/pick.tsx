@@ -4,32 +4,12 @@ import React from "react";
 
 import { Text, View } from "@/components/Themed";
 import useTranslations from "@/hooks/useTranslations";
+import { usePicklist } from "@/pages/PickPage";
 import { appStyles } from "@/styles";
 
 export default function PickPage() {
   const { i18n } = useTranslations();
-  const buttons = [
-    {
-      id: 1,
-      title: i18n.t("word"),
-      href: "/word",
-    },
-    {
-      id: 2,
-      title: i18n.t("phrase"),
-      href: "/phrase",
-    },
-    {
-      id: 3,
-      title: i18n.t("collect"),
-      href: "/collect",
-    },
-    {
-      id: 4,
-      title: i18n.t("letters"),
-      href: "/letters",
-    },
-  ] as const;
+  const buttons = usePicklist();
   return (
     <View style={appStyles.container}>
       <Text style={appStyles.h1}>{i18n.t("pickGame")}</Text>

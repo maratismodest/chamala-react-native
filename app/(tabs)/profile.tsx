@@ -11,7 +11,7 @@ import { Language } from "@/types";
 
 export default function ProfilePage() {
   const { setLocale, i18n } = useContext(LocaleContext);
-  const { profile, resetProfile } = useStore((state) => state);
+  const { profile, resetProfile } = useStore();
 
   const changeLanguage = (locale: Language) => {
     AsyncStorage.setItem("locale", locale).then(() => {
@@ -27,19 +27,17 @@ export default function ProfilePage() {
         <Happy width={96} height={96} />
       </View>
       <Text style={appStyles.h1}>{i18n.t("profile")}</Text>
-      {profile && (
-        <View className="px-4 w-full max-w-[400px]">
-          <Text style={[appStyles.text, { color: "green" }]}>
-            {i18n.t("correct")}: {correct}
-          </Text>
-          <Text style={[appStyles.text, { color: "red" }]}>
-            {i18n.t("wrong")}: {wrong}
-          </Text>
-          <Text style={appStyles.text}>
-            {i18n.t("accuracy")}: {(100 * accuracy).toFixed(1)}&#37;
-          </Text>
-        </View>
-      )}
+      <View className="px-4 w-full max-w-[400px]">
+        <Text style={[appStyles.text]} className="text-green-500">
+          {i18n.t("correct")}: {correct}
+        </Text>
+        <Text style={[appStyles.text]} className="text-red-500">
+          {i18n.t("wrong")}: {wrong}
+        </Text>
+        <Text style={appStyles.text}>
+          {i18n.t("accuracy", { percent: (100 * accuracy).toFixed(1) })}
+        </Text>
+      </View>
       <Button
         className="mt-4 w-auto !my-global-class"
         onPress={resetProfile}

@@ -1,4 +1,4 @@
-import { AudioPlayer, Button as AppButton } from "components/ui";
+import { AudioPlayer, Button } from "components/ui";
 import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
@@ -97,7 +97,7 @@ export function CollectModule() {
       <AudioPlayer uri={correct.audio} />
       <View style={collectStyles.buttons}>
         {chosens.map((x) => (
-          <AppButton
+          <Button
             key={x.id}
             onPress={() => handleRemove(x)}
             title={x.word}
@@ -108,7 +108,7 @@ export function CollectModule() {
       <View style={[appStyles.divider]} className="bg-[#eee]" />
       <View style={collectStyles.buttons}>
         {options.map((x) => (
-          <AppButton
+          <Button
             key={x.id}
             onPress={() => handleAdd(x)}
             title={x.word}
@@ -116,7 +116,7 @@ export function CollectModule() {
           />
         ))}
       </View>
-      <AppButton
+      <Button
         disabled={chosens.length === 0}
         className="mt-4"
         onPress={handleCheck}
@@ -124,7 +124,12 @@ export function CollectModule() {
         opacity={modal}
       />
       {answer && (
-        <GameModal correct={correct} answer={answer} handleNext={closeModal} />
+        <GameModal
+          isCorrect={answer.id === correct.id}
+          correct={`${correct.ta} (${correct.ru})`}
+          answer={answer}
+          handleNext={closeModal}
+        />
       )}
     </>
   );

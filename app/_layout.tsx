@@ -12,7 +12,7 @@ import { useColorScheme } from "react-native";
 import LocaleProvider from "@/providers/LocaleProvider";
 
 export {
-  // Catch any errors thrown by the Layout component.
+  // Catch any errors thrown by the TabLayout component.
   ErrorBoundary,
 } from "expo-router";
 
@@ -56,7 +56,10 @@ function RootLayoutNav() {
       <LocaleProvider>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+          <Stack.Screen
+            name="modal"
+            options={{ presentation: "modal", title: "О нас" }}
+          />
         </Stack>
       </LocaleProvider>
     </ThemeProvider>

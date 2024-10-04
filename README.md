@@ -10,3 +10,8 @@ eas submit -p ios --latest
 eas update --auto
 eas update --branch production --message "DD.MM.YYYY"
 ```
+
+## Watchman kill all processes
+```
+watchman watch-del-all
+```

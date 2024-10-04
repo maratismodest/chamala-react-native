@@ -1,58 +1,54 @@
-import { Button as AppButton } from "components/ui";
+import { Button } from "components/ui";
 import React from "react";
-import { Alert, Modal, View } from "react-native";
+import { Modal, View } from "react-native";
 
 import Happy from "@/assets/svg/happy.svg";
 import Sad from "@/assets/svg/sad.svg";
+import { modalStyles } from "@/components/Games/GameModal/styles";
 import { Text } from "@/components/Themed";
 import useTranslations from "@/hooks/useTranslations";
 import { useStore } from "@/store";
-import { appStyles } from "@/styles";
-import type { IWord } from "@/types";
 
 type Props = {
-  correct: IWord;
-  answer: IWord;
+  isCorrect: boolean;
+  correct: string;
   handleNext: () => void;
 };
 
-export const GameModal = ({ correct, answer, handleNext }: Props) => {
+export const GameModal = ({ isCorrect, correct, handleNext }: Props) => {
   const { i18n } = useTranslations();
   const { modal, setModal } = useStore((state) => state);
-  const isCorrect = answer.ta === correct.ta;
   return (
     <Modal
       animationType="slide"
       transparent
       visible={modal}
-      onRequestClose={() => {
-        Alert.alert("Modal has been closed.");
-        setModal(!modal);
-      }}
+      onRequestClose={() => setModal(!modal)}
     >
-      <View style={appStyles.centeredView}>
-        <View style={appStyles.modalView}>
+      <View style={modalStyles.centeredView}>
+        <View style={modalStyles.modalView}>
           <View className="flex-row items-center">
             {isCorrect ? (
-              <Happy width={90} height={90} />
+              <>
+                <Happy width={90} height={90} />
+                <View>
+                  <Text>{i18n.t("correct")}</Text>
+                </View>
+              </>
             ) : (
-              <Sad width={90} height={90} />
-            )}
-            <View>
-              {isCorrect ? (
-                <Text>{i18n.t("correct")}</Text>
-              ) : (
-                <>
+              <>
+                <Sad width={90} height={90} />
+                <View>
                   <Text className="text-red-500">{i18n.t("wrong")}</Text>
                   <Text>
-                    {i18n.t("correct")}: {correct.ta}
+                    {i18n.t("correct")}: {correct}
                   </Text>
-                </>
-              )}
-            </View>
+                </View>
+              </>
+            )}
           </View>
 
-          <AppButton
+          <Button
             title={i18n.t("next")}
             onPress={handleNext}
             className="w-48"

@@ -30,26 +30,6 @@ export const appStyles = StyleSheet.create({
     height: 1,
     width: "80%",
   },
-  centeredView: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
-  modalView: {
-    backgroundColor: "white",
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    paddingHorizontal: 24,
-    paddingVertical: 48,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
   h1: { fontSize: 30, lineHeight: 36, maxWidth: 512 },
   text: { fontSize: 18, lineHeight: 28 },
 });
