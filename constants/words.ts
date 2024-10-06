@@ -14,6 +14,7 @@ export const words: IWord[] = [
     ta: "егет",
     en: "guy",
     audio: "https://fileserver.innoads.ru/uploads/chamala/егет.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/guy.svg",
   },
   {
     id: 18,
@@ -84,6 +85,7 @@ export const words: IWord[] = [
     ta: "укучы",
     en: "student, reader",
     audio: "https://fileserver.innoads.ru/uploads/chamala/укучы.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/student.svg",
   },
   {
     id: 4,
@@ -182,6 +184,7 @@ export const words: IWord[] = [
     ta: "әни",
     en: "mom",
     audio: "https://fileserver.innoads.ru/uploads/chamala/әни.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/mom.svg",
   },
   {
     id: 59,
@@ -406,6 +409,7 @@ export const words: IWord[] = [
     ta: "бала",
     en: "child",
     audio: "https://fileserver.innoads.ru/uploads/chamala/бала.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/child.svg",
   },
   {
     id: 11,
@@ -455,6 +459,7 @@ export const words: IWord[] = [
     ta: "бәби",
     en: "baby",
     audio: "https://fileserver.innoads.ru/uploads/chamala/бәби.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/baby.svg",
   },
   {
     id: 132,
@@ -469,6 +474,7 @@ export const words: IWord[] = [
     ta: "әби",
     en: "grandmother",
     audio: "https://fileserver.innoads.ru/uploads/chamala/әби.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/grandmother.svg",
   },
   {
     id: 128,
@@ -518,6 +524,7 @@ export const words: IWord[] = [
     ta: "әти",
     en: "dad",
     audio: "https://fileserver.innoads.ru/uploads/chamala/әти.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/father.svg",
   },
   {
     id: 135,
@@ -525,6 +532,7 @@ export const words: IWord[] = [
     ta: "малай",
     en: "boy",
     audio: "https://fileserver.innoads.ru/uploads/chamala/малай.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/boy.svg",
   },
   {
     id: 129,
@@ -2136,6 +2144,7 @@ export const words: IWord[] = [
     ta: "кыз",
     en: "girl, daughter",
     audio: "https://fileserver.innoads.ru/uploads/chamala/кыз.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/girl.svg",
   },
   {
     id: 130,

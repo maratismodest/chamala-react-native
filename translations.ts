@@ -2,7 +2,8 @@ const translations = {
   en: {
     title: "Hello world!",
     start: "Start",
-    welcomeTitle: "Learning the Tatar language in the format of mini-games",
+    welcomeTitle:
+      "Learning the Tatar language in the format of mini\u2011games",
     pickGame: "Pick Game",
     word: "Word",
     phrase: "Phrase",
@@ -27,7 +28,7 @@ const translations = {
   ru: {
     title: "Привет мир!",
     start: "Начать",
-    welcomeTitle: "Изучение татарского языка в формате мини-игр",
+    welcomeTitle: "Изучение татарского языка в формате мини\u2011игр",
     pickGame: "Выбери игру",
     word: "Слово",
     phrase: "Фраза",

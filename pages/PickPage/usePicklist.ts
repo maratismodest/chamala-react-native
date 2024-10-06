@@ -28,6 +28,11 @@ export function usePicklist() {
         title: i18n.t("letters"),
         href: "/letters",
       },
+      {
+        id: 5,
+        title: "Карточка",
+        href: "/card",
+      },
     ],
     [i18n],
   );

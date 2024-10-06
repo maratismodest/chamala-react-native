@@ -4,6 +4,7 @@ interface IWord {
   ta: string;
   en: string;
   audio: string;
+  image?: string;
 }
 
 type Language = "en" | "ru";

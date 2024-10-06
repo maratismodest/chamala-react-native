@@ -15,3 +15,8 @@ eas update --branch production --message "DD.MM.YYYY"
 ```
 watchman watch-del-all
 ```
+
+## After installing a new package
+```
+npx pod-install
+```

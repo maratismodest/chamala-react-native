@@ -30,10 +30,16 @@ export function useTabsList() {
       {
         name: "profile",
         title: i18n.t("profile"),
+        href: null,
       },
       {
         name: "letters",
         title: i18n.t("letters"),
+        href: null,
+      },
+      {
+        name: "card",
+        title: i18n.t("card"),
         href: null,
       },
     ],
