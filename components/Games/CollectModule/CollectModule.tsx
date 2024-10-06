@@ -127,7 +127,6 @@ export function CollectModule() {
         <GameModal
           isCorrect={answer.id === correct.id}
           correct={`${correct.ta} (${correct.ru})`}
-          answer={answer}
           handleNext={closeModal}
         />
       )}

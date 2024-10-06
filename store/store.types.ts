@@ -7,6 +7,7 @@ type Store = {
   language: Language;
   profile: Profile;
   modal: boolean;
+  cards: IWord[];
 };
 
 type StoreActions = {
