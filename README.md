@@ -20,3 +20,8 @@ watchman watch-del-all
 ```
 npx pod-install
 ```
+
+## Select a simulator
+```
+npx expo run:ios --device "iPhone 16" 
+```

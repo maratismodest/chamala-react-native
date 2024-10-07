@@ -103,8 +103,7 @@ export function LettersModule({ words }: Props) {
       />
       {answer && (
         <GameModal
-          isCorrect={answer.id === correct.id}
-          answer={answer}
+          isCorrect={answer.ta.toLowerCase() === correct.ta.toLowerCase()}
           correct={`${correct.ta} (${correct.ru})`}
           handleNext={handleNext}
         />

@@ -125,7 +125,7 @@ export function CollectModule() {
       />
       {answer && (
         <GameModal
-          isCorrect={answer.id === correct.id}
+          isCorrect={answer.ta.toLowerCase() === correct.ta.toLowerCase()}
           correct={`${correct.ta} (${correct.ru})`}
           handleNext={closeModal}
         />
