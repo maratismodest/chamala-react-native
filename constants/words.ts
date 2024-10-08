@@ -7,6 +7,7 @@ export const words: IWord[] = [
     ta: "чыгыш",
     en: "performance",
     audio: "https://fileserver.innoads.ru/uploads/chamala/чыгыш.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/performance.svg",
   },
   {
     id: 27,
@@ -22,6 +23,7 @@ export const words: IWord[] = [
     ta: "фикер",
     en: "thought, idea",
     audio: "https://fileserver.innoads.ru/uploads/chamala/фикер.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/idea.svg",
   },
   {
     id: 12,
@@ -29,6 +31,7 @@ export const words: IWord[] = [
     ta: "гаилә",
     en: "family",
     audio: "https://fileserver.innoads.ru/uploads/chamala/гаилә.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/family.svg",
   },
   {
     id: 16,
@@ -438,6 +441,7 @@ export const words: IWord[] = [
     ta: "эш",
     en: "work",
     audio: "https://fileserver.innoads.ru/uploads/chamala/эш.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/work.svg",
   },
   {
     id: 352,
@@ -1441,8 +1445,9 @@ export const words: IWord[] = [
     id: 485,
     ru: "брюки",
     ta: "чалбар",
-    en: "trousers",
+    en: "pants",
     audio: "https://fileserver.innoads.ru/uploads/chamala/чалбар.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/pants.svg",
   },
   {
     id: 487,
