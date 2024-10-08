@@ -1,72 +1,65 @@
-import { AudioPlayer, Button } from "components/ui";
 import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 import { collectStyles } from "./collectStyles";
+import { CollectProps } from "./types";
 
 import GameModal from "@/components/Games/GameModal";
-import i18n from "@/i18n";
+import { AudioPlayer, Button } from "@/components/ui";
+import useTranslations from "@/hooks/useTranslations";
 import { useStore } from "@/store";
 import { appStyles } from "@/styles";
-import type { IWord, Profile } from "@/types";
-import getRandomInt from "@/utils/getRandomInt";
-import getShuffled from "@/utils/getShuffled";
-
-interface CollectProps {
-  id: number;
-  word: string;
-}
+import type { IWord } from "@/types";
+import { getRandomItem, getShuffled } from "@/utils";
 
 export function CollectModule() {
-  const { phrases, profile, setProfile, modal, setModal } = useStore(
-    (state) => state,
-  );
-  const [correct, setCorrect] = useState<IWord | undefined>();
-  const [answer, setAnswer] = useState<IWord | undefined>();
-  const [options, setOptions] = useState<CollectProps[]>([]);
-  const [chosens, setChosens] = useState<CollectProps[]>([]);
+  const { i18n } = useTranslations();
+  const { phrases, profile, setProfile, setModal } = useStore();
+
+  const [correct, setCorrect] = useState<IWord | null>();
+  const [answer, setAnswer] = useState<IWord | null>();
+
+  const [availableOptions, setAvailableOptions] = useState<CollectProps[]>([]);
+  const [pickedWords, setPickedWords] = useState<CollectProps[]>([]);
 
   const getNewPhrase = useCallback(() => {
-    const correct = phrases[getRandomInt(0, phrases.length - 1)];
-    const fake = phrases[getRandomInt(0, phrases.length - 1)];
-    const realOptions = correct.ta.toLowerCase().split(" ");
-    const fakeOptions = fake.ta.toLowerCase().split(" ");
+    const correct = getRandomItem(phrases);
+    const fake = getRandomItem(phrases);
 
-    const realFakeOptions = getShuffled([...realOptions, ...fakeOptions]).map(
-      (x, index) => ({
-        word: x,
-        id: index,
-      }),
-    );
+    const allWords = [correct.ta, fake.ta]
+      .map((word) => word.toLowerCase().split(" "))
+      .flat();
 
-    setOptions(realFakeOptions);
-    setChosens([]);
+    const realFakeOptions = getShuffled(allWords).map((word, index) => ({
+      word,
+      id: index,
+    }));
+
     setCorrect(correct);
+    setAnswer(null);
+    setAvailableOptions(realFakeOptions);
+    setPickedWords([]);
 
     setModal(false);
   }, [phrases]);
 
   useEffect(() => {
     getNewPhrase();
-  }, [getNewPhrase]);
+  }, []);
 
-  const closeModal = () => {
-    getNewPhrase();
+  const handleAdd = (item: CollectProps) => {
+    setPickedWords((prev) => [...prev, item]);
+    setAvailableOptions((prev) => prev.filter(({ id }) => id !== item.id));
   };
 
-  const handleAdd = (x: CollectProps) => {
-    setChosens((prev) => [...prev, x]);
-    setOptions((prev) => prev.filter((item) => item.id !== x.id));
-  };
-
-  const handleRemove = (x: CollectProps) => {
-    setChosens((prev) => prev.filter((item) => item.id !== x.id));
-    setOptions((prev) => [...prev, x]);
+  const handleRemove = (item: CollectProps) => {
+    setPickedWords((prev) => prev.filter(({ id }) => id !== item.id));
+    setAvailableOptions((prev) => [...prev, item]);
   };
 
   const handleCheck = () => {
     const original = correct?.ta.toLowerCase();
-    const current = chosens.map((x) => x.word.toLowerCase()).join(" ");
+    const current = pickedWords.map((x) => x.word.toLowerCase()).join(" ");
     setAnswer({
       id: 0,
       ru: "ru",
@@ -74,18 +67,17 @@ export function CollectModule() {
       en: "en",
       audio: "audio",
     });
-    setModal(true);
     const isCorrect = original === current;
     const _correct = profile.correct + (isCorrect ? 1 : 0);
     const _wrong = profile.wrong + (!isCorrect ? 1 : 0);
     const _accuracy = _correct / (_correct + _wrong);
-    const res: Profile = {
-      ...profile,
+
+    setProfile({
       correct: _correct,
       wrong: _wrong,
       accuracy: _accuracy,
-    };
-    setProfile(res);
+    });
+    setModal(true);
   };
 
   if (!correct) {
@@ -96,38 +88,37 @@ export function CollectModule() {
     <>
       <AudioPlayer uri={correct.audio} />
       <View style={collectStyles.buttons}>
-        {chosens.map((x) => (
+        {pickedWords.map((item) => (
           <Button
-            key={x.id}
-            onPress={() => handleRemove(x)}
-            title={x.word}
+            key={item.id}
+            onPress={() => handleRemove(item)}
+            title={item.word}
             style={collectStyles.button}
           />
         ))}
       </View>
       <View style={[appStyles.divider]} className="bg-[#eee]" />
       <View style={collectStyles.buttons}>
-        {options.map((x) => (
+        {availableOptions.map((item) => (
           <Button
-            key={x.id}
-            onPress={() => handleAdd(x)}
-            title={x.word}
+            key={item.id}
+            onPress={() => handleAdd(item)}
+            title={item.word}
             style={collectStyles.button}
           />
         ))}
       </View>
       <Button
-        disabled={chosens.length === 0}
+        disabled={pickedWords.length === 0}
         className="mt-4"
         onPress={handleCheck}
         title={i18n.t("check")}
-        opacity={modal}
       />
       {answer && (
         <GameModal
           isCorrect={answer.ta.toLowerCase() === correct.ta.toLowerCase()}
           correct={`${correct.ta} (${correct.ru})`}
-          handleNext={closeModal}
+          handleNext={getNewPhrase}
         />
       )}
     </>

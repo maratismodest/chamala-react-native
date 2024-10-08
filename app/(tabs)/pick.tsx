@@ -1,8 +1,8 @@
-import { Button } from "components/ui";
 import { Link } from "expo-router";
 import React from "react";
 
 import { Text, View } from "@/components/Themed";
+import { Button } from "@/components/ui";
 import useTranslations from "@/hooks/useTranslations";
 import { usePicklist } from "@/pages/PickPage";
 import { appStyles } from "@/styles";

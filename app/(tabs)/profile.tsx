@@ -1,9 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Button } from "components/ui";
 import React, { useContext } from "react";
 
 import Happy from "@/assets/svg/happy.svg";
 import { Text, View } from "@/components/Themed";
+import { Button } from "@/components/ui";
 import { LocaleContext } from "@/providers/LocaleProvider";
 import { useStore } from "@/store";
 import { appStyles } from "@/styles";
