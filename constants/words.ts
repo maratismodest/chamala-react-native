@@ -67,6 +67,7 @@ export const words: IWord[] = [
     ta: "шәһәр",
     en: "city",
     audio: "https://fileserver.innoads.ru/uploads/chamala/шәһәр.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/city.svg",
   },
   {
     id: 29,
@@ -74,6 +75,7 @@ export const words: IWord[] = [
     ta: "су",
     en: "water",
     audio: "https://fileserver.innoads.ru/uploads/chamala/су.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/water.svg",
   },
   {
     id: 13,
@@ -81,6 +83,7 @@ export const words: IWord[] = [
     ta: "сум",
     en: "ruble",
     audio: "https://fileserver.innoads.ru/uploads/chamala/сум.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/ruble.svg",
   },
   {
     id: 9,
@@ -110,6 +113,7 @@ export const words: IWord[] = [
     ta: "вакыт",
     en: "time",
     audio: "https://fileserver.innoads.ru/uploads/chamala/вакыт.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/time.svg",
   },
   {
     id: 334,
