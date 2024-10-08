@@ -16,5 +16,4 @@ export const initialStoreState: Store = {
   language: "ru",
   profile: initialProfile,
   modal: false,
-  cards: words.filter((word) => word.image),
 };
