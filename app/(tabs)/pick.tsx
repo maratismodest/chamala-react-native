@@ -1,10 +1,10 @@
 import { Link } from "expo-router";
+import { usePicklist } from "pages/pick-page";
 import React from "react";
 
-import { Text, View } from "@/components/Themed";
+import { Text, View } from "@/components";
 import { Button } from "@/components/ui";
 import useTranslations from "@/hooks/useTranslations";
-import { usePicklist } from "@/pages/PickPage";
 import { appStyles } from "@/styles";
 
 export default function PickPage() {

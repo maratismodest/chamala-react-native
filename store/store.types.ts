@@ -1,7 +1,13 @@
-import { IWord, Language, Profile } from "@/types";
+import { IWord, Language } from "@/types";
+
+type Profile = {
+  correct: number;
+  wrong: number;
+  accuracy: number;
+};
 
 type Store = {
-  count: number;
+  counter: number;
   words: IWord[];
   phrases: IWord[];
   language: Language;
@@ -10,13 +16,12 @@ type Store = {
 };
 
 type StoreActions = {
-  incrementClick: () => void;
-  decrementClick: () => void;
-  resetCount: () => void;
+  setCounter: (counter: number) => void;
+  resetCounter: () => void;
   changeLanguage: (language: Language) => void;
   setProfile: (profile: Profile) => void;
   setModal: (visible: boolean) => void;
   resetProfile: () => void;
 };
 
-export type { Store, StoreActions };
+export type { Store, StoreActions, Profile };

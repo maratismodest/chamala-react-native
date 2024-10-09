@@ -3,7 +3,7 @@ import { Link, Tabs } from "expo-router";
 import { Pressable, useColorScheme } from "react-native";
 
 import Colors from "@/constants/Colors";
-import { TabBarIcon, useTabsList } from "@/pages/TabLayout";
+import { TabBarIcon, useTabsList } from "@/pages/tab-layout";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();

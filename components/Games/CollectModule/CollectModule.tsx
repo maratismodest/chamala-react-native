@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator } from "react-native";
 
 import { collectStyles } from "./collectStyles";
 import { CollectProps } from "./types";
 
+import { View } from "@/components";
 import GameModal from "@/components/Games/GameModal";
 import { AudioPlayer, Button } from "@/components/ui";
 import useTranslations from "@/hooks/useTranslations";
@@ -12,9 +13,13 @@ import { appStyles } from "@/styles";
 import type { IWord } from "@/types";
 import { getRandomItem, getShuffled } from "@/utils";
 
-export function CollectModule() {
+type Props = {
+  phrases: IWord[];
+};
+
+export function CollectModule({ phrases }: Props) {
   const { i18n } = useTranslations();
-  const { phrases, profile, setProfile, setModal } = useStore();
+  const { profile, setProfile, setModal } = useStore();
 
   const [correct, setCorrect] = useState<IWord | null>();
   const [answer, setAnswer] = useState<IWord | null>();

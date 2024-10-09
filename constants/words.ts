@@ -199,6 +199,7 @@ export const words: IWord[] = [
     ta: "фән",
     en: "science",
     audio: "https://fileserver.innoads.ru/uploads/chamala/фән.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/science.svg",
   },
   {
     id: 62,
@@ -241,13 +242,7 @@ export const words: IWord[] = [
     ta: "иҗат",
     en: "creativity",
     audio: "https://fileserver.innoads.ru/uploads/chamala/иҗат.mp3",
-  },
-  {
-    id: 136,
-    ru: "девочка",
-    ta: "кыз",
-    en: "girl",
-    audio: "https://fileserver.innoads.ru/uploads/chamala/кыз.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/creativity.svg",
   },
   {
     id: 52,
@@ -276,6 +271,7 @@ export const words: IWord[] = [
     ta: "тау",
     en: "mountain",
     audio: "https://fileserver.innoads.ru/uploads/chamala/тау.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/mountain.svg",
   },
   {
     id: 36,
@@ -381,6 +377,7 @@ export const words: IWord[] = [
     ta: "сорау",
     en: "question",
     audio: "https://fileserver.innoads.ru/uploads/chamala/сорау.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/question.svg",
   },
   {
     id: 86,
@@ -402,6 +399,7 @@ export const words: IWord[] = [
     ta: "даруханә",
     en: "pharmacy",
     audio: "https://fileserver.innoads.ru/uploads/chamala/даруханә.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/pharmacy.svg",
   },
   {
     id: 376,
@@ -1010,6 +1008,7 @@ export const words: IWord[] = [
     ta: "йорт, өй",
     en: "house",
     audio: "https://fileserver.innoads.ru/uploads/chamala/йорт, өй.mp3",
+    image: "https://fileserver.innoads.ru/uploads/chamala/house.svg",
   },
   {
     id: 400,

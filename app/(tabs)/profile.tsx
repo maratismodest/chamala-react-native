@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useContext } from "react";
 
 import Happy from "@/assets/svg/happy.svg";
-import { Text, View } from "@/components/Themed";
+import { Text, View } from "@/components";
 import { Button } from "@/components/ui";
 import { LocaleContext } from "@/providers/LocaleProvider";
 import { useStore } from "@/store";
@@ -35,7 +35,13 @@ export default function ProfilePage() {
           {i18n.t("wrong")}: {wrong}
         </Text>
         <Text style={appStyles.text}>
-          {i18n.t("accuracy", { percent: (100 * accuracy).toFixed(1) })}
+          {i18n.t("accuracy", {
+            percent: new Intl.NumberFormat("en-US", {
+              style: "percent",
+              minimumFractionDigits: 1,
+              maximumFractionDigits: 1,
+            }).format(accuracy),
+          })}
         </Text>
       </View>
       <Button
@@ -44,8 +50,16 @@ export default function ProfilePage() {
         title={i18n.t("reset")}
       />
       <View className="flex flex-row justify-between gap-4 mt-4">
-        <Button title="Ru" onPress={() => changeLanguage("ru")} />
-        <Button title="En" onPress={() => changeLanguage("en")} />
+        <Button
+          title="Ru"
+          onPress={() => changeLanguage("ru")}
+          className="bg-blue-500"
+        />
+        <Button
+          title="En"
+          onPress={() => changeLanguage("en")}
+          className="bg-orange-500"
+        />
       </View>
     </View>
   );

@@ -9,10 +9,4 @@ interface IWord {
 
 type Language = "en" | "ru";
 
-interface Profile {
-  correct: number;
-  wrong: number;
-  accuracy: number;
-}
-
-export type { IWord, Language, Profile };
+export type { IWord, Language };

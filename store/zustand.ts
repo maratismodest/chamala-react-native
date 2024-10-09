@@ -8,9 +8,8 @@ import { Store, StoreActions } from "./store.types";
 const createActions = (
   set: (fn: (state: Store) => Partial<Store>) => void,
 ): StoreActions => ({
-  incrementClick: () => set((state) => ({ count: state.count + 1 })),
-  decrementClick: () => set((state) => ({ count: state.count - 1 })),
-  resetCount: () => set(() => ({ count: 0 })),
+  setCounter: (counter) => set(() => ({ counter })),
+  resetCounter: () => set(() => ({ counter: 0 })),
   changeLanguage: (language) => set(() => ({ language })),
   setProfile: (profile) => set(() => ({ profile })),
   setModal: (visible) => set(() => ({ modal: visible })),
@@ -26,7 +25,7 @@ export const useStore = create(
     {
       name: "app-storage",
       storage: createJSONStorage(() => AsyncStorage),
-      version: 1.6,
+      version: 1.16,
     },
   ),
 );

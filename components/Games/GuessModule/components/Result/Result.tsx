@@ -1,23 +1,20 @@
 import { Button } from "components/ui";
-import React, { useCallback } from "react";
+import React from "react";
 import { FlatList } from "react-native";
 
 import ResultItem from "./ResultItem";
 
 import Happy from "@/assets/svg/happy.svg";
-import { AnswerProps } from "@/components/Games/GuessModule/GuessModule.types";
+import { useGuessStore } from "@/components/Games/GuessModule/GuessModule.store";
 import useTranslations from "@/hooks/useTranslations";
-import { useStore } from "@/store";
 
 type Props = {
-  result: AnswerProps[];
-  setResult: (result: AnswerProps[]) => void;
+  onClick: () => void;
 };
 
-export const Result = ({ result, setResult }: Props) => {
+export const Result = ({ onClick }: Props) => {
   const { i18n } = useTranslations();
-  const reset = useStore(useCallback((state) => state.resetCount, []));
-
+  const { result } = useGuessStore();
   return (
     <>
       <Happy width={96} height={96} className="mx-auto" />
@@ -30,10 +27,7 @@ export const Result = ({ result, setResult }: Props) => {
         contentContainerStyle={{ gap: 8 }}
       />
       <Button
-        onPress={() => {
-          setResult([]);
-          reset();
-        }}
+        onPress={onClick}
         title={i18n.t("next")}
         className="w-[200[px] mx-auto mt-4"
       />

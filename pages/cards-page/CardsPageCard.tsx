@@ -2,13 +2,14 @@ import clsx from "clsx";
 import { Image } from "expo-image";
 import React, { FC, useEffect, useState } from "react";
 
-import { View } from "@/components/Themed";
+import { View } from "@/components";
 import { AudioPlayer, Button } from "@/components/ui";
 import { IWord } from "@/types";
 
 type Props = {
   word: IWord;
 };
+
 export const CardsPageCard: FC<Props> = ({ word }) => {
   const [pressed, setPressed] = useState(false);
 

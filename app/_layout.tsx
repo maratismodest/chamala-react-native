@@ -12,7 +12,7 @@ import { useColorScheme } from "react-native";
 import LocaleProvider from "@/providers/LocaleProvider";
 
 export {
-  // Catch any errors thrown by the TabLayout component.
+  // Catch any errors thrown by the tab-layout component.
   ErrorBoundary,
 } from "expo-router";
 

@@ -1,5 +1,5 @@
-import { View } from "@/components/Themed";
-import { CardPageMain } from "@/pages/CardsPage/CardPageMain";
+import { View } from "@/components";
+import { CardPageMain } from "@/pages/cards-page";
 import { useStore } from "@/store";
 import { appStyles } from "@/styles";
 

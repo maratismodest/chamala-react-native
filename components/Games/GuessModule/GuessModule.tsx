@@ -1,76 +1,73 @@
-import { useIsFocused } from "@react-navigation/native";
-import { AudioPlayer, Button as AppButton } from "components/ui";
-import React, { useEffect, useMemo, useState } from "react";
-import { FlatList } from "react-native";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
+import React, { useCallback, useEffect, useMemo } from "react";
+import { ActivityIndicator } from "react-native";
 import * as Progress from "react-native-progress";
 
-import { AnswerProps } from "./GuessModule.types";
-import { Result } from "./components";
+import { useGuessStore } from "./GuessModule.store";
+import { GuessCard, Result } from "./components";
 
 import GameModal from "@/components/Games/GameModal";
 import { Text } from "@/components/Themed";
-import useTranslations from "@/hooks/useTranslations";
 import { useStore } from "@/store";
 import { appStyles } from "@/styles";
-import type { IWord, Language } from "@/types";
-import getRandomInt from "@/utils/getRandomInt";
-import getShuffled from "@/utils/getShuffled";
+import type { IWord } from "@/types";
+import { getRandomItem, getRandomItems } from "@/utils";
 
 type Props = {
   collection: IWord[];
-  count?: number;
+  count: number;
 };
 
-export function GuessModule({ collection, count = 6 }: Props) {
-  const { i18n } = useTranslations();
+export function GuessModule({ collection, count }: Props) {
   const isFocused = useIsFocused();
+  const { profile, setProfile, setModal } = useStore();
   const {
-    count: click,
-    incrementClick: inc,
-    resetCount: reset,
-    profile,
-    setProfile,
-    setModal,
-  } = useStore();
+    counter,
+    inc,
+    reset,
+    options,
+    setOptions,
+    result,
+    setResult,
+    answer,
+    setAnswer,
+  } = useGuessStore();
 
-  const [list, setList] = useState<IWord[]>(() =>
-    getShuffled(collection).slice(0, 4),
+  const correct = useMemo(
+    () => getRandomItem(options),
+    [options, count === counter],
   );
 
-  const correct = useMemo(() => list[getRandomInt(0, list.length - 1)], [list]);
-  const [answer, setAnswer] = useState<IWord | undefined>(undefined);
-  const [result, setResult] = useState<AnswerProps[]>([]);
-
   useEffect(() => {
-    // Call only when screen open or when back on screen
-    if (isFocused) {
-      reset();
-      setResult([]);
-    }
-    return () => setModal(false);
+    setOptions(getRandomItems(collection, 4));
   }, [isFocused]);
 
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        reset();
+      };
+    }, []),
+  );
+
   const handleNext = () => {
-    setResult((prevState) =>
-      prevState.concat({
+    if (answer) {
+      const resultItem = {
         id: correct.id,
-        origin: correct?.ta,
-        correct: correct?.ru,
-        answer: answer?.ru,
-      }),
-    );
-    inc();
-    setModal(false);
-    setAnswer(undefined);
-    setList(
-      getShuffled(
-        collection.filter((x) => !result.map((x) => x.id).includes(x.id)),
-      ).slice(0, 4),
-    );
+        origin: correct.ta,
+        correct: correct.ru,
+        answer: answer.ru,
+      };
+      setResult([...result, resultItem]);
+      inc();
+      setModal(false);
+      setAnswer(undefined);
+      setOptions(getRandomItems(collection, 4));
+    }
   };
 
   const handleAnswer = (id: number) => {
-    const answer = list.find((x) => x.id === id);
+    const answer = options.find((x) => x.id === id);
     const isCorrect = answer === correct;
     const _correct = profile.correct + Number(isCorrect);
     const _wrong = profile.wrong + Number(!isCorrect);
@@ -81,36 +78,32 @@ export function GuessModule({ collection, count = 6 }: Props) {
   };
 
   if (result.length >= count) {
-    return <Result result={result} setResult={setResult} />;
+    return (
+      <Result
+        onClick={() => {
+          reset();
+          setOptions(getRandomItems(collection, 4));
+        }}
+      />
+    );
+  }
+
+  if (!correct) {
+    return <ActivityIndicator size="large" />;
   }
 
   return (
     <>
-      <AudioPlayer uri={correct.audio} />
-      <Text style={[appStyles.h1, { textTransform: "capitalize" }]}>
-        {correct.ta}
-      </Text>
-      <FlatList
-        className="grow-0 mt-4 w-full max-w-[300px]"
-        data={list}
-        renderItem={({ item }) => (
-          <AppButton
-            key={item.id}
-            title={item[i18n.locale as Language]}
-            onPress={() => handleAnswer(item.id)}
-          />
-        )}
-        contentContainerStyle={{ gap: 16 }}
-      />
+      <GuessCard correct={correct} options={options} onClick={handleAnswer} />
       <Text style={appStyles.text}>
-        {click + 1} / {count}
+        {counter + 1}&nbsp;/&nbsp;{count}
       </Text>
       <Progress.Bar
-        progress={click / count}
+        progress={counter / count}
         borderWidth={2}
         width={null}
         color="green"
-        className="w-full max-w-[300px] mx-auto"
+        className="w-full max-w-xs mx-auto"
       />
       <>
         {answer && (

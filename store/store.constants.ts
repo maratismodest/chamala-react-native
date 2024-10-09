@@ -1,7 +1,7 @@
+import { Profile, Store } from "./store.types";
+
 import { phrases } from "@/constants/phrases";
 import { words } from "@/constants/words";
-import { Store } from "@/store/store.types";
-import { Profile } from "@/types";
 
 export const initialProfile: Profile = {
   correct: 0,
@@ -10,7 +10,7 @@ export const initialProfile: Profile = {
 };
 
 export const initialStoreState: Store = {
-  count: 0,
+  counter: 0,
   words,
   phrases,
   language: "ru",

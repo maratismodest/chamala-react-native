@@ -1,16 +1,16 @@
-import { AudioPlayer, Button } from "components/ui";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
-import { filterByKey, prepareData } from "./helpers";
-import { CollectProps, LettersModuleState } from "./types";
+import { CollectProps } from "./types";
 
 import { collectStyles } from "@/components/Games/CollectModule/collectStyles";
 import GameModal from "@/components/Games/GameModal";
+import { AudioPlayer, Button } from "@/components/ui";
 import useTranslations from "@/hooks/useTranslations";
 import { useStore } from "@/store";
 import { appStyles } from "@/styles";
 import type { IWord } from "@/types";
+import { getRandomItem, getShuffled } from "@/utils";
 
 type Props = {
   words: IWord[];
@@ -20,51 +20,68 @@ export function LettersModule({ words }: Props) {
   const { i18n } = useTranslations();
   const { profile, setProfile, setModal } = useStore();
 
-  const [{ correct, answer, chosens, options }, setState] =
-    useState<LettersModuleState>(() => prepareData(words));
+  const [correct, setCorrect] = useState<IWord | null>();
+  const [answer, setAnswer] = useState<IWord | null>();
 
-  const handleNext = () => setState(() => prepareData(words));
+  const [availableOptions, setAvailableOptions] = useState<CollectProps[]>([]);
+  const [pickedWords, setPickedWords] = useState<CollectProps[]>([]);
 
-  const handleAdd = (x: CollectProps) => {
-    setState((prev) => ({
-      ...prev,
-      chosens: prev.chosens.concat([x]),
-      options: filterByKey(options, "id", x.id),
+  const getNewPhrase = useCallback(() => {
+    const correct = getRandomItem(words);
+    const fake = getRandomItem(words);
+
+    const allWords = [correct.ta, fake.ta]
+      .map((word) => word.toLowerCase().split(""))
+      .flat();
+
+    const realFakeOptions = getShuffled(allWords).map((word, index) => ({
+      word,
+      id: index,
     }));
+
+    setCorrect(correct);
+    setAnswer(null);
+    setAvailableOptions(realFakeOptions);
+    setPickedWords([]);
+
+    setModal(false);
+  }, [words]);
+
+  useEffect(() => {
+    getNewPhrase();
+  }, []);
+
+  const handleAdd = (item: CollectProps) => {
+    setPickedWords((prev) => [...prev, item]);
+    setAvailableOptions((prev) => prev.filter(({ id }) => id !== item.id));
   };
 
-  const handleRemove = (x: CollectProps) => {
-    setState((prev) => ({
-      ...prev,
-      chosens: filterByKey(chosens, "id", x.id),
-      options: prev.options.concat([x]),
-    }));
+  const handleRemove = (item: CollectProps) => {
+    setPickedWords((prev) => prev.filter(({ id }) => id !== item.id));
+    setAvailableOptions((prev) => [...prev, item]);
   };
 
   const handleCheck = () => {
-    const _answer = {
+    const original = correct?.ta.toLowerCase();
+    const current = pickedWords.map((x) => x.word.toLowerCase()).join("");
+    setAnswer({
       id: 0,
       ru: "ru",
+      ta: current,
       en: "en",
       audio: "audio",
-      ta: chosens.map((x) => x.word).join(""),
-    };
-
-    const isCorrect = correct?.ta.toLowerCase() === _answer.ta.toLowerCase();
-
+    });
+    const isCorrect = original === current;
     const _correct = profile.correct + (isCorrect ? 1 : 0);
-    const _wrong = profile.wrong + (isCorrect ? 0 : 1);
+    const _wrong = profile.wrong + (!isCorrect ? 1 : 0);
+    const _accuracy = _correct / (_correct + _wrong);
 
-    const res = {
-      ...profile,
+    setProfile({
       correct: _correct,
       wrong: _wrong,
-      accuracy: _correct / (_correct + _wrong),
-    };
-
-    setState((prev) => ({ ...prev, answer: _answer }));
+      accuracy: _accuracy,
+    });
     setModal(true);
-    setProfile(res);
   };
 
   if (!correct) {
@@ -75,28 +92,28 @@ export function LettersModule({ words }: Props) {
     <>
       <AudioPlayer uri={correct.audio} />
       <View style={collectStyles.buttons}>
-        {chosens.map((x) => (
+        {pickedWords.map((item) => (
           <Button
-            key={x.id}
-            onPress={() => handleRemove(x)}
-            title={x.word}
+            key={item.id}
+            onPress={() => handleRemove(item)}
+            title={item.word}
             style={collectStyles.button}
           />
         ))}
       </View>
       <View style={[appStyles.divider]} className="bg-[#eee]" />
       <View style={collectStyles.buttons}>
-        {options.map((x) => (
+        {availableOptions.map((item) => (
           <Button
-            key={x.id}
-            onPress={() => handleAdd(x)}
-            title={x.word}
+            key={item.id}
+            onPress={() => handleAdd(item)}
+            title={item.word}
             style={collectStyles.button}
           />
         ))}
       </View>
       <Button
-        disabled={chosens.length < correct.ta.length}
+        disabled={pickedWords.length === 0}
         className="mt-4"
         onPress={handleCheck}
         title={i18n.t("check")}
@@ -105,7 +122,7 @@ export function LettersModule({ words }: Props) {
         <GameModal
           isCorrect={answer.ta.toLowerCase() === correct.ta.toLowerCase()}
           correct={`${correct.ta} (${correct.ru})`}
-          handleNext={handleNext}
+          handleNext={getNewPhrase}
         />
       )}
     </>

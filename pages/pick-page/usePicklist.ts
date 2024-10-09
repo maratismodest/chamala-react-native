@@ -30,7 +30,7 @@ export function usePicklist() {
       },
       {
         id: 5,
-        title: "Карточки",
+        title: i18n.t("cards"),
         href: "/cards",
       },
     ],

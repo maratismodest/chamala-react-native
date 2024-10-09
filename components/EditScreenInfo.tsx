@@ -10,7 +10,7 @@ type Props = {
   path: string;
 };
 
-export default function EditScreenInfo({ path }: Props) {
+export function EditScreenInfo({ path }: Props) {
   return (
     <View>
       <View className="items-center mx-12">
@@ -27,7 +27,7 @@ export default function EditScreenInfo({ path }: Props) {
           darkColor="rgba(255,255,255,0.05)"
           lightColor="rgba(0,0,0,0.05)"
         >
-          <MonoText>09.10.2024</MonoText>
+          <MonoText>10.10.2024</MonoText>
         </View>
         <Text
           className="text-center"
@@ -39,9 +39,9 @@ export default function EditScreenInfo({ path }: Props) {
       </View>
 
       <View className="mt-4 mx-5 items-center">
-        <ExternalLink className="py-4" href="https://t.me/maratfaizer">
+        <ExternalLink className="py-4" href="https://t.me/chamalachat">
           <Text className="text-center" lightColor={Colors.light.tint}>
-            Связаться с разработчиком
+            Написать нам
           </Text>
         </ExternalLink>
       </View>
