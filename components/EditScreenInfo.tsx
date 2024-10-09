@@ -27,7 +27,7 @@ export function EditScreenInfo({ path }: Props) {
           darkColor="rgba(255,255,255,0.05)"
           lightColor="rgba(0,0,0,0.05)"
         >
-          <MonoText>10.10.2024</MonoText>
+          <MonoText>11.10.2024</MonoText>
         </View>
         <Text
           className="text-center"
