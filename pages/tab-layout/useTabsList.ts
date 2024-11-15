@@ -37,6 +37,11 @@ export function useTabsList() {
         href: null,
       },
       {
+        name: "letters-up",
+        title: i18n.t("lettersUp"),
+        href: null,
+      },
+      {
         name: "cards",
         title: i18n.t("cards"),
         href: null,

@@ -30,6 +30,11 @@ export function usePicklist() {
       },
       {
         id: 5,
+        title: i18n.t("lettersUp"),
+        href: "/letters-up",
+      },
+      {
+        id: 6,
         title: i18n.t("cards"),
         href: "/cards",
       },
